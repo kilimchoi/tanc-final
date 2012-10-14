@@ -10,6 +10,7 @@ group :development, :test do
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'cucumber-rails'
   gem 'cucumber-rails-training-wheels'
+  gem 'capybara'
   gem 'rspec-rails'
   gem 'simplecov'
 end

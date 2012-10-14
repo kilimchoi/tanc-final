@@ -176,6 +176,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  capybara
   coffee-rails (~> 3.1.0)
   cucumber-rails
   cucumber-rails-training-wheels
