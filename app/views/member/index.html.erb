@@ -1,8 +1,9 @@
-<form>
-  <div class="title">Login/Sign Up</div>
-  <input type="text" placeholder="Email">
-  <input type="password" placeholder="Password">
-  <input type="submit" value="Submit">
-</form>
+<div class="title">Login/Sign Up</div>
+<%= form_tag :action => "submit" do %>
+      <%= text_field_tag 'email', nil, :placeholder => 'Email' %>
+      <%= text_field_tag 'password', nil, :placeholder => 'Password' %>      
+      <%= submit_tag 'Submit' %>
+  <% end %>
 
-<p><a href="#">New User Sign up here!</a></p>
+<p><a href="#"></a></p>
+<p><%= link_to('New User Sign up here!', '/member/signup') %></p>
