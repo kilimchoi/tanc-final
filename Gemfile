@@ -12,6 +12,11 @@ group :development, :test do
   gem 'cucumber-rails-training-wheels'
   gem 'rspec-rails'
   gem 'simplecov'
+  gem 'capybara' 
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'launchy'
+
 end
 group :production do
   gem 'pg'
