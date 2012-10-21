@@ -4,7 +4,7 @@ Feature: Sign up for mailing list as a nonmember and member
 	so that I can receive updates 
 
 Scenario: Sign up as a nonmember
-	Given I am on the tanc/signin
+	Given I am on the tanc/login_signup
 	When I fill in email with "my_email@berkeley.edu"
         Then I should see "Do you have existing account?"
         And I check "No, sign me up!"
@@ -18,7 +18,7 @@ Background:
         When I fill in confirm_password with "secret_password"
 
 Scenario: Setting non-member profile
-	And I check non_member
+	And I check non_member 
 	And I press "save"
 	Then I should be on the tanc/non_member_thank_you
 

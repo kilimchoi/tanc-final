@@ -26,4 +26,4 @@ Scenario: Delete a page
 	When I press "delete" 
 	Then I should be on tanc/admin/delete_confirm
 	And I press "save"
-        Then I should be tanc/admin/
+        
