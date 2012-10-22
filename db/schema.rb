@@ -17,7 +17,8 @@ ActiveRecord::Schema.define(:version => 20121022062027) do
     t.string   "status"
     t.string   "email"
     t.string   "password"
-    t.string   "type"
+    t.string   "member_type"
+    t.boolean  "confirmed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

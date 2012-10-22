@@ -4,8 +4,8 @@ class CreateMembers < ActiveRecord::Migration
       t.string :status
       t.string :email
       t.string :password
-      t.string :type
-
+      t.string :member_type
+      t.boolean :confirmed
       t.timestamps
     end
   end
