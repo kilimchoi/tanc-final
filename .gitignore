@@ -17,6 +17,7 @@ vendor/bundle
 /tmp/*
 tmp/**/*
 /spec/tmp/*
+**~
 
 *.rbc
 *.sassc
