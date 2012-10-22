@@ -1,0 +1,3 @@
+Factory.define :member do |member|
+   member.email "oski@berkeley.edu"
+end
