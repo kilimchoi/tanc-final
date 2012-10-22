@@ -4,6 +4,3 @@ Given /^the following members exist:$/ do |table|
     Member.create!(member)
   end
 end
-Given /^I confirm email with "(.*?)" and confirm password with "(.*?)"$/ do |arg1, arg2|
-  arg1 == "hjvds@berkeley.edu" and arg2 == "1234"
-end
