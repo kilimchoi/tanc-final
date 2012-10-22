@@ -1,7 +1,7 @@
 class MemberController < ApplicationController
   def signup
     if params[:email]
-      if Member.create(:email => params[:email], :status => "Pending", :type => "Mailing list")
+      if Member.create(:email => params[:email], :status => "Pending", :member_type => "Mailing list", :password => "1234")
         redirect_to("/member/confirm_account")
       else 
         flash[:error] = "Your account could not be created"
@@ -12,7 +12,7 @@ class MemberController < ApplicationController
   def confirm_account
     if params[:email] and params[:code]
       thisUser = Member.find_by_email(params[:email])
-      if thisUser and thisUser.confirm(code)
+      if thisUser and thisUser.confirm(params[:code])
         redirect_to("/member/thanks")
       else
         flash[:error] = "Please click the confirmation link emailed to you"
