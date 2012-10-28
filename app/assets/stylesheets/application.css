@@ -11,3 +11,15 @@
  *= require_self
  *= require_tree .
  */
+
+body {
+  width: 800px;
+  margin: auto;
+  font-family: 'Myriad Pro','Helvetica Neue', Helvetica;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
