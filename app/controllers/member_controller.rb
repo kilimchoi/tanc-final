@@ -39,6 +39,28 @@ class MemberController < ApplicationController
     end
   end
 
+  def account_setup_member
+    if params["commit"] == "Continue"
+      thisUser = Member.find_by_email(session[:user_email])
+      if thisUser.validate_and_update(params)
+        redirect_to("/member/profile")
+      else
+        flash[:error] = "All fields are required."
+      end
+    end
+  end
+
+  def account_setup_non_member
+    if params["commit"] == "Submit"
+      thisUser = Member.find_by_email(session[:user_email])
+      if thisUser.validate_and_update(params)
+        redirect_to("/member/profile")
+      else
+        flash[:error] = "All fields are required."
+      end
+    end
+  end
+
   def login
     if params[:commit] == "Login"
       thisUser = Member.find_by_email(params[:email])

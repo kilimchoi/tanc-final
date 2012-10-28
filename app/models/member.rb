@@ -41,4 +41,25 @@ class Member < ActiveRecord::Base
     }
     return data
   end
+
+  def validate_and_update(params) 
+    if params["address-line-2"] and params["address-line-2"] == ""
+      params.delete("address-line-2")
+    end
+    if params.values.include? ""
+      return false
+    else
+      if params["first-name"]; self.first = params["first-name"]; end;
+      if params["last-name"];  self.last = params["last-name"]; end;
+      if params["age"]; self.age = params["age"]; end;
+      if params["address-line-1"]; self.address1 = params["address-line-1"]; end;
+      if params["address-line-2"]; self.address2 = params["address-line-2"]; end;
+      if params["city"]; self.city = params["city"]; end;
+      if params["Zip"]; self.zip = params["Zip"]; end;
+      if params["telephone"]; self.telephone = params["telephone"]; end;
+      self.save
+      return true
+    end
+  end
+
 end

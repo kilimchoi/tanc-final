@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121022062027) do
+ActiveRecord::Schema.define(:version => 20121028221052) do
 
   create_table "members", :force => true do |t|
     t.string   "status"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(:version => 20121022062027) do
     t.boolean  "confirmed"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first"
+    t.string   "last"
+    t.integer  "age"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "telephone"
   end
 
 end
