@@ -1,9 +1,9 @@
 <div id="wrap">
 <h2 class="title">Login/Sign Up</h2>
-<%= form_tag :action => "submit" do %>
-      <%= text_field_tag 'email', nil, :placeholder => 'Email' %>
-      <%= text_field_tag 'password', nil, :placeholder => 'Password' %>      
-      <%= submit_tag 'Submit' %>
+<%= form_tag :action => "login" do %>
+      <%= text_field_tag 'email', @email, :placeholder => 'Email' %>
+      <%= password_field_tag 'password', nil, :placeholder => 'Password' %>      
+      <%= submit_tag 'Login' %>
   <% end %>
 
 <%= link_to('New User Sign up here!', '/member/signup') %>
