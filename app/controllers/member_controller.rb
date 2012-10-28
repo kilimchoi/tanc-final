@@ -29,4 +29,23 @@ class MemberController < ApplicationController
 
     end
   end
+
+  def login
+    if params[:commit] == "Login"
+      thisUser = Member.find_by_email(params[:email])
+      if thisUser and thisUser.authenticate(params[:password])
+        session[:user_email] = thisUser.email
+        redirect_to("/member/profile")        
+      else
+        @email = params[:email]
+        flash[:error] = "Your login information is not correct."
+        render("index")
+      end
+    end
+  end
+  
+  def profile
+    thisUser = Member.find_by_email(session[:user_email])
+    @email = thisUser.email
+  end
 end

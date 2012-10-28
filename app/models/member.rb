@@ -10,4 +10,8 @@ class Member < ActiveRecord::Base
       return false
     end
   end
+
+  def authenticate(password)
+    return self.password == password
+  end
 end

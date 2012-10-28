@@ -4,6 +4,7 @@ Tanc::Application.routes.draw do
   get "member/signup"
   get "member/confirm_account"
   get "member/thanks"
+  get "member/profile"
   get "member/account_setup"
   get "member/account_setup_member"
   get "member/account_setup_non_member"
