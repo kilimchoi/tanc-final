@@ -11,5 +11,8 @@ class MemberController < ApplicationController
   def account_setup_member
   end
 
+  def account_setup_non_member
+  end
+
 
 end
