@@ -14,4 +14,14 @@ class Member < ActiveRecord::Base
   def authenticate(password)
     return self.password == password
   end
+
+  def update_password(password, verify)
+    if password == verify
+      self.password = password
+      self.save
+      return true
+    else
+      return false
+    end
+  end
 end
