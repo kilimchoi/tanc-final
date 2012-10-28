@@ -1,11 +1,5 @@
 class Member < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :lockable, :timeoutable and :activatable
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :status, :type, :password_confirmation
+  attr_accessible :email, :password, :status, :type
   validates :email, presence: true, uniqueness: true, format: {with: /^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i}
 
   def confirm(code)
@@ -15,5 +9,15 @@ class Member < ActiveRecord::Base
     else
       return false
     end
+  end
+
+  def to_hash
+  {
+    :email => self.email,
+    :status => self.status,
+    :password => self.status,
+    :type => self.type,
+    :id => self.id # for debugging
+  }
   end
 end
