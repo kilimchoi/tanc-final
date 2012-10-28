@@ -1,4 +1,6 @@
 Tanc::Application.routes.draw do
+  devise_for :members
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
   get "member/signup"
