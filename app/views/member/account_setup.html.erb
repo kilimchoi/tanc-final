@@ -1,7 +1,7 @@
 <div id="wrap">
 <h2 class="title">Welcome to TANC</h2>
 <%= form_tag do %>
-  <%= text_field_tag 'email', @email, :placeholder => 'Email' %>
+  <%= text_field_tag 'email', @email, :placeholder => 'Email', :disabled => true %>
   <%= password_field_tag 'password', nil, :placeholder => 'Password' %>
   <%= password_field_tag 'confirm-password', nil, :placeholder => 'Confirm Password' %>
   <p>
