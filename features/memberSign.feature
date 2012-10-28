@@ -1,45 +1,16 @@
-Feature: Sign up for mailing list as a nonmember and member
+Feature: Login or Sign up for members and non-members
 	As a non-member or member, 
 	I want to sign up my email 
 	so that I can receive updates 
 
-Background:
-    Given I am on the member/new_account
-    When I fill in email with "my_email@berkeley.edu"
-    When I fill in password with "secret_password"
-    When I fill in confirm_password with "secret_password"
-
-Scenario: Sign up as a nonmember
-	Given I am on the member/signin
-	When I fill in email with "my_email@berkeley.edu"
-    Then I should see "Do you have existing account?"
-    And I check "No, sign me up!"
-	When I press "sign_in"
-    Then I should be on the member/account_created
-
-Scenario: Setting non-member profile
-	And I check non_member
-	And I press "save"
-	Then I should be on the member/non_member_thank_you
-
-Scenario: Setting member profile without online payment
-    Given I check member
-    And I press "save"
-    Then I should be on the member/member_set_up
- 	Given i fill up all_member_info
-	And I press "save"
-	Then I should be on member/payment_setup
-    When I press "check-cash"
-    Then I should be on member/member_thank_you 
-    
-Scenario: Setting member profile with online payment
-    Given I check member
-    And I press "save"
-    Then I should be on the member/member_set_up
-    Given i fill up all_member_info
-    And I press "save"
-    Then I should be on member/payment_setup
-	When I press "credit_card"
-	Then I should be on member/online_payment_setup
-
-
+Scenario: New member sign up
+    Given I am on the member login page
+    And I follow "New User Sign up here!"
+    Then I should be on the member sign up page
+    When I fill in "email" with "my_email@berkeley.edu"
+    And I press "Continue"
+    Then I should be on the confirm account page
+Scenario: Confirm Email
+    Given the following members exist:
+    | status | member_type | email| password |
+    | Pending | mailing list | hjvds@berkeley.edu | 1234 |
