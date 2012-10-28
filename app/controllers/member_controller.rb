@@ -5,4 +5,8 @@ class MemberController < ApplicationController
   def confirm_account
   end
 
+  def account_setup
+  end
+
+
 end

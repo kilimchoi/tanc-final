@@ -4,6 +4,7 @@ Tanc::Application.routes.draw do
   get "member/signup"
   get "member/confirm_account"
   get "member/thanks"
+  get "member/account_setup"
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
