@@ -7,6 +7,9 @@ class MemberController < ApplicationController
 
   def account_setup
   end
+  
+  def account_setup_member
+  end
 
 
 end
