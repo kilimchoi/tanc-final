@@ -55,6 +55,10 @@ class MemberController < ApplicationController
   
   def profile
     thisUser = Member.find_by_email(session[:user_email])
-    @email = thisUser.email
+    if thisUser
+      @user_data = thisUser.user_data
+    else
+      redirect_to("/member/login")
+    end
   end
 end

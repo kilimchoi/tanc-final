@@ -24,4 +24,21 @@ class Member < ActiveRecord::Base
       return false
     end
   end
+
+  def user_data
+    data = {:type => self.member_type, 
+      :email => self.email, 
+      :first => self.first, 
+      :last => self.last, 
+      :status => self.status,
+      :age => self.age,
+      :address1 => self.address1,
+      :address2 => self.address2,
+      :city => self.city,
+      :state => self.state,
+      :zip => self.zip,
+      :telephone => self.telephone
+    }
+    return data
+  end
 end
