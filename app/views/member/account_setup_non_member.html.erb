@@ -1,0 +1,11 @@
+<div id="wrap">
+<h2 class="title">Please fill up the following information</h2>
+<%= form_tag do %>
+  <%= text_field_tag 'first-name', nil, :placeholder => 'First Name' %>
+  <%= text_field_tag 'last-name', nil, :placeholder => 'Last Name' %>
+  <%= text_field_tag 'telephone', nil, :placeholder => 'Telephone' %>
+  <%= submit_tag 'Submit' %>
+  <% end %>
+</div>
+
+
