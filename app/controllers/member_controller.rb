@@ -29,4 +29,12 @@ class MemberController < ApplicationController
 
     end
   end
+
+  def member_payment
+
+  end
+
+  def check_cash_payment
+
+  end
 end
