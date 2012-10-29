@@ -1,0 +1,16 @@
+<div id="wrap">
+<h3>Please set up your payment information</h3>
+<p style ="text-align: center; font-size: 12px;"><em>Membership fee of $25 is required for all the members.</em> </p>
+<div id="payment_options">
+<p> We highly encourage you to pay your membership fee online. You can use any of your cards (VISA, MASTER, AMEX or DISCOVER). It is very convenient and secure. </p>
+<%= button_tag(:type => 'button') do %>
+  <%= content_tag(:strong, 'Pay Online') %>
+<% end %>
+</div>
+<div id="payment_options">
+<p> We also accept cash and check. In this case, your membership registration will be pending until we receive your check or cash. Once we receive your check/cash, we will approve your membership.</p>
+<%= button_tag(:type => 'button') do %>
+  <%= content_tag(:strong, 'Check or Cash') %>
+<% end %>
+</div>
+</div>
