@@ -15,7 +15,8 @@
 body {
   width: 800px;
   margin: auto;
-  font-family: 'Myriad Pro','Helvetica Neue', Helvetica;
+  /* font-family: 'Myriad Pro','Helvetica Neue', Helvetica; */
+  font: 14px/1.4 'Myriad Pro','Helvetica Neue', Helvetica;
   text-align: center;
 }
 
