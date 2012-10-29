@@ -5,11 +5,11 @@ require File.expand_path('../application', __FILE__)
 Tanc::Application.initialize!
 
 ActionMailer::Base.smtp_settings = {
-  :address => "smtp.tanc.herokuapp.com",
-  :port => 25, 
-  :user_name =>"stevn1202@gmail.com",
-  :password => "kilimchoi",
-  :authentication => :login
+  :address  => "smtp.someserver.net",
+  :port  => 25,
+  :user_name  => "someone@someserver.net",
+  :password  => "mypass",
+  :authentication  => :login
 }
 Tanc::Application.configure do 
   config.action_mailer.delivery_method = :smtp
