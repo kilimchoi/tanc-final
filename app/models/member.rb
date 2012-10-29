@@ -21,4 +21,20 @@ class Member < ActiveRecord::Base
     :id => self.id
   }
   end
+def create
+    @member = Member.new(params[:member])
+ 
+    respond_to do |format|
+      if @member.save
+        # Tell the UserMailer to send a welcome Email after save
+        UserMailer.welcome_email(@member).deliver
+ 
+        format.html { redirect_to(@member, notice: 'User was successfully created.') }
+        format.json { render json: @memeber, status: :created, location: @member }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @member.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 end
