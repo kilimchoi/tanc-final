@@ -1,3 +1,17 @@
-<div id="wrap">
-  <h3>Welcome, <%= @email %>.</h3>
+<div id="wrap" class="profile">
+  <h3>Welcome, <%= @user_data[:email] %>.</h3>
+  <ul>
+    <li> <strong>Name:</strong> <%= @user_data[:first] + " " + @user_data[:last] %></li> 
+    <li> <strong>Telephone:</strong> <%= @user_data[:telephone] %></li>
+    <% if @user_data[:type] == "Member"  %>
+    <li> <strong>Age:</strong> <%= @user_data[:age] %> </li>
+    <li> <strong>Gender:</strong> <%= @user_data[:gender] %> </li>
+    <li> <strong>Address:</strong> <address>: <%= @user_data[:address1] + ", " + @user_data[:address2] %> <br> 
+                    <%= @user_data[:city] %> <br>
+                    <%= @user_data[:state] + " " + @user_data[:zip] %>
+         </address> </li>
+  <% else %>
+  <% end %>
+  </ul>
+
 </div>

@@ -10,6 +10,10 @@
   text-shadow: 0px 1px 2px rgba(255,255,255,.5);
   color: #444;
 }
+input[type="radio"] {
+	width: 100px;
+	float: left;
+}
 a {
   background: #F5C773;
   border: 1px solid #0a5378;
@@ -106,6 +110,24 @@ input#membership_member, input#membership_non-member, input#gender_male, input#g
 /* 
 CSS specific for member_payment page
 */
+/** CSS for profile page */
+
+/**#profile-photo {
+  border: 5px solid #CCC;
+  width: 150px;
+  height: 150px;
+  background: #600;
+  margin: auto;
+}
+*/
+.profile ul {
+  margin: 10px 0;
+  padding: 0;
+}
+.profile li {
+  list-style: none;
+  padding: 2px 0;
+}
 
 #payment_options {
   width: 70%;
