@@ -14,3 +14,5 @@ Scenario: Confirm Email
     Given the following members exist:
     | status | member_type | email| password |
     | Pending | mailing list | hjvds@berkeley.edu | 1234 |
+    And I confirm email with "hjvds@berkeley.edu" and confirm password with "1234"
+
