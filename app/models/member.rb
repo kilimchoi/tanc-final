@@ -11,14 +11,4 @@ class Member < ActiveRecord::Base
     end
   end
 
-  def to_hash
-  {
-    :email => self.email,
-    :name => self.name,
-    :status => self.status,
-    :password => self.status,
-    :type => self.type,
-    :id => self.id
-  }
-  end
 end
