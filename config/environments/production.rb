@@ -1,4 +1,5 @@
 Tanc::Application.configure do
+  config.action_controller.default_url_options = {:host=>"tanc.herokuapp.com"}
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
