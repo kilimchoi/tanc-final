@@ -21,7 +21,6 @@ Tanc::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   resources :member
-  resources :database_admin
   match ':controller/:action'
 
   # Sample resource route with options:

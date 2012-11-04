@@ -1,3 +1,0 @@
-class DatabaseAdminController < ApplicationController
-
-end
