@@ -10,8 +10,7 @@ class MemberController < ApplicationController
       end
     end
   end
-  def show 
-  end  
+ 
   def confirm_account
     if params[:email] and params[:code]
       thisUser = Member.find_by_email(params[:email])
@@ -39,8 +38,12 @@ class MemberController < ApplicationController
 
   def account_setup_member
     if params["commit"] == "Continue"
-      thisUser = Member.find_by_email(session[:user_email]) rescue nil
-      redirect_to("/member/profile")
+      thisUser = Member.find_by_email(session[:user_email])
+      if thisUser and thisUser.validate_and_update(params)
+        redirect_to("/member/profile")
+      else
+        flash[:error] = "All fields are required."
+      end 
     end
   end
 

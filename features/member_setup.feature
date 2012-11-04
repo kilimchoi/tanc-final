@@ -1,9 +1,15 @@
 Feature: Setting up member's profile 
    As a member, 
    I want to set up my profile page
-   
+
+Background:
+    Given the following members exist:
+    | status  | member_type  | email              | password |
+    | Pending | mailing list | hjvds@berkeley.edu | 1234     |
+
 Scenario: Setting up the profile page for the first time
-   Given I am on the account setup page
+   Given I logged in as "hjvds@berkeley.edu" with password "1234"
+   And I am on the account setup page
    And I fill in "password" with "1234"
    And I choose "membership" 
    And I press "Continue" 

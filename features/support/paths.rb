@@ -20,7 +20,7 @@ module NavigationHelpers
     when /^the thanks\s?page$/ then '/member/thanks'
     when /^the account setup\s?page$/ then '/member/account_setup'
     when /^the next account setup\s?page$/ then '/member/account_setup_member'
-    when /^profile\s?page$/ then '/member/login'
+    when /^profile\s?page$/ then '/member/profile'
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
