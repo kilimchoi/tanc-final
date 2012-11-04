@@ -35,7 +35,7 @@ class MemberController < ApplicationController
           redirect_to("/member/account_setup_non_member")
        end
       else
-        flash[:error] = "Passwords must match and be more than 6 letters"        
+        flash[:error] = "The two password do not match"
       end
     end
   end
