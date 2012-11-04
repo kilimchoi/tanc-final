@@ -25,7 +25,7 @@ class Member < ActiveRecord::Base
   end
 
   def update_password(password, verify)
-  	if password == verify
+  	if password == verify and password != ""
   		self.password = password
   		self.save
   		return true
