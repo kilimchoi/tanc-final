@@ -15,9 +15,12 @@ module NavigationHelpers
 
     when /^the home\s?page$/
       '/'
-    when /^the member login\s?page$/ then '/member'
-    when /^the member sign up\s?page$/ then '/member/signup'
-    when /^the confirm account\s?page$/ then '/member/confirm_account'
+    when /^the login\s?page$/ then '/member'
+    when /^the sign up\s?page$/ then '/member/signup'
+    when /^the thanks\s?page$/ then '/member/thanks'
+    when /^the account setup\s?page$/ then '/member/account_setup'
+    when /^the next account setup\s?page$/ then '/member/account_setup_member'
+    when /^profile\s?page$/ then '/member/login'
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

@@ -10,7 +10,8 @@ class MemberController < ApplicationController
       end
     end
   end
-  
+  def show 
+  end  
   def confirm_account
     if params[:email] and params[:code]
       thisUser = Member.find_by_email(params[:email])
@@ -25,29 +26,21 @@ class MemberController < ApplicationController
   end
 
   def account_setup
-    thisUser = Member.find_by_email(session[:user_email])
-    @email = thisUser.email    
+    thisUser = Member.find_by_email(session[:user_email]) rescue nil
+    @email = thisUser.email rescue nil    
     if params[:commit] == "Continue"
-      if thisUser.update_password(params[:password], params["confirm-password"])
-        if params[:membership] == "member"
+       if params[:membership] == "member"
           redirect_to("/member/account_setup_member")
-        elsif params[:membership] == "non-member"
+       elsif params[:membership] == "non-member"
           redirect_to("/member/account_setup_non_member")
-        end
-      else
-        flash[:error] = "The two password do not match"
-      end
+       end        
     end
   end
 
   def account_setup_member
     if params["commit"] == "Continue"
-      thisUser = Member.find_by_email(session[:user_email])
-      if thisUser.validate_and_update(params)
-        redirect_to("/member/profile")
-      else
-        flash[:error] = "All fields are required."
-      end
+      thisUser = Member.find_by_email(session[:user_email]) rescue nil
+      redirect_to("/member/profile")
     end
   end
 
