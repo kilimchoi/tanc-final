@@ -25,13 +25,13 @@ class Member < ActiveRecord::Base
   end
 
   def update_password(password, verify) rescue nil
-    	if password == verify
-      		self.password = password
-      		self.save
-      		return true
-    	else
-      		return false
-    	end
+  	if password == verify
+  		self.password = password
+  		self.save
+  		return true
+  	else
+  		return false
+  	end
   end
 
   def user_data
