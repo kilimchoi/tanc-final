@@ -1,0 +1,36 @@
+<h3>Welcome Admin!</h3>
+
+<table>
+  <thead id="head">
+    <tr>
+      <td>ID #</td>
+      <td>Name</td>
+      <td>Gender</td>
+      <td>Age</td>
+      <td>Email</td>
+      <td>Telephone</td>
+      <td>Address</td>
+      <td>City</td>
+      <td>State</td>
+      <td>Zip</td>
+     </tr>
+   </thead>
+  <tbody>
+    <% @member_list.each do |member| %>
+      <tr>
+        <td><%= member[:first] + " " + @member[:last] %></td>
+        <td><%= member[:gender] %></td> 
+        <td><%= member[:age] %></td> 
+        <td><%= member[:email] %></td> 
+        <td><%= member[:telephone] %></td> 
+        <td><%= member[:address1] + ", " + member[:address2] %></td>
+        <td><%= member[:city] %></td> 
+        <td><%= member[:state] %></td> 
+        <td><%= member[:zip] %></td> 
+       </tr>
+     <% end %>
+  </tbody>
+
+</table>
+
+<%= link_to('Add new members', '#') %>
