@@ -11,13 +11,6 @@ Scenario: New member sign up
     And I press "Continue"
     Then I should be on the thanks page
 
-Scenario: Confirm Email
-    Given the following members exist:
-    | status | member_type | email| password |
-    | Pending | mailing list | hjvds@berkeley.edu | 1234 |
-    And I confirm "email" with "hjvds@berkeley.edu"
-    And I confirm "password" with "1234"
-    Then I should be on the account setup page
 
 Scenario: New member can't sign up
     Given I am on the login page
@@ -26,10 +19,4 @@ Scenario: New member can't sign up
     And I press "Continue"
     Then I should be on the sign up page
 
-Scenario: New member can't confirm account
-   Given the following members exist:
-    | status | member_type | email| password |
-    | Pending | mailing list | hjvds@berkeley.edu | 1234 |
-    And I confirm "email" with "hjvds@berkeley.edu" 
-    And I confirm "password" with "2345"
-    Then I should be on the confirm account page
+
