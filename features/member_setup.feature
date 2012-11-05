@@ -57,3 +57,10 @@ Scenario: Logging in as a user
    And I fill in "password" with "1234"
    And I press "Login"
    Then I should be on profile page
+
+Scenario: Receiving confirmation Email
+   When I am on the sign up page
+   And I fill in "email" with "myemail@berkeley.edu"
+   And I press "Continue" 
+   Then I should receive a confirmation email
+
