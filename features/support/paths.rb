@@ -20,6 +20,7 @@ module NavigationHelpers
     when /^the thanks\s?page$/ then '/member/thanks'
     when /^the account setup\s?page$/ then '/member/account_setup'
     when /^the next account setup\s?page$/ then '/member/account_setup_member'
+    when /^the next account setup non-member\s?page$/ then '/member/account_setup_non_member'
     when /^profile\s?page$/ then '/member/profile'
     when /^the confirm account\s?page$/ then '/member/confirm_account'
     # Add more mappings here.
