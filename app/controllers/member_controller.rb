@@ -28,11 +28,15 @@ class MemberController < ApplicationController
     thisUser = Member.find_by_email(session[:user_email]) rescue nil
     @email = thisUser.email rescue nil    
     if params[:commit] == "Continue"
-       if params[:membership] == "member"
+      if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
+        if params[:membership] == "member"
           redirect_to("/member/account_setup_member")
-       elsif params[:membership] == "non-member"
+        elsif params[:membership] == "non-member"
           redirect_to("/member/account_setup_non_member")
-       end        
+        end
+      else
+        flash[:error] = "The two passwords do not match"
+      end
     end
   end
 
