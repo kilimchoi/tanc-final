@@ -4,12 +4,12 @@ Feature: Login or Sign up for members and non-members
 	so that I can receive updates 
 
 Scenario: New member sign up
-    Given I am on the member login page
+    Given I am on the login page
     And I follow "New User Sign up here!"
-    Then I should be on the member sign up page
+    Then I should be on the sign up page
     When I fill in "email" with "my_email@berkeley.edu"
     And I press "Continue"
-    Then I should be on the confirm account page
+    Then I should be on the thanks page
 Scenario: Confirm Email
     Given the following members exist:
     | status | member_type | email| password |
