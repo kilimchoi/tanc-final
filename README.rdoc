@@ -8,12 +8,12 @@ To see user stories we’re implementing or implemented so far, you can visit ww
 
 To see our test coverage,
 
-git clone github.com/petertsoics169/tanc.git
+1. git clone github.com/petertsoics169/tanc.git
 
-git checkout “branch-name”
+2. git checkout “branch-name”
 
-bundle install –without production
+3. bundle install –without production
 
-rake db:migrate
+4. rake db:migrate
 
-rake cucumber/spec
+5. rake cucumber/spec
