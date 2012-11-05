@@ -92,4 +92,11 @@ class MemberController < ApplicationController
   def check_cash_payment
 
   end
+
+  def admin
+    # check if the admin is loaded
+    # if not admin, redirect to their own profile
+    
+    @member_list = []
+  end
 end
