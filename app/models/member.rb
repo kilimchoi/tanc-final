@@ -24,7 +24,6 @@ class Member < ActiveRecord::Base
     return self.password == password
   end
 
-
   def user_data
     data = {:type => self.member_type, 
       :email => self.email, 
