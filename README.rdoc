@@ -12,7 +12,8 @@ To see our progress on the website, you can visit http://tanc.herokuapp.com/memb
 To see user stories we're implementing or implemented so far, you can visit https://www.pivotaltracker.com/projects/659983.
 
 To see our test coverage, 
-1.git clone https://github.com/petertsoics169/tanc.git 
+
+1. git clone https://github.com/petertsoics169/tanc.git 
 2. git checkout "branch-name"
 3. bundle install --without production 
 4. rake db:migrate
