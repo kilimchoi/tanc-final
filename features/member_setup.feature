@@ -12,7 +12,7 @@ Scenario: Setting up the profile page for the first time as a member
    Given I logged in as "hjvds@berkeley.edu" with password "1234"
    And I am on the account setup page
    And I fill in "password" with "1234"
-   And I confirm "password" with "1234"
+   And I confirm "confirm-password" with "1234"
    And I choose "membership_member" 
    And I press "Continue" 
    Then I should be on the next account setup page
@@ -49,5 +49,11 @@ Scenario: Can not setup the account (wrong password)
    And I fill in "password" with "1234"
    And I confirm "password" with "2345"
    And I choose "membership_member" 
-   And I press "Continue" 
-   Then I should be on the account setup page
+   And I press "Continue"
+
+Scenario: Logging in as a user 
+   When I am on the login page
+   And I fill in "email" with "hjvds@berkeley.edu"
+   And I fill in "password" with "1234"
+   And I press "Login"
+   Then I should be on profile page
