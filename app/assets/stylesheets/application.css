@@ -33,3 +33,8 @@ a {
 .logout a:hover {
   color: #CCC;
 }
+
+.error {
+  color: red;
+  margin-top: -20px;
+}
