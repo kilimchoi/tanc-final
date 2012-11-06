@@ -16,4 +16,6 @@ To see our test coverage,
 
 4. rake db:migrate
 
-5. rake cucumber/spec
+5. rake cucumber
+
+6. RAILS_ENV=test rake spec
