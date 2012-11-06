@@ -11,20 +11,3 @@ describe Member do
 	mock.stub!(:find_by_email).with(:email => "oski@berkeley.edu").and_return('true')
   end
 end
-describe "email sending" do
-fixtures :users
-
-  before(:each) do
-    ActionMailer::Base.deliveries = []
-  end
-
-  it 'should send activation' do
-    ActionMailer.deliver_activation(users(:quentin))
-    sent.first.subject.should =~ /has been activated/#correct subject
-    sent.first.body.should =~ /#{CFG[:site]}/#url to our site is there
-  end
-
-  def sent
-    ActionMailer::Base.deliveries
-  end
-end
