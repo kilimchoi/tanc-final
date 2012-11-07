@@ -1,6 +1,6 @@
 Welcome to TANC
 
-TANC is an acronym for Tibetan Association of Northern California. Our group’s main goal is to make a user-friendly website for both adminstrators and members of the association. In the next 4 iterations, we plan to implement features that help non-members to sign up for the website, members to log into the website and create easy-to-use user-interface for administrators to update, and edit any information that is in the interest of the association. We will be using Ruby on Rails primarily to execute these features on top of testing our application with cucumber, and rspec.
+TANC is an acronym for Tibetan Association of Northern California. Our group’s main goal is to make a user-friendly website for both adminstrators and members of the association. In the next 4 iterations, we plan to implement features that help non-members to sign up for the website, members to log into the website and create an easy-to-use user-interface for administrators to update, and edit any information that is in the interest of the association. We will be using Ruby on Rails primarily to execute these features on top of testing our application with cucumber, and rspec.
 
 To see our progress on the website, you can visit tanc.herokuapp.com/member.
 
