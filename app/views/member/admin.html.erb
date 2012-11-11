@@ -1,4 +1,17 @@
 <h3>Welcome Admin!</h3>
+<div id="admin_logout">
+  <%= button_tag "Logout" %>
+</div>
+<div id="add_new_member">
+  <%= link_to('Add new member', '#') %>
+</div>
+<table id="show_all">
+  <tr>
+    <td>Show full table</td>
+    <td><%= check_box_tag "show_all_check_box" %></td>
+    <td><%= button_tag "Refresh" %></td>
+  </tr>
+</table>
 
 <table>
   <thead id="head">
@@ -33,4 +46,4 @@
 
 </table>
 
-<%= link_to('Add new members', '#') %>
+
