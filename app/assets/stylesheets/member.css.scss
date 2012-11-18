@@ -187,9 +187,14 @@ thead {
   margin: 0;
 }
 #show_all {
-  width: 250px;
+  width: 320px;
   margin: auto;
   margin-bottom: 10px;
+  padding: 0 5px;
+}
+#show_all td {
+  width: 120px;
+
 }
 #admin_logout, #add_new_member {
   text-align: left;
