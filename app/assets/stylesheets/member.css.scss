@@ -187,14 +187,14 @@ thead {
   margin: 0;
 }
 #show_all {
-  width: 320px;
+  width: 220px;
   margin: auto;
   margin-bottom: 10px;
   padding: 0 5px;
 }
-#show_all td {
-  width: 120px;
 
+#show_all input {
+  width: 50px;
 }
 #admin_logout, #add_new_member {
   text-align: left;
