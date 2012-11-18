@@ -131,7 +131,7 @@ CSS specific for member_payment page
   padding: 2px 0;
 }
 
-#payment_options {
+.payment_options {
   width: 70%;
   margin: auto;
   margin-bottom: 30px;
@@ -140,7 +140,7 @@ CSS specific for member_payment page
   background-color: #CBD3D4;
 }
 
-#payment_options button {
+.payment_options button {
   appearance: none;
   opacity: .99;
   background: #08c;
@@ -149,7 +149,7 @@ CSS specific for member_payment page
   padding: 10px;
   border: 1px solid #0a5378;
 }
-#payment_options button:hover {
+.payment_options button:hover {
   appearance: none;
   opacity: .99;
   background: #08c;
@@ -159,6 +159,12 @@ CSS specific for member_payment page
   border: 1px solid #0a5378;
   -webkit-transition: all 0.40s ease-out;
   transition: all 0.40s ease-out;
+}
+#paypal input {
+  width: 150px;
+  border: none;
+  opacity: 1.0;
+  padding: 3px 0 0 3px;
 }
 
 /* chech_cash_payment CSS */
@@ -187,7 +193,7 @@ thead {
   margin: 0;
 }
 #show_all {
-  width: 220px;
+  width: 240px;
   margin: auto;
   margin-bottom: 10px;
   padding: 0 5px;
@@ -201,3 +207,5 @@ thead {
   margin-left: 20px;
   margin-bottom: 10px;
 }
+
+
