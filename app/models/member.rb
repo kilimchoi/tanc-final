@@ -35,7 +35,9 @@ class Member < ActiveRecord::Base
   end
 
   def user_data
-    data = {:type => self.member_type, 
+    data = {
+      :id => self.id,
+      :type => self.member_type, 
       :email => self.email, 
       :first => self.first, 
       :last => self.last, 

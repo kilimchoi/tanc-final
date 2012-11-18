@@ -92,4 +92,20 @@ class MemberController < ApplicationController
   def check_cash_payment
 
   end
+
+  def export
+    if true # member is an admin
+      filename = 'members.csv'
+      ext = File.extname(filename)[1..-1]
+      mime = Mime::Type.lookup_by_extension(ext)
+      content_type = mime.to_s unless mime.nil?
+      @member_list = []
+      Member.find(:all).each do |member|
+        @member_list << member.user_data
+      end
+      puts @member_list
+      render "csv_export.csv.erb", :content_type => content_type
+    end
+
+  end
 end
