@@ -12,14 +12,18 @@
 </form>
 </div>
 <div class="payment_options" id="check_cash">
-<p> We also accept cash and check. In this case, your membership registration will be pending until we receive your check or cash. Once we receive your check/cash, we will approve your membership.</p>
-<%= button_tag(:type => 'button') do %>
-  <%= content_tag(:strong, 'Check or Cash') %>
-<% end %>
+<h3>Paying by CHECK or CASH?</h3>
+<p> We also accept cash and check. Please mail your check to the address below or drop by on the adress below if you wanna drop cash or check:</p>
+
+<address>
+<strong>Tibetan Association of Northern California (TANC)</strong> <br>
+Membership Department <br>
+5200 Huntington Avenue, Suite 200 <br>
+Richmond<br>
+CA 94804
+</address>
 </div>
 <div class="payment_options" id="not_paying">
+<h3>Not paying membership fee?</h3>
 <p> Although you can sign up for membership without paying but we highly encourage you to pay your membership fee because blah blah blah.</p>
-<%= button_tag(:type => 'button') do %>
-  <%= content_tag(:strong, "Not paying ") %>
-<% end %>
 </div>
