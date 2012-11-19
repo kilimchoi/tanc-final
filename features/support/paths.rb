@@ -31,6 +31,9 @@ module NavigationHelpers
     when /^the delete confirmation\s?page$/ then '/admin/delete_confirmation'
     when /^the mass email\s?page$/ then '/admin/mass_email'
     when /^the PayPal\s?page$/ then ''
+    when /^the member payment\s?page$/ then '/member/member_payment' 
+    when /^the Thank You\s?page$/ then '/member/thanks_after_done'
+    when /^the Check Cash\s?page$/ then '/member/check_cash_payment'
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

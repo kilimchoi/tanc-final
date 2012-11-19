@@ -71,8 +71,8 @@ class MemberController < ApplicationController
     thisUser = Member.find_by_email(session[:user_email]) rescue nil
     @email = thisUser.email rescue nil    
     if params[:commit] == "Continue"
-        if params[:membership] == "member"
-           redirect_to("/member/account_setup_member")
+        if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan"
+	   redirect_to("/member/account_setup_member")
         elsif params[:membership] == "non-member"
 	   redirect_to("/member/account_setup_non_member")
         else 
