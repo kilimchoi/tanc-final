@@ -24,6 +24,16 @@ class Member < ActiveRecord::Base
     return self.password == password
   end
 
+  def update_password(password, verify)
+    if password == verify and password != ""
+      self.password = password
+      self.save
+      return true
+    else
+      return false
+    end
+  end
+
   def user_data
     data = {:type => self.member_type, 
       :email => self.email, 
