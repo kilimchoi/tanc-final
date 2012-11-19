@@ -93,6 +93,10 @@ class MemberController < ApplicationController
 
   end
 
+  def thanks_after_done
+
+  end
+
   def admin
     # check if the admin is loaded
     # if not admin, redirect to their own profile
