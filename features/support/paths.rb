@@ -20,7 +20,17 @@ module NavigationHelpers
     when /^the thanks\s?page$/ then '/member/thanks'
     when /^the account setup\s?page$/ then '/member/account_setup'
     when /^the next account setup\s?page$/ then '/member/account_setup_member'
+    when /^the next account setup non-member\s?page$/ then '/member/account_setup_non_member'
     when /^profile\s?page$/ then '/member/profile'
+    when /^login\s?page$/ then '/member/login'
+    when /^the confirm account page$/ then '/member/confirm_account'
+    when /^the database\s?page$/ then '/admin/db_manage'
+    when /^the add\s?page$/ then '/admin/add_member'
+    when /^the confirmation\s?page$/ then '/admin/member_confirmation'
+    when /^the edit\s?page$/ then '/admin/edit_member'
+    when /^the delete confirmation\s?page$/ then '/admin/delete_confirmation'
+    when /^the mass email\s?page$/ then '/admin/mass_email'
+    when /^the PayPal\s?page$/ then ''
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

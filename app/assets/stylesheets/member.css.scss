@@ -1,7 +1,9 @@
 #wrap {
   background: #CADFE0;
+  margin: auto;
   padding: 10px 0 20px 0;
   margin-top: -32px;
+  width: 800px;
 }
 .title {
   position: relative;
@@ -129,7 +131,7 @@ CSS specific for member_payment page
   padding: 2px 0;
 }
 
-#payment_options {
+.payment_options {
   width: 70%;
   margin: auto;
   margin-bottom: 30px;
@@ -138,7 +140,7 @@ CSS specific for member_payment page
   background-color: #CBD3D4;
 }
 
-#payment_options button {
+.payment_options button {
   appearance: none;
   opacity: .99;
   background: #08c;
@@ -147,7 +149,7 @@ CSS specific for member_payment page
   padding: 10px;
   border: 1px solid #0a5378;
 }
-#payment_options button:hover {
+.payment_options button:hover {
   appearance: none;
   opacity: .99;
   background: #08c;
@@ -158,6 +160,12 @@ CSS specific for member_payment page
   -webkit-transition: all 0.40s ease-out;
   transition: all 0.40s ease-out;
 }
+#paypal input {
+  width: 150px;
+  border: none;
+  opacity: 1.0;
+  padding: 3px 0 0 3px;
+}
 
 /* chech_cash_payment CSS */
 
@@ -167,4 +175,37 @@ CSS specific for member_payment page
 .check-cash-payment address {
   font-weight: bold;
 }
+
+/* ADMIN CSS */
+
+table {
+  width: 100%;
+  border: 1px solid #000;
+  padding: 0;
+  margin: 0 0 30px 0;
+  background: #CADFE0;
+}
+
+thead {
+  color: #FFF;
+  background: #600;
+  padding: 0;
+  margin: 0;
+}
+#show_all {
+  width: 240px;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 0 5px;
+}
+
+#show_all input {
+  width: 50px;
+}
+#admin_logout, #add_new_member {
+  text-align: left;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
 

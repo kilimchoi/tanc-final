@@ -10,7 +10,13 @@ Scenario: New member sign up
     When I fill in "email" with "my_email@berkeley.edu"
     And I press "Continue"
     Then I should be on the thanks page
-Scenario: Confirm Email
-    Given the following members exist:
-    | status | member_type | email| password |
-    | Pending | mailing list | hjvds@berkeley.edu | 1234 |
+
+
+Scenario: New member can't sign up
+    Given I am on the login page
+    And I follow "New User Sign up here!"
+    Then I should be on the sign up page
+    And I press "Continue"
+    Then I should be on the sign up page
+
+

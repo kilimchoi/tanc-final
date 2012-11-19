@@ -13,7 +13,7 @@
  */
 
 body {
-  width: 800px;
+  width: 100%;
   margin: auto;
   /* font-family: 'Myriad Pro','Helvetica Neue', Helvetica; */
   font: 14px/1.4 'Myriad Pro','Helvetica Neue', Helvetica;
@@ -23,6 +23,15 @@ body {
 a {
   text-decoration: none;
   color: #000;
+}
+
+.logout a {
+  background-color: #690101;
+  color: #FFF;
+  padding: 5px 10px;
+}
+.logout a:hover {
+  color: #CCC;
 }
 
 .error {

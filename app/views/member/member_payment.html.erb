@@ -1,16 +1,26 @@
 <div id="wrap">
-<h3>Please set up your payment information</h3>
-<p style ="text-align: center; font-size: 12px;"><em>Membership fee of $25 is required for all the members.</em> </p>
-<div id="payment_options">
-<p> We highly encourage you to pay your membership fee online. You can use any of your cards (VISA, MASTER, AMEX or DISCOVER). It is very convenient and secure. </p>
-<%= button_tag(:type => 'button') do %>
-  <%= content_tag(:strong, 'Pay Online') %>
-<% end %>
-</div>
-<div id="payment_options">
-<p> We also accept cash and check. In this case, your membership registration will be pending until we receive your check or cash. Once we receive your check/cash, we will approve your membership.</p>
-<%= button_tag(:type => 'button') do %>
-  <%= content_tag(:strong, 'Check or Cash') %>
-<% end %>
-</div>
+	<h3>Please set up your payment information</h3>
+	<p style ="text-align: center; font-size: 12px;"><em>Membership fee is only $25 for the whole year.</em> </p>
+
+	<div class="payment_options" id="paypal">
+		<p> We highly encourage you to pay your membership fee online. You can use any of your cards (VISA, MASTER, AMEX or DISCOVER). It is very convenient and secure. </p>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="hosted_button_id" value="DYFN5V9BLLZAQ">
+		<input type="image" src="http://designpala.com/images/pay_online_btn.png" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+		<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+		</form>
+	</div>
+	<div class="payment_options" id="check_cash">
+		<p> We also accept cash and check. Please mail your check to the address below or drop by on the adress below if you wanna drop cash or check:</p>
+   		<%= form_tag do %> 
+		<%= submit_tag 'Check or Cash' %>
+                <% end %>
+	</div>
+	<div class="payment_options" id="not_paying">
+		<p> Although you can sign up for membership without paying but we highly encourage you to pay your membership fee because blah blah blah.</p>
+   		<%= form_tag do %>
+		<%= submit_tag 'Not Paying!' %>
+ 		<% end %>
+	</div>
 </div>
