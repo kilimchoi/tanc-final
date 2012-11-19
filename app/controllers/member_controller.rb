@@ -84,7 +84,7 @@ class MemberController < ApplicationController
     if params["commit"] == "Continue"
       thisUser = Member.find_by_email(session[:user_email])
       if thisUser and thisUser.validate_and_update(params)
-        redirect_to("/member/profile")
+        redirect_to("/member/member_payment")
       else
         flash[:error] = "All fields are required."
       end 
@@ -123,6 +123,7 @@ class MemberController < ApplicationController
   def user_exists_valid(thisUser)
      return (thisUser and thisUser.authenticate(params[:password]))
   end 
+  
   def profile
     thisUser = Member.find_by_email(session[:user_email])
     if thisUser
@@ -133,10 +134,22 @@ class MemberController < ApplicationController
   end
 
   def member_payment
-
+    if params["commit"] == "Check or Cash"
+       redirect_to("/member/check_cash_payment")
+    elsif params["commit"] == "Not Paying!"
+       redirect_to("/member/thanks_after_done")
+    end
   end
-
+  
   def check_cash_payment
-
+    if params["commit"] == "Done!"
+       redirect_to("/member/thanks_after_done")
+    end
+  end
+  def admin
+    # check if the admin is loaded
+    # if not admin, redirect to their own profile
+    
+    @member_list = []
   end
 end
