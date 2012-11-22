@@ -1,10 +1,11 @@
 class MemberController < ApplicationController
   def signup
     if email_params_has_value and email_format_is_correct then
-        if new_member = can_create_new_member then
+        if new_member = can_create_new_member
            send_new_member_activation_email(new_member) and redirect_to("/member/thanks")
         else 
            flash[:error] = "Your account could not be created"
+           redirect_to("/member/signup")
         end
     end
   end
