@@ -1,10 +1,11 @@
 class MemberController < ApplicationController
   def signup
     if email_params_has_value and email_format_is_correct then
-        if new_member = can_create_new_member
+        new_member = can_create_new_member
+        if new_member
            send_new_member_activation_email(new_member) and redirect_to("/member/thanks")
         else 
-           flash[:error] = "Your account could not be created"
+           flash[:error] = "Your account could not be created because you already signed up."
            redirect_to("/member/signup")
         end
     end
@@ -30,9 +31,20 @@ class MemberController < ApplicationController
      new_member.send_activation_email
   end
 
+  def this_user_exists(thisUser)
+     if !thisUser.nil?
+        return true
+     else 
+        return false
+     end
+  end
+
   # helper to create a new member and dry out code + readability
   def can_create_new_member
-      if this_member = Member.create(:email => params[:email], :status => "Pending", :member_type => "Mailing list", 
+      thisUser = Member.find_by_email(params[:email])
+      if this_user_exists(thisUser)
+         return false
+      elsif this_member = Member.create(:email => params[:email], :status => "Pending", :member_type => "Mailing list", 
 				     :password => Member.random_password) then return this_member
       end
   end    
