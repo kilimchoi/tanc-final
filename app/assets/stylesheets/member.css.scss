@@ -16,7 +16,14 @@ input[type="radio"] {
 	width: 100px;
 	float: left;
 }
-a {
+a#forgot_password {
+  font-size: 10px;
+  color: red;
+}
+a#forgot_password:hover {
+  text-decoration: underline;
+}
+a#signup {
   background: #F5C773;
   border: 1px solid #0a5378;
   border-radius: 4px;
@@ -25,7 +32,7 @@ a {
   font-size: 10px;
   color: #000;
 }
-a:hover {
+a#signup:hover {
   color: #060;
 
 }
@@ -36,7 +43,7 @@ p {
 form {
   background: none;
   margin: 10px auto 0;
-  padding: 10px;
+  padding: 10px 10px 0 10px;
   width: 280px;
 }
 
