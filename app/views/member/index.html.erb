@@ -5,6 +5,6 @@
       <%= password_field_tag 'password', nil, :placeholder => 'Password' %>      
       <%= submit_tag 'Login' %>
   <% end %>
-
-<%= link_to('New User Sign up here!', '/member/signup') %>
+<%= link_to('Forgot your password?', '#', :id => 'forgot_password') %><br>
+<%= link_to('New Member Sign Up', '/member/signup', :id => 'signup') %>
 </div>
