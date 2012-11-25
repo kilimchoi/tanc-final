@@ -9,4 +9,13 @@ class IndividualMailer < ActionMailer::Base
          :template_name => "account_activation"
         )
   end
+ 
+  def reset_password(member)
+     @reset_link = "http://#{ApplicationController.default_url_options[:host]}/member/reset_email_sent?email=#{member.email}"
+     mail(:to => member.email,
+          :subject => "Password Reset",
+          :template_path => "emails",
+          :template_name => "password_reset"
+         )
+  end
 end
