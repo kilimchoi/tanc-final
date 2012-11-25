@@ -17,7 +17,7 @@ Tanc::Application.routes.draw do
   get "member/reset_password"
   get "member/reset_email_sent"
   get "member/update_password"
-   
+  get "member/reset_success"   
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
