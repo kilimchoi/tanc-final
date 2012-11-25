@@ -12,11 +12,22 @@ class MemberController < ApplicationController
   end
   
   def reset_password
-    if email_params_has_value then 
+    if email_params_has_value and member_email? then 
     	member = Member.find_by_email(params[:email])
     	member.send_reset_password if member
         redirect_to "/member/reset_email_sent"
+    else 
+        flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
     end 
+  end
+  
+  def member_email?
+    @member = Member.find_by_email(params[:email])
+    if @member.nil? 
+       return false
+    else
+       return true
+    end
   end
 
   def reset_email_sent
