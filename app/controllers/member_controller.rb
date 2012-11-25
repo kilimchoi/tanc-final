@@ -5,12 +5,13 @@ class MemberController < ApplicationController
         if new_member
            send_new_member_activation_email(new_member) and redirect_to("/member/thanks")
         else 
-           flash[:error] = "Your account could not be created because you already signed up."
+           flash[:error] = "Your account could not be created because you already signed up." 
            redirect_to("/member/signup")
         end
     end
   end
-
+   
+  
   # helper to dry out code: returns true if :email parameter exists
   def email_params_has_value
      if params[:email] then return true 
@@ -55,8 +56,8 @@ class MemberController < ApplicationController
       if this_user_exists_and_temp_pwd_verified(thisUser)
         store_email_in_session(thisUser) and redirect_to("/member/account_setup")
       else
-        flash[:error] = "Please click the confirmation link emailed to you"
-        redirect_to("/member/confirm_account")
+        flash[:error] = "You already created an account with this email."
+        redirect_to("/member/")
       end
     end
   end
