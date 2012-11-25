@@ -6,6 +6,14 @@ class Member < ActiveRecord::Base
     (0...8).map{65.+(rand(26)).chr}.join
   end
 
+  def send_reset_password
+    self.password_reset_sent_at = Time.zone.now
+    save!
+    IndividualMailer.reset_password(self).deliver()
+  end
+  
+   
+
   def send_activation_email
     email = IndividualMailer.activation_notification(self)
     email.deliver()
