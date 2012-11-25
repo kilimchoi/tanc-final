@@ -21,16 +21,14 @@ class MemberController < ApplicationController
 
   def reset_email_sent
     if email_params_has_value then
-       redirect_to "/member/update_password"
+       redirect_to "/member/update_password?email=#{params[:email]}"
     end
   end 
     
   def update_password
-        @member = Member.find_by_email(params[:email])
-        if @member.password_reset_sent_at < 2.hours.ago
-           redirect_to "/member/reset_password", :alert => "Password reset expired!"
-        elsif params[:password] == params[:password_confirm] && params[:commit] == "Update Password"
-           @member.update_attributes(:password => params[:user])
+        @member = Member.find_by_email(params[:email]) rescue nil
+        if params[:password] == params[:password_confirm] && params[:commit] == "Update Password"
+           @member.update_attributes(:password => params[:password])
            redirect_to "/member/reset_success"
         
         end
