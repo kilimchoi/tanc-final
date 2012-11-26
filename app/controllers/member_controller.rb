@@ -16,11 +16,13 @@ class MemberController < ApplicationController
     	member = Member.find_by_email(params[:email])
     	member.send_reset_password if member
         redirect_to "/member/reset_email_sent"
-    else 
+    elsif email_params_has_value and !member_email? then
         flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
     end 
   end
   
+   
+ 
   def member_email?
     @member = Member.find_by_email(params[:email])
     if @member.nil? 
@@ -35,6 +37,10 @@ class MemberController < ApplicationController
        redirect_to "/member/update_password?email=#{params[:email]}"
     end
   end 
+
+  def retrieve_email_sent
+    redirect_to "/member/retrieve_email"
+  end
     
   def update_password
         @member = Member.find_by_email(params[:email]) rescue nil
@@ -196,10 +202,54 @@ class MemberController < ApplicationController
        redirect_to("/member/thanks_after_done")
     end
   end
-  def admin
-    # check if the admin is loaded
-    # if not admin, redirect to their own profile
-    
-    @member_list = []
+  
+  
+  def profile
+    thisUser = find_user_by_email(session[:user_email])
+    if thisUser
+      @user_data = thisUser.user_data
+      if params["commit"] == "logout"
+        redirect_to("/member")
+	#clear user data from session
+      end			
+      if params["commit"] == "Edit your Profile"
+        redirect_to("member/edit")
+      end
+      if params["commit"] == "manage database"
+        if user.admin? == true then redirect_to("/member/admin"); end
+      end
+    else
+	redirect_to("/member/login")
+	flash[:error] = "You are not logged in. Please log in and try again."
+    end
   end
+
+  def admin
+    this_user = find_user_by_email(session[:user_email])
+    if this_user # exists
+      if this_user_is_not_admin(this_user) then 
+        redirect_to("/member/profile")
+	flash[:error] = "You are not an admin so you cannot access the admin page"
+      else  # if you got here, user is admin
+	Member.all.each do |user|
+          if user.first
+            @member_list << user
+          end
+        end
+        if params["commit"] == "logout"
+          redirect_to("/member")
+	  #clear user data from session
+        end
+        if params["commit"] == "Add a new member"
+          redirect_to("/member/admin/add_new_member")
+	end
+        if params["commit"] == "refresh"
+          redirect_to("/member/admin")
+	end
+      end
+    else #user is not logged in
+	redirect_to("/member")
+	flash[:error] = "You are not logged in- please log in first."	
+    end 
+ end   
 end
