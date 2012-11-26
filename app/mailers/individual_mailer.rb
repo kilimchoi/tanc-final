@@ -18,4 +18,5 @@ class IndividualMailer < ActionMailer::Base
           :template_name => "password_reset"
          )
   end
+ 
 end

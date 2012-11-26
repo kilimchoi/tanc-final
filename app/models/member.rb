@@ -12,7 +12,6 @@ class Member < ActiveRecord::Base
     IndividualMailer.reset_password(self).deliver()
   end
   
-   
 
   def send_activation_email
     email = IndividualMailer.activation_notification(self)
