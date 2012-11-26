@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(:version => 20121125042817) do
     t.string   "state"
     t.string   "zip"
     t.string   "telephone"
-    t.string   "auth_token"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
   end
