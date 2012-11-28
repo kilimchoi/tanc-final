@@ -9,60 +9,62 @@ Tanc::Application.routes.draw do
   get "member/account_setup"
   get "member/account_setup_member"
   get "member/account_setup_non_member"
-  get "member/member_payment"  
-  get "member/check_cash_payment"  
+  get "member/member_payment"
+  get "member/check_cash_payment"
   get "member/login"
-  get "member/thanks_after_done" 
+  get "member/thanks_after_done"
   get "member/admin"
   get "member/reset_password"
   get "member/reset_email_sent"
   get "member/update_password"
-  get "member/reset_success"   
+  get "member/reset_success"
+  get "member/check_cash_payment"
+  get "member/admin/export" => 'member#export'
   # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
+  # match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
 
   # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+  # match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  # resources :products
   resources :member
   match ':controller/:action'
 
   # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
+  # resources :products do
+  # member do
+  # get 'short'
+  # post 'toggle'
+  # end
   #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+  # collection do
+  # get 'sold'
+  # end
+  # end
 
   # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+  # resources :products do
+  # resources :comments, :sales
+  # resource :seller
+  # end
 
   # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
+  # resources :products do
+  # resources :comments
+  # resources :sales do
+  # get 'recent', :on => :collection
+  # end
+  # end
 
   # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  # namespace :admin do
+  # # Directs /admin/products/* to Admin::ProductsController
+  # # (app/controllers/admin/products_controller.rb)
+  # resources :products
+  # end
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
