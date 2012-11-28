@@ -58,21 +58,44 @@ class Member < ActiveRecord::Base
     return data
   end
 
-  def validate_and_update(params) 
+  def validate_and_update(params)
+    right_format = true
     if params["address-line-2"] and params["address-line-2"] == ""
       params.delete("address-line-2")
     end
     if params.values.include? ""
       return false
     else
-      if params["first-name"]; self.first = params["first-name"]; end;
-      if params["last-name"];  self.last = params["last-name"]; end;
-      if params["age"]; self.age = params["age"]; end;
-      if params["address-line-1"]; self.address1 = params["address-line-1"]; end;
+      if params["first-name"] and params["first-name"] =~ /[A-Za-z]+/; self.first = params["first-name"];
+      else
+        return false; end;
+      if params["last-name"] and params["last-name"] =~ /[A-Za-z]+/; self.last = params["last-name"];
+      else
+        return false; end;
+      if params["address-line-1"] and params["address-line-1"] =~ /\d|[-]|[A-Za-z]+|\s/; self.address1 = params["address-line-1"];
+      else
+        return false; end;
       if params["address-line-2"]; self.address2 = params["address-line-2"]; end;
-      if params["city"]; self.city = params["city"]; end;
-      if params["Zip"]; self.zip = params["Zip"]; end;
-      if params["telephone"]; self.telephone = params["telephone"]; end;
+      if params["city"] and params["city"] =~ /[A-Za-z]+/; self.city = params["city"];
+      else
+        return false; end;
+      if params["zip"] and params["zip"] =~ /\d{1,10}/; self.zip = params["zip"];
+      else
+        return false; end;
+      if params["state"] and params["state"] =~ /[A-Za-z]+/; self.state = params["state"];
+      else
+        return false; end;
+      if params["telephone"] and params["telephone"] =~ /\d{1,10}|[-]/; self.telephone = params["telephone"];
+      else
+        return false; end;
+      if params["year_of_birth"] and params["year_of_birth"] =~ /\d{1,4}/; self.year_of_birth = params["year_of_birth"];
+      else
+        return false; end;
+      if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; self.country_of_birth = params["country_of_birth"];
+      else
+        return false; end;
+      if params["occupation"]; self.occupation = params["occupation"]; end;
+      if params["gender"]; self.gender = params["gender"]; end;
       self.save
       return true
     end

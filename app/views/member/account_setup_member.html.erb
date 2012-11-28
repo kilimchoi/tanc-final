@@ -3,6 +3,9 @@
 <%= form_tag do %>
   <%= text_field_tag 'first-name', nil, :placeholder => 'First Name' %>
   <%= text_field_tag 'last-name', nil, :placeholder => 'Last Name' %>
+  Already a Member?
+  <%= select_tag 'already_a_member', "<option>Yes</option><option>No</option>".html_safe %>
+  <%= text_field_tag 'year_of_birth', nil, :placeholder => 'Year of Birth' %>
   <p>
     <%= radio_button_tag 'gender', 'male' %>
     <%= label_tag 'male', 'Male' %>
@@ -11,16 +14,18 @@
     <%= radio_button_tag 'gender', 'female' %>
     <%= label_tag 'female', 'Female' %>
   </p>
-  <%= text_field_tag 'age', nil, :placeholder => 'Age' %>
+
+  <%= text_field_tag 'country_of_birth', nil, :placeholder => 'Country of Birth' %>
+  Your occupation:
+  <%= select_tag 'occupation', "<option>Student</option><option>Medical Profession</option><option>Business Owner</option><option>Finance and Banking</option><option>Others</option>".html_safe %>
+  <%= text_field_tag 'special_skills', nil, :placeholder => 'Special skills' %>
+  <%= text_field_tag 'number_of_children', nil, :placeholder => 'Number of Children' %>
   <%= text_field_tag 'address-line-1', nil, :placeholder => 'Address Line 1' %>
   <%= text_field_tag 'address-line-2', nil, :placeholder => 'Address Line 2' %>
   <%= text_field_tag 'city', nil, :placeholder => 'City' %>
   <%= text_field_tag 'state', nil, :placeholder => 'State' %>
-  <%= text_field_tag 'Zip', nil, :placeholder => 'Zip' %>
+  <%= text_field_tag 'zip', nil, :placeholder => 'Zip' %>
   <%= text_field_tag 'telephone', nil, :placeholder => 'Telephone' %>
-  <%= text_field_tag 'year_of_birth', nil, :placeholder => 'birth year' %>
-  <%= text_field_tag 'country_of_birth', nil, :placeholder => 'birth country' %>
-  <%= text_field_tag 'occupation', nil, :placeholder => 'occupation' %>
   <%= submit_tag 'Continue' %>
   <% end %>
 </div>
