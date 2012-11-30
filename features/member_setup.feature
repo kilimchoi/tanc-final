@@ -11,6 +11,7 @@ Scenario: Setting up the profile page for the first time
    Given I logged in as "hjvds@berkeley.edu" with password "1234"
    And I am on the account setup page
    And I fill in "password" with "1234"
+   And I fill in "confirm-password" with "1234"
    And I choose "membership" 
    And I press "Continue" 
    Then I should be on the next account setup page
@@ -26,4 +27,5 @@ Scenario: Setting up the profile page for the first time
    And I fill in "telephone" with "231321323213213213" 
    And I press "Continue" 
    Then I should be on profile page
+
 
