@@ -12,7 +12,8 @@ class Member < ActiveRecord::Base
     IndividualMailer.reset_password(self).deliver()
   end
   
-
+     
+ 
   def send_activation_email
     email = IndividualMailer.activation_notification(self)
     email.deliver()
@@ -76,6 +77,7 @@ class Member < ActiveRecord::Base
       else
         return false; end;
       if params["address-line-2"]; self.address2 = params["address-line-2"]; end;
+      if params["already_a_member"]; self.already_a_member = params["already_a_member"]; end;
       if params["city"] and params["city"] =~ /[A-Za-z]+/; self.city = params["city"];
       else
         return false; end;
@@ -96,6 +98,7 @@ class Member < ActiveRecord::Base
         return false; end;
       if params["occupation"]; self.occupation = params["occupation"]; end;
       if params["gender"]; self.gender = params["gender"]; end;
+      if self.member_active == true; self.member_active = true; else self.member_active = false; end;
       self.save
       return true
     end
