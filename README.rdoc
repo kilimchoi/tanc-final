@@ -18,4 +18,3 @@ To see our test coverage,
 3. bundle install --without production 
 4. rake db:migrate
 5. rake cucumber/spec 
-(For iteration 2, when running rspec tests, please run RAILS_ENV=test rake spec)

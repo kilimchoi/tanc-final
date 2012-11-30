@@ -7,7 +7,7 @@ gem 'rails', '3.1.0'
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'debugger', :require => 'ruby-debug'
 end
 group :test do
   gem 'cucumber-rails'
@@ -20,7 +20,7 @@ group :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'launchy'
-
+  gem 'factory_girl'
 end
 group :production do
   gem 'pg'
