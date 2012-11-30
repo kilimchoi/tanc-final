@@ -18,4 +18,4 @@ To see our test coverage,
 
 5. rake cucumber
 
-6. RAILS_ENV=test rake spec
+6. rake spec
