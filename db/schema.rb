@@ -14,11 +14,11 @@
 ActiveRecord::Schema.define(:version => 20121028221052) do
 
   create_table "members", :force => true do |t|
+    t.string   "status"
     t.string   "email"
     t.string   "name"
     t.string   "password"
-    t.string   "status"
-    t.string   "type"
+    t.string   "member_type"
     t.boolean  "confirmed"
     t.datetime "created_at"
     t.datetime "updated_at"

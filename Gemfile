@@ -21,8 +21,7 @@ group :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'launchy'
-  gem 'factory_girl_rails', '1.0'
-
+  gem 'factory_girl'
 end
 group :production do
   gem 'pg'

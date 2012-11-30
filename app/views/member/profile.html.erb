@@ -1,7 +1,8 @@
 <div id="wrap" class="profile">
   <h3>Welcome, <%= @user_data[:email] %>.</h3>
   <ul>
-    <li> <strong>Name:</strong> <%= @user_data[:first] + " " + @user_data[:last] %></li> 
+    <li> <strong>First Name:</strong> <%= @user_data[:first] %></li>
+    <li> <string>Last Name:</strong><%= @user_data[:last] %></li> 
     <li> <strong>Telephone:</strong> <%= @user_data[:telephone] %></li>
     <% if @user_data[:type] == "Member"  %>
     <li> <strong>Age:</strong> <%= @user_data[:age] %> </li>
