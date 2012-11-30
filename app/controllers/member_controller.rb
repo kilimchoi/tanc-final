@@ -1,6 +1,6 @@
 class MemberController < ApplicationController
   def signup
-    if params[:email] and params[:email] =~ /^[a-z0-9_\+-]+(\.[a-z0-9_\+-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,4})$/
+    if params[:email]
       if thisMember = Member.create(:email => params[:email], :status => "Pending", :member_type => "Mailing list", :password => Member.random_password)
         thisMember.send_activation_email
         redirect_to("/member/thanks")
