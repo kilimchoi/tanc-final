@@ -25,18 +25,40 @@ describe MemberController do
  	mock = mock('Member')
 	mock.stub!(:commit).and_return("Continue")
 	mock.stub!(:find_by_email).with("myemail@gmail.com").should_not == mock
-        mock.stub!(:user_exists_valid).with('false')
-        
-    end
+        mock.stub!(:user_exists_valid).with('false')        
+     end     
+     describe "test the controller" do 
+       before(:each) do
+          @member = mock('member')
+       end
+     describe "for those with proper email and code" do
+       it "should find members by emails" do 
+          Member.stub!(:find_by_email).with("oski@berkeley.edu").and_return(@member)
+       end
+     end
+     describe "upon clicking Continue" do 
+ 	context 'with valid inputs' do 
+	   before(:each) do
+	      @first-name = "Ki Lim"
+	      @last-name = "Choi"
+	      @already_a_member = "Yes"
+	      @year_of_birth = "1991"
+ 	      @gender = "male"
+	      @country_of_birth = "South Korea"
+	      @occupation = "student"
+	      @special_skills = "jumping jacks"
+	      @number_of_children = "0"
+	      @city = "Berkeley"
+  	      @zip = "94709"
+	      @telephone = "2137008466"
+	  end
+        end
+        it "should create a member" do
+           mock = mock('Member')     	 
+           mock.stub(:account_setup_member)
+           response.should be_successful
+        end
+     end
+  end
 end
 
-describe "test the controller" do 
-   before(:each) do
-      @member = mock('member')
-   end
-   describe "for those with proper email and code" do
-      it "should find members by emails" do 
-         Member.stub!(:find_by_email).with("oski@berkeley.edu").and_return(@member)
-      end
-   end
-end
