@@ -25,6 +25,15 @@ a {
   color: #000;
 }
 
+.logout a {
+  background-color: #690101;
+  color: #FFF;
+  padding: 5px 10px;
+}
+.logout a:hover {
+  color: #CCC;
+}
+
 .error {
   color: red;
   margin-top: -20px;

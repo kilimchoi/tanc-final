@@ -33,7 +33,7 @@ class MemberController < ApplicationController
           redirect_to("/member/account_setup_member")
         elsif params[:membership] == "non-member"
           redirect_to("/member/account_setup_non_member")
-        end
+       end
       else
         flash[:error] = "The two passwords do not match"
       end
@@ -106,6 +106,12 @@ class MemberController < ApplicationController
       puts @member_list
       render "csv_export.csv.erb", :content_type => content_type
     end
+  end
 
+  def admin
+    # check if the admin is loaded
+    # if not admin, redirect to their own profile
+    
+    @member_list = []
   end
 end

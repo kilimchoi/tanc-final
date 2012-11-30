@@ -1,0 +1,50 @@
+<h3>Welcome Admin!</h3>
+
+<div class = "logout" id ="admin_logout">
+  <%= link_to('LOGOUT', '#') %>
+</div>
+<div id = "add_new_member">
+  <%= link_to('Add a new member', '#') %><br>
+</div>
+<table id="show_all">
+  <tr>
+    <td>Show full table</td>
+    <td><%= check_box_tag "show_all_check_box" %></span></td>
+    <td><%= button_tag "Refresh" %></td>
+  </tr>
+</table>
+
+<table>
+  <thead id="head">
+    <tr>
+      <td>ID #</td>
+      <td>Name</td>
+      <td>Gender</td>
+      <td>Age</td>
+      <td>Email</td>
+      <td>Telephone</td>
+      <td>Address</td>
+      <td>City</td>
+      <td>State</td>
+      <td>Zip</td>
+     </tr>
+   </thead>
+  <tbody>
+    <% @member_list.each do |member| %>
+      <tr>
+        <td><%= member[:first] + " " + @member[:last] %></td>
+        <td><%= member[:gender] %></td> 
+        <td><%= member[:age] %></td> 
+        <td><%= member[:email] %></td> 
+        <td><%= member[:telephone] %></td> 
+        <td><%= member[:address1] + ", " + member[:address2] %></td>
+        <td><%= member[:city] %></td> 
+        <td><%= member[:state] %></td> 
+        <td><%= member[:zip] %></td> 
+       </tr>
+     <% end %>
+  </tbody>
+
+</table>
+
+
