@@ -173,6 +173,7 @@ class MemberController < ApplicationController
     end
     @email = thisUser.email rescue nil
     if params[:commit] == "Continue"
+<<<<<<< HEAD
       if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
         if thisUser.already_a_member == "Yes"
            flash[:error] = "Sorry you Can't sign up twice!"
@@ -182,6 +183,11 @@ class MemberController < ApplicationController
            thisUser.already_a_member = "No"
            thisUser.save
 	   redirect_to("/member/account_setup_member")
+=======
+        if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan"
+	   thisUser.member_type = params[:membership]
+           redirect_to("/member/account_setup_member")
+>>>>>>> 3b24e77f95ec0c459f45aef9d1abe74e8765607f
         elsif params[:membership] == "non-member"
            redirect_to("/member/account_setup_non_member")
         end
@@ -193,6 +199,7 @@ class MemberController < ApplicationController
   def account_setup_member
     if params["commit"] == "Continue"
       thisUser = Member.find_by_email(session[:user_email])
+<<<<<<< HEAD
       if thisUser and thisUser.validate_and_update(params) 
         if thisUser.already_a_member != "Yes"
            thisUser.already_a_member = "Yes"
@@ -200,6 +207,11 @@ class MemberController < ApplicationController
         else
            flash.now[:error] = "You have already signed up!"
         end
+=======
+      @membership = thisUser.member_type
+      if thisUser and thisUser.validate_and_update(params)
+          redirect_to("/member/profile")
+>>>>>>> 3b24e77f95ec0c459f45aef9d1abe74e8765607f
       else
         flash.now[:error] = "Please enter the correct format and fill in all fields are required."
       end
@@ -243,12 +255,20 @@ class MemberController < ApplicationController
   def member_payment
     if params["commit"] == "Check or Cash"
        redirect_to("/member/check_cash_payment")
+    elsif params["commit"] == "Online Payment"
+       redirect_to("/member/online_payment")
     elsif params["commit"] == "Not Paying!"
        redirect_to("/member/thanks_after_done")
     end
   end
   
   def check_cash_payment
+    if params["commit"] == "Done!"
+       redirect_to("/member/thanks_after_done")
+    end
+  end
+
+  def online_payment
     if params["commit"] == "Done!"
        redirect_to("/member/thanks_after_done")
     end
@@ -276,6 +296,7 @@ class MemberController < ApplicationController
   end
 
   def admin
+<<<<<<< HEAD
     this_user = find_user_by_email(session[:user_email])
     if this_user # exists
       if (this_user.admin) != true
@@ -318,5 +339,10 @@ flash[:error] = "You are not logged in- please log in first."
       puts @member_list
       render "csv_export.csv.erb", :content_type => content_type
     end
+=======
+    # check if the admin is loaded
+    # if not admin, redirect to their own profile
+    @member_list = []
+>>>>>>> 3b24e77f95ec0c459f45aef9d1abe74e8765607f
   end
 end

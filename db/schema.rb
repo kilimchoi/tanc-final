@@ -13,7 +13,31 @@
 
 ActiveRecord::Schema.define(:version => 20121128224714) do
 
+<<<<<<< HEAD
 # Could not dump table "members" because of following StandardError
 #   Unknown type 'male' for column 'gender'
+=======
+  create_table "members", :force => true do |t|
+    t.string   "status"
+    t.string   "email"
+    t.string   "password"
+    t.string   "member_type"
+    t.boolean  "confirmed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "first"
+    t.string   "last"
+    t.integer  "age"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip"
+    t.integer  "telephone"
+    t.integer  "year_of_birth"
+    t.string   "country_of_birth"
+    t.string   "occupation"
+  end
+>>>>>>> 3b24e77f95ec0c459f45aef9d1abe74e8765607f
 
 end

@@ -9,6 +9,7 @@ Tanc::Application.routes.draw do
   get "member/account_setup"
   get "member/account_setup_member"
   get "member/account_setup_non_member"
+<<<<<<< HEAD
   get "member/member_payment"
   get "member/check_cash_payment"
   get "member/login"
@@ -18,8 +19,15 @@ Tanc::Application.routes.draw do
   get "member/reset_email_sent"
   get "member/update_password"
   get "member/reset_success"
+  get "member/online_payment"
   get "member/check_cash_payment"
   get "member/admin/export" => 'member#export'
+=======
+  get "member/member_payment"  
+  get "member/check_cash_payment"  
+  get "member/admin"
+  get "member/login"
+>>>>>>> 3b24e77f95ec0c459f45aef9d1abe74e8765607f
   # Sample of regular route:
   # match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
