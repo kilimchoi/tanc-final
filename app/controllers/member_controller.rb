@@ -21,7 +21,14 @@ class MemberController < ApplicationController
     end
   end
   
-   
+  def is_member?(email)
+    @member = Member.find_by_email(email)
+    if @member.nil?
+       return false
+    else 
+       return true
+    end
+  end 
  
   def member_email?
     @member = Member.find_by_email(params[:email])
@@ -82,12 +89,13 @@ class MemberController < ApplicationController
 
   # helper to create a new member and dry out code + readability
   def can_create_new_member
-      #thisUser = Member.find_by_email(params[:email])
-      #if this_user_exists(thisUser)
-         #return false
-      thisUser = Member.create(:email => params[:email], :status => "Pending", :member_type => "Mailing list", :password => Member.random_password, :admin => false)
-      return thisUser
-      #end
+      user_by_email = Member.find_by_email(params[:email])
+      if this_user_exists(user_by_email)
+         return false
+      else 
+         thisUser = Member.create(:email => params[:email], :status => "Pending", :member_type => "Mailing list", :password => Member.random_password, :admin => false)
+         return thisUser
+      end
   end
   
   
@@ -185,11 +193,15 @@ class MemberController < ApplicationController
   def account_setup_member
     if params["commit"] == "Continue"
       thisUser = Member.find_by_email(session[:user_email])
-      thisUser.already_a_member = "Yes"
-      if thisUser and thisUser.validate_and_update(params)
-        redirect_to("/member/member_payment")
+      if thisUser and thisUser.validate_and_update(params) 
+        if thisUser.already_a_member != "Yes"
+           thisUser.already_a_member = "Yes"
+           redirect_to("/member/member_payment")
+        else
+           flash.now[:error] = "You have already signed up!"
+        end
       else
-        flash[:error] = "Please enter the correct format and fill in all fields are required."
+        flash.now[:error] = "Please enter the correct format and fill in all fields are required."
       end
     end
   end
