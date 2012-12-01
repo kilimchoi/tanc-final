@@ -9,54 +9,7 @@ class MemberController < ApplicationController
            redirect_to("/member/signup")
         end
     end
-  end
-  
-  def reset_password
-    if email_params_has_value and member_email? then
-     member = Member.find_by_email(params[:email])
-     member.send_reset_password if member
-        redirect_to "/member/reset_email_sent"
-    elsif email_params_has_value and !member_email? then
-        flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
-    end
-  end
-  
-  def is_member?(email)
-    @member = Member.find_by_email(email)
-    if @member.nil?
-       return false
-    else 
-       return true
-    end
   end 
- 
-  def member_email?
-    @member = Member.find_by_email(params[:email])
-    if @member.nil?
-       return false
-    else
-       return true
-    end
-  end
-
-  def reset_email_sent
-    if email_params_has_value then
-       redirect_to "/member/update_password?email=#{params[:email]}"
-    end
-  end
-
-  def retrieve_email_sent
-    redirect_to "/member/retrieve_email"
-  end
-    
-  def update_password
-    @member = Member.find_by_email(params[:email]) rescue nil
-    if params[:password] == params[:password_confirm] && params[:commit] == "Update Password"
-        @member.update_attributes(:password => params[:password])
-        redirect_to "/member/reset_success"  
-    end
-  end
-  
   
   # helper to dry out code: returns true if :email parameter exists
   def email_params_has_value
@@ -67,7 +20,7 @@ class MemberController < ApplicationController
 
   # helper to dry out code: returns true if email is in right format
   def email_format_is_correct
-     if params[:email] =~ /^[a-z0-9_\+-]+(\.[a-z0-9_\+-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,4})$/
+     if params[:email] =~ /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
        return true
      else
        return false
@@ -131,9 +84,11 @@ class MemberController < ApplicationController
   
    def reset_password
     if email_params_has_value and member_email? then
-     member = Member.find_by_email(params[:email])
-     member.send_reset_password if member
+        member = Member.find_by_email(params[:email])
+        member.send_reset_password if member
         redirect_to "/member/reset_email_sent"
+    elsif !email_format_is_correct
+        flash.now[:error] = "Please type in correct email address."
     elsif email_params_has_value and !member_email? then
         flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
     end
