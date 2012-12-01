@@ -97,8 +97,34 @@ class Member < ActiveRecord::Base
       if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; self.country_of_birth = params["country_of_birth"];
       else
         return false; end;
+      if params["special_skills"] and params["special_skills"] =~ /[A-Za-z]+/; self.special_skills = params["special_skills"]; end;
       if params["occupation"]; self.occupation = params["occupation"]; end;
       if params["gender"]; self.gender = params["gender"]; end;
+      self.save
+      return true
+    end
+  end
+  
+  def validate_and_update_non_member(params)
+    right_format = true
+    if params["address-line-2"] and params["address-line-2"] == ""
+      params.delete("address-line-2")
+    end
+    if params.values.include? ""
+      return false
+    else
+      if params["first-name"] and params["first-name"] =~ /[A-Za-z]+/; self.first = params["first-name"];
+      else 
+	return false; end;
+      if params["last-name"] and params["last-name"] =~ /[A-Za-z]+/; self.last = params["last-name"];
+      else
+        return false; end;
+      if params["address-line-1"] =~ /\d|[-]|[A-Za-z]+|\s/; self.address1 = params["address-line-1"] rescue nil; end;
+      if params["address-line-2"] =~ /\d|[-]|[A-Za-z]+|\s/; self.address2 = params["address-line-2"] rescue nil; end;
+      if params["city"] =~ /[A-Za-z]+/; self.city = params["city"] rescue nil; end;
+      if params["zip"] =~ /\d{1,10}/; self.zip = params["zip"] rescue nil; end;
+      if params["state"] =~ /[A-Za-z]+/; self.state = params["state"] rescue nil; end;
+      if params["telephone"] =~ /\d{1,10}|[-]/; self.telephone = params["telephone"] rescue nil; end;
       self.save
       return true
     end

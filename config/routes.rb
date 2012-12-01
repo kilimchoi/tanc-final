@@ -9,8 +9,6 @@ Tanc::Application.routes.draw do
   get "member/account_setup"
   get "member/account_setup_member"
   get "member/account_setup_non_member"
-  get "member/member_payment"
-  get "member/check_cash_payment"
   get "member/login"
   get "member/thanks_after_done"
   get "member/admin"
@@ -18,6 +16,7 @@ Tanc::Application.routes.draw do
   get "member/reset_email_sent"
   get "member/update_password"
   get "member/reset_success"
+  get "member/member_payment"
   get "member/online_payment"
   get "member/check_cash_payment"
   get "member/admin/export" => 'member#export'
