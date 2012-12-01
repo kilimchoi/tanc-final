@@ -34,6 +34,8 @@ module NavigationHelpers
     when /^the member payment\s?page$/ then '/member/member_payment' 
     when /^the Thank You\s?page$/ then '/member/thanks_after_done'
     when /^the Check Cash\s?page$/ then '/member/check_cash_payment'
+    when /^the update password\s?page%/ then '/member/update_password'
+    when /^the reset password\s?page%/ then '/member/reset_password'
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
