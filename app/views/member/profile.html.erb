@@ -1,20 +1,14 @@
 <div id="wrap" class="profile">
-  <h3>Welcome, <%= @user_data[:email] %>.</h3>
-  <%= link_to('Edit your Profile', '#') %><br>
-  <ul>
-    <li> <strong>First Name:</strong> <%= @user_data[:first] %></li>
-    <li> <string>Last Name:</strong><%= @user_data[:last] %></li> 
-    <li> <strong>Telephone:</strong> <%= @user_data[:telephone] %></li>
-    <% if @user_data[:type] == "Member"  %>
-    <li> <strong>Age:</strong> <%= @user_data[:age] %> </li>
-    <li> <strong>Gender:</strong> <%= @user_data[:gender] %> </li>
-    <li> <strong>Address:</strong> <address>: <%= @user_data[:address1] + ", " + @user_data[:address2] %> <br> 
-                    <%= @user_data[:city] %> <br>
-                    <%= @user_data[:state] + " " + @user_data[:zip] %>
-         </address> </li>
-  <% else %>
-  <% end %>
-  </ul>
+  <h3>Welcome, <%= @user_data[:first] + " " + @user_data[:last] + " La!" %></h3>
+  <%= link_to('Edit your Profile', '#', :id => "edit_profile") %><br>
+  <table id="profile_table">
+    <tr><td><strong>Name:</strong></td><td> <%= @user_data[:first] + " " + @user_data[:last] %></td></tr>
+    <tr><td><strong>Email:</strong></td><td><%= @user_data[:email] %></td></tr> 
+    <tr><td><strong>Address:</strong></td><td> <%= @user_data[:address1] + ","%> <%= @user_data[:address2] + "," rescue nil%> <%= @user_data[:city] + ", " + @user_data[:state] + @user_data[:zip]%></td></tr>
+    <tr><td><strong>Telephone:</strong></td><td> <%= @user_data[:telephone] %></td></tr>
+
+
+  </table>
   <div class = "logout">
     <%= link_to('LOGOUT', '#') %>
   </div>

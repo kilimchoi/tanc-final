@@ -10,6 +10,7 @@ Tanc::Application.routes.draw do
   get "member/account_setup_member"
   get "member/account_setup_non_member"
   get "member/member_payment"
+  get "member/online_payment"
   get "member/check_cash_payment"
   get "member/login"
   get "member/thanks_after_done"
