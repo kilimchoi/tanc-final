@@ -172,19 +172,18 @@ class MemberController < ApplicationController
     @email = thisUser.email rescue nil
     if params[:commit] == "Continue"
       if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
-        if thisUser.already_a_member == "Yes"
-           flash[:error] = "Sorry you Can't sign up twice!"
-        end
         if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan"
            thisUser.member_type = params[:membership]
            thisUser.already_a_member = "No"
            thisUser.save
 	   redirect_to("/member/account_setup_member")
-        elsif params[:membership] == "non-member"
+        elsif params[:membership] == "non-member" and !thisUser.member_active
            redirect_to("/member/account_setup_non_member")
+        else thisUser.member_active
+           flash.now[:error] = "Sorry you can't sign up twice!"
         end
       else
-        flash[:error] = "The two passwords do not match"
+        flash.now[:error] = "The two passwords do not match"
       end
     end
   end
