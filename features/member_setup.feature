@@ -12,11 +12,7 @@ Scenario: Setting up the profile page for the first time as a member
    Given I logged in as "aldizhupani@gmail.com" with password "1234"
    And I am on the account setup page
    And I fill in "password" with "1234"
-<<<<<<< HEAD
    And I fill in "confirm-password" with "1234"
-=======
-   And I confirm "confirm-password" with "1234"
->>>>>>> 3b24e77f95ec0c459f45aef9d1abe74e8765607f
    And I choose "membership_tibetan" 
    And I press "Continue" 
    Then I should be on the next account setup page
@@ -54,11 +50,7 @@ Scenario: Can not setup the account (wrong password)
    Given I logged in as "aldizhupani@gmail.com" with password "1234"
    And I am on the account setup page
    And I fill in "password" with "1234"
-<<<<<<< HEAD
    And I fill in "password" with "2345"
-=======
-   And I confirm "password" with "2345"
->>>>>>> 3b24e77f95ec0c459f45aef9d1abe74e8765607f
    And I choose "membership_tibetan" 
    And I press "Continue"
 

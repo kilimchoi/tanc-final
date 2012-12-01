@@ -1,5 +1,4 @@
 <h3>Welcome Admin!</h3>
-<<<<<<< HEAD
 
 <div class = "logout" id ="admin_logout">
   <%= link_to('LOGOUT', '/member') %>
@@ -14,33 +13,19 @@
     <td><%= button_tag "Refresh" %></td>
   </tr>
 </table>
-=======
-  <div id="show_all_wrapper">
-    Show full table:
-    <%= check_box_tag 'show_all_check_box' %> 
-  </div>
->>>>>>> 3b24e77f95ec0c459f45aef9d1abe74e8765607f
 <table>
   <thead id="head">
     <tr>
       <td>ID #</td>
       <td>Name</td>
-<<<<<<< HEAD
       <td>Who Are You?</td>
-=======
-      <td>Age</td>
-      <td>Gender</td>
->>>>>>> 3b24e77f95ec0c459f45aef9d1abe74e8765607f
       <td>Email</td>
       <td>Telephone</td>
       <td>Address</td>
       <td>City</td>
       <td>State</td>
       <td>Zip</td>
-<<<<<<< HEAD
       <td>Gender</td>
-=======
->>>>>>> 3b24e77f95ec0c459f45aef9d1abe74e8765607f
       <td>Birth Year</td>
       <td>Birth Country</td>
       <td>Occupation</td>
@@ -50,7 +35,6 @@
   <tbody>
     <% Member.all.each do |member| %>
       <tr>
-<<<<<<< HEAD
         <td><%= member[:id] rescue nil%></td>
         <td><%= member[:first] + ' ' + member[:last] rescue nil%></td>
         <td><%= member[:member_type] rescue nil%></td>
@@ -64,21 +48,6 @@
         <td><%= member[:year_of_birth] rescue nil%></td>
         <td><%= member[:country_of_birth] rescue nil%></td>
         <td><%= member[:occupation] rescue nil%></td>
-=======
-        <td><%= member[:id] %></td>
-        <td><%= member[:first] + ' ' + member[:last] %></td>
-        <td><%= member[:age] %></td>
-        <td><%= member[:gender] %></td>
-	<td><%= member[:email] %></td>
-        <td><%= member[:telephone] %></td>
-	<td><%= member[:address1] %></td>
-        <td><%= member[:city] %></td>
-        <td><%= member[:state] %></td>
-        <td><%= member[:zip] %></td>
-        <td><%= member[:year_of_birth] %></td>
-        <td><%= member[:country_of_birth] %></td>
-        <td><%= member[:occupation] %></td>
->>>>>>> 3b24e77f95ec0c459f45aef9d1abe74e8765607f
        </tr>
     <% end %>
   </tbody>

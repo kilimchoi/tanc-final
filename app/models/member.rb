@@ -79,7 +79,6 @@ class Member < ActiveRecord::Base
       else
         return false; end;
       if params["address-line-2"]; self.address2 = params["address-line-2"]; end;
-<<<<<<< HEAD
       if params["city"] and params["city"] =~ /[A-Za-z]+/; self.city = params["city"];
       else
         return false; end;
@@ -100,14 +99,6 @@ class Member < ActiveRecord::Base
         return false; end;
       if params["occupation"]; self.occupation = params["occupation"]; end;
       if params["gender"]; self.gender = params["gender"]; end;
-=======
-      if params["city"]; self.city = params["city"]; end;
-      if params["zip"]; self.zip = params["zip"]; end;
-      if params["telephone"]; self.telephone = params["telephone"]; end;
-      if params["year_of_birth"]; self.telephone = params["year_of_birth"]; end;
-      if params["country_of_birth"]; self.country_of_birth = params["country_of_birth"]; end;
-      if params["occupation"]; self.occupation = params["occupation"]; end;
->>>>>>> 3b24e77f95ec0c459f45aef9d1abe74e8765607f
       self.save
       return true
     end

@@ -12,11 +12,6 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20121128224714) do
-
-<<<<<<< HEAD
-# Could not dump table "members" because of following StandardError
-#   Unknown type 'male' for column 'gender'
-=======
   create_table "members", :force => true do |t|
     t.string   "status"
     t.string   "email"
@@ -38,6 +33,5 @@ ActiveRecord::Schema.define(:version => 20121128224714) do
     t.string   "country_of_birth"
     t.string   "occupation"
   end
->>>>>>> 3b24e77f95ec0c459f45aef9d1abe74e8765607f
 
 end
