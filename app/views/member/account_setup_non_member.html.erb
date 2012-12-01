@@ -1,9 +1,15 @@
 <div id="wrap">
 <h2 class="title">Please fill up the following information</h2>
+<p style="text-align: center; font-size: 10px; color: #600;"> <em>* Your first and last name are required. Rest are optional.</em> </p>
 <%= form_tag do %>
   <%= text_field_tag 'first-name', nil, :placeholder => 'First Name' %>
   <%= text_field_tag 'last-name', nil, :placeholder => 'Last Name' %>
-  <%= text_field_tag 'telephone', nil, :placeholder => 'Telephone' %>
+  <%= text_field_tag 'address-line-1', nil, :placeholder => 'Address Line 1 (Optional)' %>
+  <%= text_field_tag 'address-line-2', nil, :placeholder => 'Address Line 2 (Optional)' %>
+  <%= text_field_tag 'city', nil, :placeholder => 'City (Optional)' %>
+  <%= text_field_tag 'state', nil, :placeholder => 'State (Optional)' %>
+  <%= text_field_tag 'zip', nil, :placeholder => 'Zip (Optional)' %>
+  <%= text_field_tag 'telephone', nil, :placeholder => 'Telephone (Optional)' %>
   <%= submit_tag 'Submit' %>
   <% end %>
 </div>

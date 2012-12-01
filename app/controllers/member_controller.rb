@@ -155,9 +155,10 @@ class MemberController < ApplicationController
 	   redirect_to("/member/member_payment")
         else
            flash.now[:error] = "You already signed up!"
+           redirect_to("/member/profile")
         end
       else
-        flash.now[:error] = "Please enter the correct format and fill in all fields are required."
+        flash.now[:error] = "Please enter the correct format/fill in all fields are required."
       end
     end
   end
@@ -165,10 +166,10 @@ class MemberController < ApplicationController
   def account_setup_non_member
     if params["commit"] == "Submit"
       thisUser = Member.find_by_email(session[:user_email])
-      if thisUser.validate_and_update(params)
+      if thisUser and thisUser.validate_and_update_non_member(params)
         redirect_to("/member/profile")
       else
-        flash[:error] = "All fields are required."
+        flash[:error] = "Please enter the correct format/fill in the required fields."
       end
     end
   end
