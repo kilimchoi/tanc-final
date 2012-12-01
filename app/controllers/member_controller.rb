@@ -197,12 +197,20 @@ class MemberController < ApplicationController
   def member_payment
     if params["commit"] == "Check or Cash"
        redirect_to("/member/check_cash_payment")
+    elsif params["commit"] == "Online Payment"
+       redirect_to("/member/online_payment")
     elsif params["commit"] == "Not Paying!"
        redirect_to("/member/thanks_after_done")
     end
   end
   
   def check_cash_payment
+    if params["commit"] == "Done!"
+       redirect_to("/member/thanks_after_done")
+    end
+  end
+
+  def online_payment
     if params["commit"] == "Done!"
        redirect_to("/member/thanks_after_done")
     end
