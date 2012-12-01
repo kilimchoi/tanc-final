@@ -22,7 +22,7 @@ class MemberController < ApplicationController
 
   # helper to dry out code: returns true if email is in right format
   def email_format_is_correct
-     if params[:email] =~ /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+     if params[:email] =~ /^[a-z0-9_\+-]+(\.[a-z0-9_\+-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,4})$/
        return true
      else
        return false

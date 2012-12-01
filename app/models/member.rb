@@ -10,9 +10,7 @@ class Member < ActiveRecord::Base
     self.password_reset_sent_at = Time.zone.now
     save!
     IndividualMailer.reset_password(self).deliver()
-  end
-  
-     
+  end     
  
   def send_activation_email
     email = IndividualMailer.activation_notification(self)
@@ -79,7 +77,7 @@ class Member < ActiveRecord::Base
       else
         return false; end;
       if params["address-line-2"]; self.address2 = params["address-line-2"]; end;
-      if params["already_a_member"]; self.already_a_member = params["already_a_member"]; end;
+      if params["already_a_member"]; self.already_a_member = params["already_a_member"];
       if params["city"] and params["city"] =~ /[A-Za-z]+/; self.city = params["city"];
       else
         return false; end;
@@ -92,18 +90,29 @@ class Member < ActiveRecord::Base
       if params["telephone"] and params["telephone"] =~ /\d{1,10}|[-]/; self.telephone = params["telephone"];
       else
         return false; end;
-      if params["year_of_birth"] and params["year_of_birth"] =~ /\d{1,4}/; self.year_of_birth = params["year_of_birth"];
-      else
-        return false; end;
-      if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; self.country_of_birth = params["country_of_birth"];
-      else
-        return false; end;
+      if params["year_of_birth"] and params["year_of_birth"] =~ /\d{1,4}/
+         self.year_of_birth = params["year_of_birth"]
+      elsif params["year_of_birth"] == "" 
+         params.delete("year_of_birth")
+      end
+      if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/ 
+         self.country_of_birth = params["country_of_birth"]
+      elsif params["country_of_birth"] == ""
+         params.delete("country_of_birth")
+      end
       if params["occupation"]; self.occupation = params["occupation"]; end;
       if params["gender"]; self.gender = params["gender"]; end;
+      if params["special_skills"] and params["special_skills"] =~ /[A-Za-z]+/
+	self.special_skills = params["special_skills"] 
+      elsif params["special_skills"] == "" 
+        params.delete("special_skills")
+      else 
+	return false
+      end
       if self.member_active == true; self.member_active = true; else self.member_active = false; end;
       self.save
       return true
     end
   end
-
+ end
 end
