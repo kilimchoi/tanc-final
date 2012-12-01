@@ -217,19 +217,17 @@ class MemberController < ApplicationController
        redirect_to("/member/thanks_after_done")
     end
   end
+
   
-  
+  def destroy
+    redirect_to("/member")
+    session.delete(:user_email)#clear user data from session
+  end
+
   def profile
     thisUser = find_user_by_email(session[:user_email])
     if thisUser
       @user_data = thisUser.user_data
-      if params["commit"] == "logout"
-        redirect_to("/member")
-	session.delete(:user_email)#clear user data from session
-      end
-      if params["commit"] == "Edit your Profile"
-        redirect_to("member/edit")
-      end
       if params["commit"] == "manage database"
         if user.admin == true then redirect_to("/member/admin"); end
       end

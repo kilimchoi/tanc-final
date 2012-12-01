@@ -3,5 +3,5 @@
 #
 # Examples:
 #
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+members = [{:status => 'Pending', :email => 'azhupani390@berkele.edu', :password => '12345', :member_type => 'member', :confirmed => false, :first => 'Aldi', :last => 'Zhupani', :age => '22' , :address1 => '210 Mars', :city =>  'Pluto', :state => 'CA', :zip => '94705', :telephone => '5105675724'}]
+Member.create!(members)
