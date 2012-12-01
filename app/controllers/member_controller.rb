@@ -8,6 +8,8 @@ class MemberController < ApplicationController
            flash[:error] = "Your account could not be created because you already signed up."
            redirect_to("/member/signup")
         end
+     elsif email_params_has_value and !email_format_is_correct 
+	flash.now[:error] = "Please type in correct email address."
     end
   end 
   
@@ -87,7 +89,7 @@ class MemberController < ApplicationController
         member = Member.find_by_email(params[:email])
         member.send_reset_password if member
         redirect_to "/member/reset_email_sent"
-    elsif !email_format_is_correct
+    elsif email_params_has_value and !email_format_is_correct
         flash.now[:error] = "Please type in correct email address."
     elsif email_params_has_value and !member_email? then
         flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
