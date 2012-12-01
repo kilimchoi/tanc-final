@@ -21,7 +21,6 @@
       <tr><td><strong>Occupation:</strong></td><td><%= @user_data[:occupation] rescue nil %></td></tr>
     <% end %>
     <tr><td><strong>Membership Fee payment status: </strong></td><td><%= @user_data[:status] rescue nil %></td></tr>
-
   </table>
   <div class = "logout">
     <%= link_to "LOGOUT", :controller=>"member", :action => "destroy" %>

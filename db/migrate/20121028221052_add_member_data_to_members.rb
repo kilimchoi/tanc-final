@@ -14,5 +14,7 @@ class AddMemberDataToMembers < ActiveRecord::Migration
     add_column :members, :occupation, :string
     add_column :members, :special_skills, :string
     add_column :members, :number_of_children, :integer
+    add_column :members, :already_a_member, :string
+    add_column :members, :member_active, :boolean
   end
 end

@@ -1,10 +1,12 @@
 <div id="wrap">
 <h2 class="title">Please fill up the following information</h2>
+<p style="text-align: center; font-size: 10px; color: #600;"> <em>* All the fields are required except where it says optional</em> </p>
 <%= form_tag do %>
   <%= text_field_tag 'first-name', nil, :placeholder => 'First Name' %>
   <%= text_field_tag 'last-name', nil, :placeholder => 'Last Name' %>
   Already a Member?
-  <%= select_tag 'already_a_member', "<option>Yes</option><option>No</option>".html_safe %>
+  <%= select_tag 'already_a_member',  "<option>Yes</option><option>No</option>".html_safe %>
+  <%= text_field_tag 'year_of_birth', nil, :placeholder => 'Year of Birth' %>
   <p>
     <%= radio_button_tag 'gender', 'male' %>
     <%= label_tag 'male', 'Male' %>
@@ -14,18 +16,17 @@
     <%= label_tag 'female', 'Female' %>
   </p>
 
+  <%= text_field_tag 'country_of_birth', nil, :placeholder => 'Country of Birth (Optional)' %>
   Your occupation:
   <%= select_tag 'occupation', "<option>Student</option><option>Medical Profession</option><option>Business Owner</option><option>Finance and Banking</option><option>Others</option>".html_safe %>
-  <%= text_field_tag 'special_skills', nil, :placeholder => 'Special skills' %>
+  <%= text_field_tag 'special_skills', nil, :placeholder => 'Special skills (Optional)' %>
   <%= text_field_tag 'number_of_children', nil, :placeholder => 'Number of Children' %>
   <%= text_field_tag 'address-line-1', nil, :placeholder => 'Address Line 1' %>
-  <%= text_field_tag 'address-line-2', nil, :placeholder => 'Address Line 2' %>
+  <%= text_field_tag 'address-line-2', nil, :placeholder => 'Address Line 2 (Optional)' %>
   <%= text_field_tag 'city', nil, :placeholder => 'City' %>
   <%= text_field_tag 'state', nil, :placeholder => 'State' %>
   <%= text_field_tag 'zip', nil, :placeholder => 'Zip' %>
   <%= text_field_tag 'telephone', nil, :placeholder => 'Telephone' %>
-  <%= text_field_tag 'year_of_birth', nil, :placeholder => 'birth year' %>
-  <%= text_field_tag 'country_of_birth', nil, :placeholder => 'birth country' %>
   <%= submit_tag 'Continue' %>
   <% end %>
 </div>

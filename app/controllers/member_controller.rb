@@ -8,56 +8,10 @@ class MemberController < ApplicationController
            flash[:error] = "Your account could not be created because you already signed up."
            redirect_to("/member/signup")
         end
-    end
-  end
-  
-  def reset_password
-    if email_params_has_value and member_email? then
-     member = Member.find_by_email(params[:email])
-     member.send_reset_password if member
-        redirect_to "/member/reset_email_sent"
-    elsif email_params_has_value and !member_email? then
-        flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
-    end
-  end
-  
-  def is_member?(email)
-    @member = Member.find_by_email(email)
-    if @member.nil?
-       return false
-    else 
-       return true
+     elsif email_params_has_value and !email_format_is_correct 
+	flash.now[:error] = "Please type in correct email address."
     end
   end 
- 
-  def member_email?
-    @member = Member.find_by_email(params[:email])
-    if @member.nil?
-       return false
-    else
-       return true
-    end
-  end
-
-  def reset_email_sent
-    if email_params_has_value then
-       redirect_to "/member/update_password?email=#{params[:email]}"
-    end
-  end
-
-  def retrieve_email_sent
-    redirect_to "/member/retrieve_email"
-  end
-    
-  def update_password
-        @member = Member.find_by_email(params[:email]) rescue nil
-        if params[:password] == params[:password_confirm] && params[:commit] == "Update Password"
-           @member.update_attributes(:password => params[:password])
-           redirect_to "/member/reset_success"
-        
-        end
-  end
-  
   
   # helper to dry out code: returns true if :email parameter exists
   def email_params_has_value
@@ -132,9 +86,11 @@ class MemberController < ApplicationController
   
    def reset_password
     if email_params_has_value and member_email? then
-     member = Member.find_by_email(params[:email])
-     member.send_reset_password if member
+        member = Member.find_by_email(params[:email])
+        member.send_reset_password if member
         redirect_to "/member/reset_email_sent"
+    elsif email_params_has_value and !email_format_is_correct
+        flash.now[:error] = "Please type in correct email address."
     elsif email_params_has_value and !member_email? then
         flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
     end
@@ -156,12 +112,11 @@ class MemberController < ApplicationController
   end
     
   def update_password
-        @member = Member.find_by_email(params[:email]) rescue nil
-        if params[:password] == params[:password_confirm] && params[:commit] == "Update Password"
-           @member.update_attributes(:password => params[:password])
-           redirect_to "/member/reset_success"
-        
-        end
+    @member = Member.find_by_email(params[:email]) rescue nil
+    if params[:password] == params[:password_confirm] && params[:commit] == "Update Password"
+        @member.update_attributes(:password => params[:password])
+        redirect_to "/member/reset_success"
+    end
   end
 
   def account_setup
@@ -174,31 +129,32 @@ class MemberController < ApplicationController
     @email = thisUser.email rescue nil
     if params[:commit] == "Continue"
       if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
-        if thisUser.already_a_member == "Yes"
-           flash[:error] = "Sorry you Can't sign up twice!"
-        end
         if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan"
            thisUser.member_type = params[:membership]
            thisUser.already_a_member = "No"
            thisUser.save
 	   redirect_to("/member/account_setup_member")
-        elsif params[:membership] == ""
+        elsif params[:membership] == "non-member" and !thisUser.member_active
            redirect_to("/member/account_setup_non_member")
+        else thisUser.member_active
+           flash.now[:error] = "Sorry you can't sign up twice!"
         end
       else
-        flash[:error] = "The two passwords do not match"
+        flash.now[:error] = "The two passwords do not match"
       end
     end
   end
+
   def account_setup_member
     if params["commit"] == "Continue"
       thisUser = Member.find_by_email(session[:user_email])
-      if thisUser and thisUser.validate_and_update(params) 
-        if thisUser.already_a_member != "Yes"
-           thisUser.already_a_member = "Yes"
-           redirect_to("/member/member_payment")
+      if thisUser and thisUser.validate_and_update(params)
+        if !thisUser.member_active
+           thisUser.member_active = true
+ 	   thisUser.save
+	   redirect_to("/member/member_payment")
         else
-           flash.now[:error] = "You have already signed up!"
+           flash.now[:error] = "You already signed up!"
         end
       else
         flash.now[:error] = "Please enter the correct format/fill in all fields are required."
@@ -284,29 +240,29 @@ class MemberController < ApplicationController
   def admin
     this_user = find_user_by_email(session[:user_email])
     if this_user # exists
-      if (this_user.admin) != true
-        redirect_to("/member/profile") #and
-	#flash[:error] = "You are not an admin so you cannot access the admin page"
-      else # if you got here, user is admin
-	Member.all.each do |user|
-          if user.first
-            @member_list << user.user_data rescue nil
+       if (this_user.admin) != true
+          redirect_to("/member/profile") #and
+	  #flash[:error] = "You are not an admin so you cannot access the admin page"
+       else # if you got here, user is admin
+          Member.all.each do |user|
+             if user.first
+                @member_list << user.user_data rescue nil
+             end
           end
-        end
-        if params["commit"] == "logout"
+       end
+       if params["commit"] == "logout"
           redirect_to("/member")
 	  session.delete(:user_email)#clear user data from session
-        end
-        if params["commit"] == "Add a new member"
+       end
+       if params["commit"] == "Add a new member"
           redirect_to("/member/admin/add_new_member")
-	end
-        if params["commit"] == "Refresh"
+       end
+       if params["commit"] == "refresh"
           redirect_to("/member/admin")
-	end
-      end
-    else #user is not logged in
+       end
+    else 
 	redirect_to("/member")
-	flash[:error] = "You are not logged in- please log in first."
+        flash[:error] = "You are not logged in- please log in first."
     end
   end
 

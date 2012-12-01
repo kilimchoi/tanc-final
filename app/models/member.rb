@@ -10,9 +10,8 @@ class Member < ActiveRecord::Base
     self.password_reset_sent_at = Time.zone.now
     save!
     IndividualMailer.reset_password(self).deliver()
-  end
-  
-
+  end     
+ 
   def send_activation_email
     email = IndividualMailer.activation_notification(self)
     email.deliver()
@@ -42,12 +41,11 @@ class Member < ActiveRecord::Base
   end
 
   def user_data
-    data = {:type => self.member_type, 
-      :email => self.email, 
-      :first => self.first, 
-      :last => self.last, 
+    data = {:type => self.member_type,
+      :email => self.email,
+      :first => self.first,
+      :last => self.last,
       :status => self.status,
-      :age => self.age,
       :address1 => self.address1,
       :address2 => self.address2,
       :city => self.city,
@@ -79,6 +77,7 @@ class Member < ActiveRecord::Base
       else
         return false; end;
       if params["address-line-2"]; self.address2 = params["address-line-2"]; end;
+      if params["already_a_member"]; self.already_a_member = params["already_a_member"];
       if params["city"] and params["city"] =~ /[A-Za-z]+/; self.city = params["city"];
       else
         return false; end;
@@ -100,6 +99,14 @@ class Member < ActiveRecord::Base
       if params["special_skills"] and params["special_skills"] =~ /[A-Za-z]+/; self.special_skills = params["special_skills"]; end;
       if params["occupation"]; self.occupation = params["occupation"]; end;
       if params["gender"]; self.gender = params["gender"]; end;
+      if params["special_skills"] and params["special_skills"] =~ /[A-Za-z]+/
+	self.special_skills = params["special_skills"] 
+      elsif params["special_skills"] == "" 
+        params.delete("special_skills")
+      else 
+	return false
+      end
+      if self.member_active == true; self.member_active = true; else self.member_active = false; end;
       self.save
       return true
     end
@@ -129,5 +136,4 @@ class Member < ActiveRecord::Base
       return true
     end
   end
-
 end
