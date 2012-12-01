@@ -55,12 +55,6 @@ Scenario: Can not setup the account (wrong password)
    And I choose "membership_tibetan" 
    And I press "Continue"
 
-Scenario: Logging in as a user 
-   When I am on the login page
-   And I fill in "email" with "azhupani390@berkeley.edu"
-   And I fill in "password" with "34578"
-   And I press "Login"
-   Then I should be on profile page
 
 Scenario: Receiving confirmation Email
    When I am on the sign up page
