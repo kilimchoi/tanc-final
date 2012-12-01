@@ -42,18 +42,20 @@ class Member < ActiveRecord::Base
   end
 
   def user_data
-    data = {:type => self.member_type, 
-      :email => self.email, 
-      :first => self.first, 
-      :last => self.last, 
+    data = {:type => self.member_type,
+      :email => self.email,
+      :first => self.first,
+      :last => self.last,
       :status => self.status,
-      :age => self.age,
       :address1 => self.address1,
       :address2 => self.address2,
       :city => self.city,
       :state => self.state,
       :zip => self.zip,
-      :telephone => self.telephone
+      :telephone => self.telephone,
+      :year_of_birth => self.year_of_birth,
+      :country_of_birth => self.country_of_birth,
+      :occupation => self.occupation
     }
     return data
   end
