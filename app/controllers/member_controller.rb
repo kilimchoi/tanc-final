@@ -155,6 +155,7 @@ class MemberController < ApplicationController
 	   redirect_to("/member/member_payment")
         else
            flash.now[:error] = "You already signed up!"
+           redirect_to("/member/profile")
         end
       else
         flash.now[:error] = "Please enter the correct format/fill in all fields are required."

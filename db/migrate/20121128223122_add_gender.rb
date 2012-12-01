@@ -1,5 +1,5 @@
 class AddGender < ActiveRecord::Migration
   def change
-    add_column :members, :gender, :male
+    add_column :members, :gender, :string
   end
 end
