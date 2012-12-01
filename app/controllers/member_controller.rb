@@ -181,7 +181,7 @@ class MemberController < ApplicationController
            thisUser.member_type = params[:membership]
            thisUser.already_a_member = "No"
            thisUser.save
-	   redirect_to("/member/account_setup_member")
+	         redirect_to("/member/account_setup_member")
         elsif params[:membership] == "non-member"
            redirect_to("/member/account_setup_non_member")
         end
@@ -243,6 +243,8 @@ class MemberController < ApplicationController
   def member_payment
     if params["commit"] == "Check or Cash"
        redirect_to("/member/check_cash_payment")
+    elsif params["commit"] == "Online Payment"
+       redirect_to("/member/online_payment")
     elsif params["commit"] == "Not Paying!"
        redirect_to("/member/thanks_after_done")
     end
@@ -253,19 +255,23 @@ class MemberController < ApplicationController
        redirect_to("/member/thanks_after_done")
     end
   end
+
+  def online_payment
+    if params["commit"] == "Done!"
+       redirect_to("/member/thanks_after_done")
+    end
+  end
+
   
-  
+  def destroy
+    redirect_to("/member")
+    session.delete(:user_email)#clear user data from session
+  end
+
   def profile
     thisUser = find_user_by_email(session[:user_email])
     if thisUser
       @user_data = thisUser.user_data
-      if params["commit"] == "logout"
-        redirect_to("/member")
-	session.delete(:user_email)#clear user data from session
-      end
-      if params["commit"] == "Edit your Profile"
-        redirect_to("member/edit")
-      end
       if params["commit"] == "manage database"
         if user.admin == true then redirect_to("/member/admin"); end
       end
@@ -294,13 +300,13 @@ class MemberController < ApplicationController
         if params["commit"] == "Add a new member"
           redirect_to("/member/admin/add_new_member")
 	end
-        if params["commit"] == "refresh"
+        if params["commit"] == "Refresh"
           redirect_to("/member/admin")
 	end
       end
     else #user is not logged in
 	redirect_to("/member")
-flash[:error] = "You are not logged in- please log in first."
+	flash[:error] = "You are not logged in- please log in first."
     end
   end
 

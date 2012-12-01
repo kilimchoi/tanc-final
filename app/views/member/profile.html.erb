@@ -1,6 +1,6 @@
 <div id="wrap" class="profile">
   <h3>Welcome, <%= @user_data[:email] %>.</h3>
-  <%= link_to('Edit your Profile', '#') %><br>
+  <%= link_to('Edit your Profile', ' /member/account_setup_member') %><br>
   <ul>
     <li> <strong>First Name:</strong> <%= @user_data[:first] %></li>
     <li> <string>Last Name:</strong><%= @user_data[:last] %></li> 
@@ -16,6 +16,6 @@
   <% end %>
   </ul>
   <div class = "logout">
-    <%= link_to('LOGOUT', '#') %>
+    <%= link_to "LOGOUT", :controller=>"member", :action => "destroy" %>
   </div>
 </div>

@@ -16,14 +16,17 @@ input[type="radio"] {
 	width: 100px;
 	float: left;
 }
+a {
+  color: blue;
+}
+a:hover {
+  text-decoration: underline;
+}
 a#forgot_password {
   font-size: 10px;
   color: red;
 }
-a#forgot_password:hover {
-  text-decoration: underline;
-}
-a#signup, a#go_back_main_page {
+/*a#signup, a#go_back_main_page {
   background: #F5C773;
   border: 1px solid #0a5378;
   border-radius: 4px;
@@ -35,7 +38,7 @@ a#signup, a#go_back_main_page {
 a#signup:hover {
   color: #060;
 
-}
+} */
 p {
   padding: 0 20px;
   text-align: justify;
@@ -211,5 +214,4 @@ thead {
   margin-left: 20px;
   margin-bottom: 10px;
 }
-
 
