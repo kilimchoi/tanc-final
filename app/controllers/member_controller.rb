@@ -148,17 +148,6 @@ class MemberController < ApplicationController
   def account_setup_member
    thisUser = Member.find_by_email(session[:user_email])
    if thisUser
-	@first = thisUser.first rescue nil
-	@last = thisUser.last rescue nil
-	@address1 = thisUser.address1 rescue nil
-	@address2 = thisUser.address2 rescue nil
-	@city = thisUser.city rescue nil
-	@state = thisUser.state rescue nil
-	@zip = thisUser.zip rescue nil
-	@telephone = thisUser.telephone rescue nil
-	@year_of_birth = thisUser.year_of_birth rescue nil
-	@country_of_birth = thisUser.country_of_birth rescue nil
-	@special_skills = thisUser.special_skills rescue nil
 	if params["commit"] == "Continue"
 		if thisUser and thisUser.validate_and_update(params)
                     if !thisUser.member_active
@@ -181,14 +170,6 @@ class MemberController < ApplicationController
   def account_setup_non_member
    thisUser = Member.find_by_email(session[:user_email])
    if thisUser
-      @first = thisUser.first rescue nil
-      @last = thisUser.last rescue nil
-      @address1 = thisUser.address1 rescue nil
-      @address2 = thisUser.address2 rescue nil
-      @city = thisUser.city rescue nil
-      @state = thisUser.state rescue nil
-      @zip = thisUser.zip rescue nil
-      @telephone = thisUser.telephone rescue nil
       if params["commit"] == "Submit"
         if thisUser and thisUser.validate_and_update_non_member(params)
             if !thisUser.non_member_active
@@ -205,6 +186,57 @@ class MemberController < ApplicationController
     else
      flash[:error] = "You need to sign up or login first!"
      redirect_to("/member")
+    end
+  end
+  
+  def edit_member_profile
+   thisUser = Member.find_by_email(session[:user_email])
+   if thisUser
+        @first = thisUser.first rescue nil
+        @last = thisUser.last rescue nil
+        @address1 = thisUser.address1 rescue nil
+        @address2 = thisUser.address2 rescue nil
+        @city = thisUser.city rescue nil
+        @state = thisUser.state rescue nil
+        @zip = thisUser.zip rescue nil
+        @telephone = thisUser.telephone rescue nil
+        @year_of_birth = thisUser.year_of_birth rescue nil
+        @country_of_birth = thisUser.country_of_birth rescue nil
+        @special_skills = thisUser.special_skills rescue nil
+        if params["commit"] == "Continue"
+                if thisUser and thisUser.validate_and_update(params)
+                    redirect_to("/member/edit_success")
+                else
+                    flash.now[:error] = "Please enter the correct format/fill in all fields are required."
+                end
+        end
+      else
+         flash[:error] = "You need to sign up or login first!"
+         redirect_to("/member")
+      end
+  end
+
+  def edit_non_member_profile
+     thisUser = Member.find_by_email(session[:user_email])
+     if thisUser
+         @first = thisUser.first rescue nil
+         @last = thisUser.last rescue nil
+         @address1 = thisUser.address1 rescue nil
+         @address2 = thisUser.address2 rescue nil
+         @city = thisUser.city rescue nil
+         @state = thisUser.state rescue nil
+         @zip = thisUser.zip rescue nil
+         @telephone = thisUser.telephone rescue nil
+         if params["commit"] == "Submit"
+           if thisUser and thisUser.validate_and_update_non_member(params)
+                redirect_to("/member/edit_success")
+           else
+                flash.now[:error] = "Please enter the correct format/fill in the required fields."
+           end
+         end
+     else
+        flash[:error] = "You need to sign up or login first!"
+        redirect_to("/member")
     end
   end
 
