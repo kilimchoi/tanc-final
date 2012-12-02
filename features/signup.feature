@@ -51,3 +51,14 @@ Scenario: Invalid user can't login
     And I fill in "password" with "HAHAHAHAHA"
     And I press "Login"
     Then I should see "Your login information is not correct."
+
+Scenario: User can request password reset
+    Given the following members exist:
+        | status    | member_type  | email               | first | last | password | zip   |
+        | confirmed | mailing_list | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
+    And I am on the password reset page  
+    When I fill in "email" with "petertsoi@gmail.net"
+    And I press "Reset Password"
+    Then I should see "You haven't signed up with that email!"
+    When I fill in "email" with "petertsoi@gmail.com"
+    Then I should be on the password reset confirmation page
