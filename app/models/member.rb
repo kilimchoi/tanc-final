@@ -98,7 +98,7 @@ class Member < ActiveRecord::Base
       elsif params["special_skills"] == ""
          return true
       else
-	 return false
+         return false
       end
       if self.member_active == true; self.member_active = true; else self.member_active = false; end;
       self.save
