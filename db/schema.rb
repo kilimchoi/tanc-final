@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20121128223718) do
     t.integer  "number_of_children"
     t.string   "already_a_member"
     t.boolean  "member_active"
+    t.boolean  "non_member_active"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.string   "gender"
