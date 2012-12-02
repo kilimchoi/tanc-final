@@ -133,7 +133,7 @@ class MemberController < ApplicationController
            thisUser.member_type = params[:membership]
            thisUser.already_a_member = "No"
            thisUser.save
-	   redirect_to("/member/account_setup_member")
+	         redirect_to("/member/account_setup_member")
         elsif params[:membership] == "non-member" and !thisUser.member_active and !thisUser.non_member_active
            redirect_to("/member/account_setup_non_member")
         elsif thisUser.member_active || thisUser.non_member_active
@@ -148,23 +148,23 @@ class MemberController < ApplicationController
   def account_setup_member
    thisUser = Member.find_by_email(session[:user_email])
    if thisUser
-	if params["commit"] == "Continue"
-		if thisUser and thisUser.validate_and_update(params)
-                    if !thisUser.member_active
-			thisUser.member_active = true
-			thisUser.save
-		        redirect_to("/member/member_payment")
-                    else
-			flash.now[:error] = "You already signed up!"
-                    end
-		else
-		    flash.now[:error] = "Please enter the correct format/fill in all fields are required."
-		end
-	end
-      else
-         flash[:error] = "You need to sign up or login first!"
-         redirect_to("/member")
-      end
+	   if params["commit"] == "Continue"
+		   if thisUser and thisUser.validate_and_update(params)
+         if !thisUser.member_active
+			    thisUser.member_active = true
+			    thisUser.save
+		      redirect_to("/member/member_payment")
+         else
+			    flash.now[:error] = "You already signed up!"
+         end
+		   else
+		     flash.now[:error] = "Please enter the correct format/fill in all fields are required."
+		   end
+	   end
+   else
+     flash[:error] = "You need to sign up or login first!"
+     redirect_to("/member")
+   end
   end
 
   def account_setup_non_member
@@ -173,11 +173,11 @@ class MemberController < ApplicationController
       if params["commit"] == "Submit"
         if thisUser and thisUser.validate_and_update_non_member(params)
             if !thisUser.non_member_active
-		thisUser.non_member_active = true
-	        thisUser.save
-                redirect_to("/member/thanks_after_done")
+		          thisUser.non_member_active = true
+	            thisUser.save
+              redirect_to("/member/thanks_after_done")
             else
-		flash.now[:error] = "You already signed up as a non-member!"
+		          flash.now[:error] = "You already signed up as a non-member!"
             end
         else
             flash.now[:error] = "Please enter the correct format/fill in the required fields."
@@ -244,7 +244,7 @@ class MemberController < ApplicationController
     if params[:commit] == "Login"
       thisUser = find_user_by_email(params[:email]) rescue nil
       if user_exists_valid(thisUser)
-	session[:user_email] = thisUser.email rescue nil
+	      session[:user_email] = thisUser.email rescue nil
         redirect_to("/member/profile")
       else
         @email = params[:email]
@@ -297,8 +297,8 @@ class MemberController < ApplicationController
       @admin = true if thisUser.admin
       @user_data = thisUser.user_data
     else
-	redirect_to("/member/login")
-	flash[:error] = "You are not logged in. Please log in and try again."
+	    redirect_to("/member/login")
+  	  flash[:error] = "You are not logged in. Please log in and try again."
     end
   end
 
@@ -317,7 +317,7 @@ class MemberController < ApplicationController
        end
        if params["commit"] == "logout"
           redirect_to("/member")
-	  session.delete(:user_email)#clear user data from session
+	        session.delete(:user_email)#clear user data from session
        end
        if params["commit"] == "Add a new member"
           redirect_to("/member/admin/add_new_member")
@@ -326,7 +326,7 @@ class MemberController < ApplicationController
           redirect_to("/member/admin")
        end
     else 
-	redirect_to("/member")
+	      redirect_to("/member")
         flash[:error] = "You are not logged in- please log in first."
     end
   end
