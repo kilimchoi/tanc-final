@@ -24,7 +24,7 @@ Scenario: Setting up the profile page for the first time as a member
    And I choose "gender_male" 
    And I fill in "address-line-1" with "405 soda"
    And I fill in "address-line-2" with "UC Berkeley"
-   And I fill in "number_of_children" with "0"
+   And I select "0" from "number_of_children"
    And I fill in "city" with "Berkeley"
    And I fill in "state" with "CA"
    And I fill in "zip" with "94705"
@@ -45,7 +45,7 @@ Scenario: Setting up the profile page for the first time as a non-member
    And I fill in "last-name" with "zhupani"
    And I fill in "telephone" with "2313213298"
    And I press "Submit" 
-   Then I should be on profile page
+   Then I should be on the Thank You page
    
 Scenario: Can not setup the account (wrong password)
    Given I logged in as "aldizhupani@gmail.com" with password "1234"
