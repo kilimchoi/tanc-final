@@ -1,5 +1,5 @@
 class MemberController < ApplicationController
-  def signup
+  def signupaccount_setup_member
     if email_params_has_value and email_format_is_correct then
         new_member = can_create_new_member
         if new_member
@@ -132,6 +132,8 @@ class MemberController < ApplicationController
         if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan"
            thisUser.member_type = params[:membership]
            thisUser.already_a_member = "No"
+           thisUser.member_active = true
+           thisUser.non_member_active = true
            thisUser.save
 	   redirect_to("/member/account_setup_member")
         elsif params[:membership] == "non-member" and !thisUser.member_active
@@ -159,17 +161,9 @@ class MemberController < ApplicationController
 	@year_of_birth = thisUser.year_of_birth rescue nil
 	@country_of_birth = thisUser.country_of_birth rescue nil
 	@special_skills = thisUser.special_skills rescue nil
-	@number_of_children = thisUser.number_of_children rescue nil
 	if params["commit"] == "Continue"
 		if thisUser and thisUser.validate_and_update(params)
-			if !thisUser.member_active
-			   thisUser.member_active = true
-			   thisUser.save
-			   redirect_to("/member/member_payment")
-			else
-			   flash[:error] = "You already signed up!"
-			   redirect_to("/member/profile")
-			end
+		  redirect_to("/member/member_payment")
 		else
 		flash.now[:error] = "Please enter the correct format/fill in all fields are required."
 		end
@@ -193,14 +187,7 @@ class MemberController < ApplicationController
       @telephone = thisUser.telephone rescue nil
       if params["commit"] == "Submit"
         if thisUser and thisUser.validate_and_update_non_member(params)
-          if !thisUser.non_member_active
-            thisUser.non_member_active = true
-            thisUser.save
-            redirect_to("/member/thanks_after_done")
-          else
-	    flash[:error] = "You already signed up!"
-	    redirect_to("/member/profile")
-	  end
+          redirect_to("/member/thanks_after_done")
         else
           flash[:error] = "Please enter the correct format/fill in the required fields."
         end

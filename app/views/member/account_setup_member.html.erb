@@ -20,7 +20,8 @@
   Your occupation:
   <%= select_tag 'occupation', "<option>Student</option><option>Medical Profession</option><option>Business Owner</option><option>Finance and Banking</option><option>Others</option>".html_safe %>
   <%= text_field_tag 'special_skills', @special_skills, :placeholder => 'Special skills (Optional)' %>
-  <%= text_field_tag 'number_of_children', @number_of_children, :placeholder => 'Number of Children' %>
+  Number Of Children:
+  <%= select_tag 'number_of_children', "<option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>".html_safe %>
   <%= text_field_tag 'address-line-1', @address1, :placeholder => 'Address Line 1' %>
   <%= text_field_tag 'address-line-2', @address2, :placeholder => 'Address Line 2 (Optional)' %>
   <%= text_field_tag 'city', @city, :placeholder => 'City' %>
