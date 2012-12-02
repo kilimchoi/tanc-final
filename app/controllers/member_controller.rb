@@ -1,5 +1,5 @@
 class MemberController < ApplicationController
-  def signupaccount_setup_member
+  def signup
     if email_params_has_value and email_format_is_correct then
         new_member = can_create_new_member
         if new_member
