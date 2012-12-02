@@ -146,25 +146,25 @@ class MemberController < ApplicationController
   end
 
   def account_setup_member
-   thisUser = Member.find_by_email(session[:user_email])
-   if thisUser
-	   if params["commit"] == "Continue"
-		   if thisUser and thisUser.validate_and_update(params)
-         if !thisUser.member_active
-			    thisUser.member_active = true
-			    thisUser.save
-		      redirect_to("/member/member_payment")
-         else
-			    flash.now[:error] = "You already signed up!"
-         end
-		   else
-		     flash.now[:error] = "Please enter the correct format/fill in all fields are required."
-		   end
-	   end
-   else
-     flash[:error] = "You need to sign up or login first!"
-     redirect_to("/member")
-   end
+    thisUser = Member.find_by_email(session[:user_email])
+    if thisUser
+	if params["commit"] == "Continue"
+	  if thisUser and thisUser.validate_and_update(params)
+            if !thisUser.member_active
+		thisUser.member_active = true
+		thisUser.save
+		redirect_to("/member/member_payment")
+            else
+		flash.now[:error] = "You already signed up!"
+            end
+	  else
+	    flash.now[:error] = "Please enter the correct format/fill in all fields are required."
+	  end
+	end
+    else
+      flash[:error] = "You need to sign up or login first!"
+      redirect_to("/member")
+    end
   end
 
   def account_setup_non_member
