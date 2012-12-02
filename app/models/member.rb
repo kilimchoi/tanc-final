@@ -8,6 +8,7 @@ class Member < ActiveRecord::Base
 
   def send_reset_password
     self.password_reset_sent_at = Time.zone.now
+    self.password = Member.random_password
     save!
     IndividualMailer.reset_password(self).deliver()
   end     

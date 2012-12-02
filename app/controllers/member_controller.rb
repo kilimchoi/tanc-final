@@ -106,8 +106,11 @@ class MemberController < ApplicationController
   end
 
   def reset_email_sent
-    if email_params_has_value then
-       redirect_to "/member/update_password?email=#{params[:email]}"
+    if email_params_has_value and member_email?  then
+       member = Member.find_by_email(params[:email])
+       if member and member.password == params[:request] then
+          redirect_to "/member/update_password?email=#{params[:email]}"
+       end
     end
   end
     
