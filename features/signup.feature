@@ -37,8 +37,8 @@ Scenario: Must confirm account with code in email
 
 Scenario: New users can log in
     Given the following members exist:
-      | status    | member_type  | email               | password | city     | zip   | year_of_birth | telephone  | address1 |
-      | confirmed | mailing_list | petertsoi@gmail.com | 1234     | Berkeley | 94709 | 1991          | 8005551234 | 1 Le Roy |
+      | status    | member_type  | email               | first | last | password | zip   |
+      | confirmed | mailing_list | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
     And I am on the login page
     When I fill in "email" with "petertsoi@gmail.com"
     And I fill in "password" with "1234"
