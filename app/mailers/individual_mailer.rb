@@ -11,7 +11,7 @@ class IndividualMailer < ActionMailer::Base
   end
  
   def reset_password(member)
-     @reset_link = "http://#{ApplicationController.default_url_options[:host]}/member/reset_email_sent?email=#{member.email}"
+     @reset_link = "http://#{ApplicationController.default_url_options[:host]}/member/reset_email_sent?email=#{member.email}&request=#{member.password}"
      mail(:to => member.email,
           :subject => "Password Reset",
           :template_path => "emails",
