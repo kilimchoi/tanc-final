@@ -86,18 +86,18 @@ class Member < ActiveRecord::Base
       if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; self.country_of_birth = params["country_of_birth"]
       elsif params["country_of_birth"] == "" 
         return true
-      else
+      elsif params["country_of_birth"] !=~ /[A-Za-z]+/
         return false
       end
       if params["occupation"]; self.occupation = params["occupation"];
       else return false; end;
       if params["gender"]; self.gender = params["gender"];
       else return false; end;
-      if params["special_skills"] and params["special_skills"] =~ /[A-Za-z]+|./
+      if params["special_skills"] and params["special_skills"] =~ /[A-Za-z]+/
          self.special_skills = params["special_skills"]
       elsif params["special_skills"] == ""
          return true
-      else
+      elsif params["special_skills"] !=~ /[A-Za-z]+/
          return false
       end
       if self.member_active == true; self.member_active = true; else self.member_active = false; end;
