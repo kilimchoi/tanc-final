@@ -129,16 +129,14 @@ class MemberController < ApplicationController
     @email = thisUser.email rescue nil
     if params[:commit] == "Continue"
       if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
-        if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan"
+        if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan" and !thisUser.member_active and !thisUser.non_member_active
            thisUser.member_type = params[:membership]
            thisUser.already_a_member = "No"
-           thisUser.member_active = true
-           thisUser.non_member_active = true
            thisUser.save
 	   redirect_to("/member/account_setup_member")
-        elsif params[:membership] == "non-member" and !thisUser.member_active
+        elsif params[:membership] == "non-member" and !thisUser.member_active and !thisUser.non_member_active
            redirect_to("/member/account_setup_non_member")
-        else thisUser.member_active
+        elsif thisUser.member_active || thisUser.non_member_active
            flash.now[:error] = "Sorry you can't sign up twice!"
         end
       else
@@ -149,7 +147,7 @@ class MemberController < ApplicationController
 
   def account_setup_member
    thisUser = Member.find_by_email(session[:user_email])
-   if thisUser and thisUser.member_active
+   if thisUser
 	@first = thisUser.first rescue nil
 	@last = thisUser.last rescue nil
 	@address1 = thisUser.address1 rescue nil
@@ -163,9 +161,15 @@ class MemberController < ApplicationController
 	@special_skills = thisUser.special_skills rescue nil
 	if params["commit"] == "Continue"
 		if thisUser and thisUser.validate_and_update(params)
-		  redirect_to("/member/member_payment")
+                    if !thisUser.member_active
+			thisUser.member_active = true
+			thisUser.save
+		        redirect_to("/member/member_payment")
+                    else
+			flash.now[:error] = "You already signed up!"
+                    end
 		else
-		flash.now[:error] = "Please enter the correct format/fill in all fields are required."
+		    flash.now[:error] = "Please enter the correct format/fill in all fields are required."
 		end
 	end
       else
@@ -176,7 +180,7 @@ class MemberController < ApplicationController
 
   def account_setup_non_member
    thisUser = Member.find_by_email(session[:user_email])
-   if thisUser and thisUser.non_member_active
+   if thisUser
       @first = thisUser.first rescue nil
       @last = thisUser.last rescue nil
       @address1 = thisUser.address1 rescue nil
@@ -187,9 +191,15 @@ class MemberController < ApplicationController
       @telephone = thisUser.telephone rescue nil
       if params["commit"] == "Submit"
         if thisUser and thisUser.validate_and_update_non_member(params)
-          redirect_to("/member/thanks_after_done")
+            if !thisUser.non_member_active
+		thisUser.non_member_active = true
+	        thisUser.save
+                redirect_to("/member/thanks_after_done")
+            else
+		flash.now[:error] = "You already signed up as a non-member!"
+            end
         else
-          flash[:error] = "Please enter the correct format/fill in the required fields."
+            flash.now[:error] = "Please enter the correct format/fill in the required fields."
         end
       end
     else
