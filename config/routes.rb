@@ -21,6 +21,9 @@ Tanc::Application.routes.draw do
   get "member/check_cash_payment"
   get "member/admin/export" => 'member#export'
   get "member/destroy"
+  get "member/edit_member_profile"
+  get "member/edit_non_member_profile"
+  get "member/edit_success"
   # Sample of regular route:
   # match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
