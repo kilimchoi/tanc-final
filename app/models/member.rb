@@ -83,12 +83,23 @@ class Member < ActiveRecord::Base
       else return false; end;
       if params["year_of_birth"] and params["year_of_birth"] =~ /\d{1,4}/; self.year_of_birth = params["year_of_birth"]
       else return false; end;
-      if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; self.country_of_birth = params["country_of_birth"]; end;
+      if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; self.country_of_birth = params["country_of_birth"]
+      elsif params["country_of_birth"] == "" 
+        return true
+      elsif params["country_of_birth"] !=~ /[A-Za-z]+/
+        return false
+      end
       if params["occupation"]; self.occupation = params["occupation"];
       else return false; end;
       if params["gender"]; self.gender = params["gender"];
       else return false; end;
-      if params["special_skills"] and params["special_skills"] =~ /[A-Za-z]+|./; self.special_skills = params["special_skills"]; end;
+      if params["special_skills"] and params["special_skills"] =~ /[A-Za-z]+/
+         self.special_skills = params["special_skills"]
+      elsif params["special_skills"] == ""
+         return true
+      elsif params["special_skills"] !=~ /[A-Za-z]+/
+         return false
+      end
       if self.member_active == true; self.member_active = true; else self.member_active = false; end;
       self.save
       return true
@@ -108,6 +119,7 @@ class Member < ActiveRecord::Base
     if params["zip"] =~ /\d{5}/; self.zip = params["zip"] rescue nil; end;
     if params["state"] =~ /[A-Za-z]{2}/; self.state = params["state"] rescue nil; end;
     if params["telephone"] and params["telephone"] =~ /\d{1,10}|[-]/; self.telephone = params["telephone"] rescue nil; end;
+    if self.non_member_active == true; self.non_member_active = true; else self.non_member_active = false; end;
     self.save
     return true
   end

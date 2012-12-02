@@ -3,7 +3,6 @@ Feature: Paying membership fee
    I want to be able to pay $25 for membership fees
 
 Background:
-   Background:
     Given the following members exist:
     | status  | member_type  | email              | password | city | Zip |
     | Pending | mailing list | hjvds@berkeley.edu | 1234     | Berkeley | 94705 |

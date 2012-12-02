@@ -1,7 +1,7 @@
 Feature: Login or Sign up for members and non-members
-	As a non-member or member, 
-	I want to sign up my email 
-	so that I can receive updates 
+    As a non-member or member, 
+    I want to sign up my email 
+    so that I can receive updates 
 
 Scenario: New member sign up
     Given I am on the login page
