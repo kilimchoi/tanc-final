@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121128223718) do
+ActiveRecord::Schema.define(:version => 20121202001053) do
 
   create_table "members", :force => true do |t|
     t.string   "status"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20121128223718) do
     t.datetime "password_reset_sent_at"
     t.string   "gender"
     t.boolean  "admin"
+    t.boolean  "non_member_active"
   end
 
 end

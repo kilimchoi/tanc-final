@@ -68,17 +68,17 @@ class Member < ActiveRecord::Base
       else return false; end;
       if params["last-name"] and params["last-name"] =~ /[A-Za-z]+/; self.last = params["last-name"];
       else return false; end;
-      if params["address-line-1"] and params["address-line-1"] =~ /\d|[-]|[A-Za-z]+|\s/; self.address1 = params["address-line-1"];
+      if params["address-line-1"] and params["address-line-1"] =~ /\d|[-]|[A-Za-z]+|\s|./; self.address1 = params["address-line-1"];
       else return false; end;
-      if params["address-line-2"] and params["address-line-2"] =~ /\d|[-]|[A-Za-z]+|\s/; self.address2 = params["address-line-2"]; end;
+      if params["address-line-2"] and params["address-line-2"] =~ /\d|[-]|[A-Za-z]+|\s|./; self.address2 = params["address-line-2"]; end;
       if params["already_a_member"]; self.already_a_member = params["already_a_member"]; end;
-      if params["number_of_children"] and params["number_of_children"] =~ /\d{1,2}/; self.number_of_children = params["number_of_children"]; 
+      if params["number_of_children"]; self.number_of_children = params["number_of_children"]; 
       else return false; end;
       if params["city"] and params["city"] =~ /[A-Za-z]+/; self.city = params["city"];
       else return false; end;
-      if params["zip"] and params["zip"] =~ /\d{1,10}/; self.zip = params["zip"];
+      if params["zip"] and params["zip"] =~ /\d{5}/; self.zip = params["zip"];
       else return false; end;
-      if params["state"] and params["state"] =~ /[A-Za-z]+/; self.state = params["state"];
+      if params["state"] and params["state"] =~ /[A-Za-z]{2}/; self.state = params["state"];
       else return false; end;
       if params["telephone"] and params["telephone"] =~ /\d{1,10}|[-]/; self.telephone = params["telephone"];
       else return false; end;
@@ -89,7 +89,7 @@ class Member < ActiveRecord::Base
       else return false; end;
       if params["gender"]; self.gender = params["gender"];
       else return false; end;
-      if params["special_skills"] and params["special_skills"] =~ /[A-Za-z]+/; self.special_skills = params["special_skills"]; end;
+      if params["special_skills"] and params["special_skills"] =~ /[A-Za-z]+|./; self.special_skills = params["special_skills"]; end;
       if self.member_active == true; self.member_active = true; else self.member_active = false; end;
       self.save
       return true
@@ -103,12 +103,12 @@ class Member < ActiveRecord::Base
     else return false; end;
     if params["last-name"] and params["last-name"] =~ /[A-Za-z]+/; self.last = params["last-name"];
     else return false; end;
-    if params["address-line-1"] and params["address-line-1"] =~ /\d|[-]|[A-Za-z]+|\s/; self.address1 = params["address-line-1"]; end;
-    if params["address-line-2"] and params["address-line-2"] =~ /\d|[-]|[A-Za-z]+|\s/; self.address2 = params["address-line-2"]; end;
+    if params["address-line-1"] and params["address-line-1"] =~ /\d|[-]|[A-Za-z]+|\s|./; self.address1 = params["address-line-1"]; end;
+    if params["address-line-2"] and params["address-line-2"] =~ /\d|[-]|[A-Za-z]+|\s|./; self.address2 = params["address-line-2"]; end;
     if params["city"] =~ /[A-Za-z]+/; self.city = params["city"] rescue nil; end;
-    if params["zip"] =~ /\d{1,10}/; self.zip = params["zip"] rescue nil; end;
-    if params["state"] =~ /[A-Za-z]+/; self.state = params["state"] rescue nil; end;
-    if params["telephone"] =~ /\d{1,10}|[-]/; self.telephone = params["telephone"] rescue nil; end;
+    if params["zip"] =~ /\d{5}/; self.zip = params["zip"] rescue nil; end;
+    if params["state"] =~ /[A-Za-z]{2}/; self.state = params["state"] rescue nil; end;
+    if params["telephone"] and params["telephone"] =~ /\d{1,10}|[-]/; self.telephone = params["telephone"] rescue nil; end;
     self.save
     return true
   end
