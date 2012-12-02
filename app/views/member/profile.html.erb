@@ -1,9 +1,9 @@
 <div id="wrap" class="profile">
   <h3>Welcome, <%= @user_data[:first] + " " + @user_data[:last] + " La!" %></h3>
   <% if @user_data[:type] == 'tibetan' || @user_data[:type] == 'spouseoftibetan'%>
-    <%= link_to('Edit your Profile', ' /member/account_setup_member', :id => "edit_profile") %><br>
+    <%= link_to('Edit your Profile', ' /member/edit_member_profile', :id => "edit_profile") %><br>
   <% elsif @user_data[:type] == 'non-member' %>
-    <%= link_to('Edit your Profile', ' /member/account_setup_non_member', :id => "edit_profile") %><br>
+    <%= link_to('Edit your Profile', ' /member/edit_non_member_profile', :id => "edit_profile") %><br>
   <% end %>
   <% if @admin == true %>
    <%= link_to('Manage Database', '/member/admin') %><br>
