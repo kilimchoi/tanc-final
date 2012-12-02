@@ -132,6 +132,8 @@ class MemberController < ApplicationController
         if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan"
            thisUser.member_type = params[:membership]
            thisUser.already_a_member = "No"
+           thisUser.member_active = true
+           thisUser.non_member_active = true
            thisUser.save
 	   redirect_to("/member/account_setup_member")
         elsif params[:membership] == "non-member" and !thisUser.member_active
@@ -146,31 +148,53 @@ class MemberController < ApplicationController
   end
 
   def account_setup_member
-    if params["commit"] == "Continue"
-      thisUser = Member.find_by_email(session[:user_email])
-      if thisUser and thisUser.validate_and_update(params)
-        if !thisUser.member_active
-           thisUser.member_active = true
- 	   thisUser.save
-	   redirect_to("/member/member_payment")
-        else
-           flash.now[:error] = "You already signed up!"
-           redirect_to("/member/profile")
-        end
+   thisUser = Member.find_by_email(session[:user_email])
+   if thisUser and thisUser.member_active
+	@first = thisUser.first rescue nil
+	@last = thisUser.last rescue nil
+	@address1 = thisUser.address1 rescue nil
+	@address2 = thisUser.address2 rescue nil
+	@city = thisUser.city rescue nil
+	@state = thisUser.state rescue nil
+	@zip = thisUser.zip rescue nil
+	@telephone = thisUser.telephone rescue nil
+	@year_of_birth = thisUser.year_of_birth rescue nil
+	@country_of_birth = thisUser.country_of_birth rescue nil
+	@special_skills = thisUser.special_skills rescue nil
+	if params["commit"] == "Continue"
+		if thisUser and thisUser.validate_and_update(params)
+		  redirect_to("/member/member_payment")
+		else
+		flash.now[:error] = "Please enter the correct format/fill in all fields are required."
+		end
+	end
       else
-        flash.now[:error] = "Please enter the correct format/fill in all fields are required."
+         flash[:error] = "You need to sign up or login first!"
+         redirect_to("/member")
       end
-    end
   end
 
   def account_setup_non_member
-    if params["commit"] == "Submit"
-      thisUser = Member.find_by_email(session[:user_email])
-      if thisUser and thisUser.validate_and_update_non_member(params)
-        redirect_to("/member/profile")
-      else
-        flash[:error] = "Please enter the correct format/fill in the required fields."
+   thisUser = Member.find_by_email(session[:user_email])
+   if thisUser and thisUser.non_member_active
+      @first = thisUser.first rescue nil
+      @last = thisUser.last rescue nil
+      @address1 = thisUser.address1 rescue nil
+      @address2 = thisUser.address2 rescue nil
+      @city = thisUser.city rescue nil
+      @state = thisUser.state rescue nil
+      @zip = thisUser.zip rescue nil
+      @telephone = thisUser.telephone rescue nil
+      if params["commit"] == "Submit"
+        if thisUser and thisUser.validate_and_update_non_member(params)
+          redirect_to("/member/thanks_after_done")
+        else
+          flash[:error] = "Please enter the correct format/fill in the required fields."
+        end
       end
+    else
+     flash[:error] = "You need to sign up or login first!"
+     redirect_to("/member")
     end
   end
 
@@ -228,10 +252,8 @@ class MemberController < ApplicationController
   def profile
     thisUser = find_user_by_email(session[:user_email])
     if thisUser
+      @admin = true if thisUser.admin
       @user_data = thisUser.user_data
-      if params["commit"] == "manage database"
-        if user.admin == true then redirect_to("/member/admin"); end
-      end
     else
 	redirect_to("/member/login")
 	flash[:error] = "You are not logged in. Please log in and try again."
