@@ -128,10 +128,10 @@ class MemberController < ApplicationController
                 redirect_to "/member/reset_success"
             end
          else
-            flash[:error] = "Your password should be a combination of numbers and words. They also have to be longer than 5 words."
+            flash.now[:error] = "Your password should be a combination of numbers and words. They also have to be longer than 5 words."
          end
       else
-         flash[:error] = "Your words do not match the ones in the recaptcha image!"
+         flash.now[:error] = "Your words do not match the ones in the recaptcha image!"
       end
     end
   end
@@ -175,7 +175,7 @@ class MemberController < ApplicationController
                 flash.now[:error] = "Sorry you can't sign up twice!"
              end
            else
-                flash[:error] = "Your words do not match the ones in the recaptcha image!"
+                flash.now[:error] = "Your words do not match the ones in the recaptcha image!"
            end
         else
            flash.now[:error] = "The two passwords do not match"
