@@ -6,7 +6,7 @@
 module NavigationHelpers
   # Maps a name to a path. Used by the
   #
-  #   When /^I go to (.+)$/ do |page_name|
+  # When /^I go to (.+)$/ do |page_name|
   #
   # step definition in web_steps.rb
   #
@@ -35,7 +35,7 @@ module NavigationHelpers
     when /^the mass email\s?page$/ then '/member/admin/mass_email'
     when /^the database dump\s?page$/ then '/member/admin/export'
     when /^the PayPal\s?page$/ then ''
-    when /^the member payment\s?page$/ then '/member/member_payment' 
+    when /^the member payment\s?page$/ then '/member/member_payment'
     when /^the Thank You\s?page$/ then '/member/thanks_after_done'
     when /^the Check Cash\s?page$/ then '/member/check_cash_payment'
     when /^the online payment\s?page$/ then '/member/online_payment'
@@ -46,8 +46,8 @@ module NavigationHelpers
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
-    #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
+    # when /^(.*)'s profile page$/i
+    # user_profile_path(User.find_by_login($1))
 
     else
       begin
