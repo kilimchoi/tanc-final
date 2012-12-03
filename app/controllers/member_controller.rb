@@ -120,12 +120,38 @@ class MemberController < ApplicationController
     
   def update_password
     @member = Member.find_by_email(params[:email]) rescue nil
-    if params[:password] == params[:password_confirm] && params[:commit] == "Update Password"
-        @member.update_attributes(:password => params[:password])
-        redirect_to "/member/reset_success"
+    if params[:commit] == "Update Password"
+       if verify_recaptcha
+         if pwd_strength_check(params[:password])
+            if params[:password] == params[:password_confirm]
+                @member.update_attributes(:password => params[:password])
+                redirect_to "/member/reset_success"
+            end
+         else
+            flash[:error] = "Your password should be a combination of numbers and words. They also have to be longer than 5 words."
+         end
+      else
+         flash[:error] = "Your words do not match the ones in the recaptcha image!"
+      end
     end
   end
-
+  
+  def pwd_strength_check(password)
+     if password.length > 5 
+        if password =~ /^[0-9]+$/
+           return false
+        elsif password =~ /^[A-za-z]+$/
+           return false
+        elsif password =~ /^[A-Za-z0-9][A-Za-z0-9]*$/
+           return true
+        else 
+           return false
+        end
+     else
+        return false
+     end
+  end
+  
   def account_setup
     thisUser = Member.find_by_email(session[:user_email]) rescue nil
     if (thisUser.id == 1)
@@ -135,23 +161,27 @@ class MemberController < ApplicationController
     end
     @email = thisUser.email rescue nil
     if params[:commit] == "Continue"
-      if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
-         if verify_recaptcha
-           if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan" and !thisUser.member_active and !thisUser.non_member_active
-              thisUser.member_type = params[:membership]
-              thisUser.already_a_member = "No"
-              thisUser.save
-	      redirect_to("/member/account_setup_member")
-           elsif params[:membership] == "non-member" and !thisUser.member_active and !thisUser.non_member_active
-              redirect_to("/member/account_setup_non_member")
-           elsif thisUser.member_active || thisUser.non_member_active
-              flash.now[:error] = "Sorry you can't sign up twice!"
+      if pwd_strength_check(params[:password])
+        if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
+           if verify_recaptcha
+             if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan" and !thisUser.member_active and !thisUser.non_member_active
+                thisUser.member_type = params[:membership]
+                thisUser.already_a_member = "No"
+                thisUser.save
+	        redirect_to("/member/account_setup_member")
+             elsif params[:membership] == "non-member" and !thisUser.member_active and !thisUser.non_member_active
+                redirect_to("/member/account_setup_non_member")
+             elsif thisUser.member_active || thisUser.non_member_active
+                flash.now[:error] = "Sorry you can't sign up twice!"
+             end
+           else
+                flash[:error] = "Your words do not match the ones in the recaptcha image!"
            end
-         else
-              flash[:error] = "Your words do not match the ones in the recaptcha image!"
-         end
+        else
+           flash.now[:error] = "The two passwords do not match"
+        end
       else
-         flash.now[:error] = "The two passwords do not match"
+        flash[:error] = "Your password should be a combination of numbers and words. They also have to be longer than 5 words."
       end
     end
   end
