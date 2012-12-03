@@ -7,7 +7,7 @@ gem 'rails', '3.1.0'
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'debugger', :require => 'ruby-debug'
+  gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'rspec-rails'
 end
 group :test do
