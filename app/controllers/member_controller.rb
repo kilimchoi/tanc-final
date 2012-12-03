@@ -96,7 +96,7 @@ class MemberController < ApplicationController
            flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
        end
     else
-       flash[:error] = "The words do not match the ones in the image."
+       flash[:error] = "Your words do not match the ones in the recaptcha image!"
     end
   end
   
@@ -151,7 +151,7 @@ class MemberController < ApplicationController
            flash.now[:error] = "The two passwords do not match"
          end
       else
-         flash[:error] = "The words do not match the ones in the recaptcha image!"
+         flash[:error] = "Your words do not match the ones in the recaptcha image!"
       end
     end
   end
@@ -288,7 +288,7 @@ class MemberController < ApplicationController
              flash.now[:error] = "Please enter the correct format/fill in the required fields."
            end
         else
-           flash[:error] = "Your words do not match the words in the recaptcha image!" 
+           flash[:error] = "Your words do not match the ones in the recaptcha image!" 
        end
      end
     else
