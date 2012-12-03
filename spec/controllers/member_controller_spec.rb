@@ -31,6 +31,7 @@ describe MemberController do
        before(:each) do
           @member = mock('member')
        end
+     end
      describe "for those with proper email and code" do
        it "should find members by emails" do 
           Member.stub!(:find_by_email).with("oski@berkeley.edu").and_return(@member)
@@ -59,6 +60,38 @@ describe MemberController do
            response.should be_successful
         end
      end
-  end
+     describe "setting up account without signing up first" do
+        it "should error out" do 
+           @member = Member.create!(:first => "Steven", :last => "Choi", :email => "stevn1202@gmail.com")
+           get :account_setup_member, {:commit => 'Continue'}
+           flash[:error].should == "You need to sign up or login first!"
+        end
+     end
+     describe "signing up for the first time" do
+        before(:each) do 
+              @first_name = "Ki Lim"
+	      @last_name = "Choi"
+              @email = "stevn1202@gmail.com"
+              @already_a_member = "Yes"
+              @year_of_birth = "1991"
+              @gender = "male"
+              @country_of_birth = "South Korea"
+              @occupation = "student"
+              @special_skills = "Jumping Jacks"
+              @number_of_children = "0"
+              @city = "Berkeley"
+              @address1 = "2283 Hearst Avenue"
+              @zip = "94709" 
+              @telephone = "2137008466"
+        end
+        it "should create an account" do 
+           @member = Member.create!(:first => @first_name, :last => @last_name, :email => @email, :already_a_member => @already_a_member, 
+				    :year_of_birth => @year_of_birth, :gender => @gender, :occupation => @occupation, :special_skills => @special_skills, 
+                                    :number_of_children => @number_of_children, :city => @city, :address1 => @address1, :zip => @zip, :telephone => @telephone)
+           get :signup, {:commit => 'Continue'}
+           response.should be_successful
+        end
+        
+     end
 end
 
