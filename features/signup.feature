@@ -61,4 +61,23 @@ Scenario: User can request password reset
     And I press "Reset Password"
     Then I should see "You haven't signed up with that email!"
     When I fill in "email" with "petertsoi@gmail.com"
+    And I press "Reset Password"
     Then I should be on the password reset confirmation page
+
+Scenario: Password reset request uses unique code
+    Given the following members exist:
+        | status    | member_type  | email               | first | last | password | zip   |
+        | confirmed | mailing_list | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
+    And I clicked the reset link for "petertsoi@gmail.com" with code "1234"
+    Then I should be on the password update page
+
+Scenario: Password gets updated on reset
+    Given the following members exist:
+        | status    | member_type  | email               | first | last | password | zip   |
+        | confirmed | mailing_list | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
+    And I clicked the reset link for "petertsoi@gmail.com" with code "1234"
+    And I should be on the password update page
+    When I fill in "password" with "pass"
+    And I fill in "password_confirm" with "pass"
+    And I press "Update Password"
+    Then I should be on the reset success page
