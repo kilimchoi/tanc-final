@@ -85,14 +85,18 @@ class MemberController < ApplicationController
   end
   
    def reset_password
-    if email_params_has_value and member_email? then
-        member = Member.find_by_email(params[:email])
-        member.send_reset_password if member
-        redirect_to "/member/reset_email_sent"
-    elsif email_params_has_value and !email_format_is_correct
-        flash.now[:error] = "Please type in correct email address."
-    elsif email_params_has_value and !member_email? then
-        flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
+    if verify_recaptcha
+       if email_params_has_value and member_email? then
+           member = Member.find_by_email(params[:email])
+           member.send_reset_password if member
+           redirect_to "/member/reset_email_sent"
+       elsif email_params_has_value and !email_format_is_correct
+           flash.now[:error] = "Please type in correct email address."
+       elsif email_params_has_value and !member_email? then
+           flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
+       end
+    else
+       flash[:error] = "Your words do not match the ones in the recaptcha image!"
     end
   end
   
@@ -131,19 +135,23 @@ class MemberController < ApplicationController
     end
     @email = thisUser.email rescue nil
     if params[:commit] == "Continue"
-      if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
-        if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan" and !thisUser.member_active and !thisUser.non_member_active
-           thisUser.member_type = params[:membership]
-           thisUser.already_a_member = "No"
-           thisUser.save
-	         redirect_to("/member/account_setup_member")
-        elsif params[:membership] == "non-member" and !thisUser.member_active and !thisUser.non_member_active
-           redirect_to("/member/account_setup_non_member")
-        elsif thisUser.member_active || thisUser.non_member_active
-           flash.now[:error] = "Sorry you can't sign up twice!"
-        end
+      if verify_recaptcha
+         if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
+           if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan" and !thisUser.member_active and !thisUser.non_member_active
+              thisUser.member_type = params[:membership]
+              thisUser.already_a_member = "No"
+              thisUser.save
+	      redirect_to("/member/account_setup_member")
+           elsif params[:membership] == "non-member" and !thisUser.member_active and !thisUser.non_member_active
+              redirect_to("/member/account_setup_non_member")
+           elsif thisUser.member_active || thisUser.non_member_active
+              flash.now[:error] = "Sorry you can't sign up twice!"
+           end
+         else
+           flash.now[:error] = "The two passwords do not match"
+         end
       else
-        flash.now[:error] = "The two passwords do not match"
+         flash[:error] = "Your words do not match the ones in the recaptcha image!"
       end
     end
   end
@@ -225,29 +233,33 @@ class MemberController < ApplicationController
       @year_of_birth = thisUser.year_of_birth rescue nil
       @country_of_birth = thisUser.country_of_birth rescue nil
       @special_skills = thisUser.special_skills rescue nil
-      if params["commit"] == "Continue"
-        if thisUser and thisUser.validate_and_update(params)
-          @first = thisUser.first rescue nil
-          @last = thisUser.last rescue nil
-          @address1 = thisUser.address1 rescue nil
-          @address2 = thisUser.address2 rescue nil
-          @city = thisUser.city rescue nil
-          @state = thisUser.state rescue nil
-          @zip = thisUser.zip rescue nil
-          @telephone = thisUser.telephone rescue nil
-          @year_of_birth = thisUser.year_of_birth rescue nil
-          @country_of_birth = thisUser.country_of_birth rescue nil
-          @special_skills = thisUser.special_skills rescue nil
-          redirect_to("/member/edit_success")
-        else
-          flash.now[:error] = "Please enter the correct format/fill in all fields are required."
-        end
-      end
-    else
-      flash[:error] = "You need to sign up or login first!"
-      redirect_to("/member")
-    end
-  end
+      if verify_recaptcha
+         if params["commit"] == "Continue"
+           if thisUser and thisUser.validate_and_update(params)
+             @first = thisUser.first rescue nil
+             @last = thisUser.last rescue nil
+             @address1 = thisUser.address1 rescue nil
+             @address2 = thisUser.address2 rescue nil
+             @city = thisUser.city rescue nil
+             @state = thisUser.state rescue nil
+             @zip = thisUser.zip rescue nil
+             @telephone = thisUser.telephone rescue nil
+             @year_of_birth = thisUser.year_of_birth rescue nil
+             @country_of_birth = thisUser.country_of_birth rescue nil
+             @special_skills = thisUser.special_skills rescue nil
+             redirect_to("/member/edit_success")
+           else
+             flash[:error] = "Please enter the correct format/fill in all fields are required."
+           end
+         end
+     else
+        flash[:error] = "Your words do not match the ones in the recaptcha image!"
+     end
+   else
+     flash[:error] = "You need to sign up or login first!"
+     redirect_to("/member")
+   end
+ end
 
   def edit_non_member_profile
     thisUser = Member.find_by_email(session[:user_email])
@@ -261,20 +273,24 @@ class MemberController < ApplicationController
       @zip = thisUser.zip rescue nil
       @telephone = thisUser.telephone rescue nil
       if params["commit"] == "Submit"
-        if thisUser and thisUser.validate_and_update_non_member(params)
-          @first = thisUser.first rescue nil
-          @last = thisUser.last rescue nil
-	  @address1 = thisUser.address1 rescue nil
-	  @address2 = thisUser.address2 rescue nil
-	  @city = thisUser.city rescue nil
-	  @state = thisUser.state rescue nil
-	  @zip = thisUser.zip rescue nil
-	  @telephone = thisUser.telephone rescue nil
-          redirect_to("/member/edit_success")
+        if verify_recaptcha
+           if thisUser and thisUser.validate_and_update_non_member(params)
+             @first = thisUser.first rescue nil
+             @last = thisUser.last rescue nil
+	     @address1 = thisUser.address1 rescue nil
+	     @address2 = thisUser.address2 rescue nil
+	     @city = thisUser.city rescue nil
+	     @state = thisUser.state rescue nil
+	     @zip = thisUser.zip rescue nil
+	     @telephone = thisUser.telephone rescue nil
+             redirect_to("/member/edit_success")
+           else
+             flash.now[:error] = "Please enter the correct format/fill in the required fields."
+           end
         else
-          flash.now[:error] = "Please enter the correct format/fill in the required fields."
-        end
-      end
+           flash[:error] = "Your words do not match the ones in the recaptcha image!" 
+       end
+     end
     else
       flash[:error] = "You need to sign up or login first!"
       redirect_to("/member")

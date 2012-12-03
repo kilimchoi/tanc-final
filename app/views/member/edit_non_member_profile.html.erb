@@ -10,6 +10,7 @@
   <%= text_field_tag 'state', @state, :placeholder => 'State (Optional)' %>
   <%= text_field_tag 'zip', @zip, :placeholder => 'Zip (Optional)' %>
   <%= text_field_tag 'telephone', @telephone, :placeholder => 'Telephone (Optional)' %>
+  <%= recaptcha_tags %>
   <%= submit_tag 'Submit' %>
   <% end %>
 </div>
