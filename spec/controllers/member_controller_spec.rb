@@ -74,15 +74,15 @@ describe MemberController do
            response.should be_successful
         end
          
-        it "should create an account" do
-           @member = Member.find_by_email(@email) 
-           @member = Member.create!(:first => @first_name, :last => @last_name, :email => @email, :already_a_member => @already_a_member,
-                                    :year_of_birth => @year_of_birth, :gender => @gender, :occupation => @occupation, :special_skills => @special_skills,
-                                    :number_of_children => @number_of_children, :member_active => @member_active, :city => @city, 
-                                    :address1 => @address1, :zip => @zip, :telephone => @telephone)
-           get :account_setup_member, {:commit => 'Continue'}
-	   flash[:error].should == ""
-        end
+        #it "should create an account" do
+           #@member = Member.find_by_email(@email) 
+           #@member = Member.create!(:first => @first_name, :last => @last_name, :email => @email, :already_a_member => @already_a_member,
+                                    #:year_of_birth => @year_of_birth, :gender => @gender, :occupation => @occupation, :special_skills => @special_skills,
+                                    #:number_of_children => @number_of_children, :member_active => @member_active, :city => @city, 
+                                    #:address1 => @address1, :zip => @zip, :telephone => @telephone)
+           #get :account_setup_member, {:commit => 'Continue'}
+	   #flash[:error].should == ""
+        #end
      end
 end
 
