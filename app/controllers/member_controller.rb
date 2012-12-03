@@ -84,20 +84,20 @@ class MemberController < ApplicationController
      session[:user_email] = aUser.email
   end
   
-   def reset_password
-    if verify_recaptcha
-       if email_params_has_value and member_email? then
+  def reset_password
+     if email_params_has_value and member_email?
+       if verify_recaptcha
            member = Member.find_by_email(params[:email])
            member.send_reset_password if member
            redirect_to "/member/reset_email_sent"
-       elsif email_params_has_value and !email_format_is_correct
-           flash.now[:error] = "Please type in correct email address."
-       elsif email_params_has_value and !member_email? then
-           flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
-       end
-    else
-       flash[:error] = "Your words do not match the ones in the recaptcha image!"
-    end
+        else
+           flash[:error] = "Your words do not match the ones in the recaptcha image!"
+        end
+     elsif email_params_has_value and !email_format_is_correct
+        flash.now[:error] = "Please type in correct email address."
+     elsif email_params_has_value and !member_email? then
+        flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
+     end
   end
   
   def member_email?
