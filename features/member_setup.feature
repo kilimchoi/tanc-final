@@ -61,4 +61,3 @@ Scenario: Receiving confirmation Email
    And I fill in "email" with "myemail@berkeley.edu"
    And I press "Continue" 
    Then I should receive a confirmation email
-
