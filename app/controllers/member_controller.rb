@@ -235,7 +235,7 @@ class MemberController < ApplicationController
       @special_skills = thisUser.special_skills rescue nil
       if params["commit"] == "Continue"  
         if thisUser and thisUser.validate_and_update(params)
-	  if verify_recaptcha 
+           if verify_recaptcha 
              @first = thisUser.first rescue nil
              @last = thisUser.last rescue nil
              @address1 = thisUser.address1 rescue nil
