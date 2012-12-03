@@ -37,29 +37,6 @@ describe MemberController do
           Member.stub!(:find_by_email).with("oski@berkeley.edu").and_return(@member)
        end
      end
-     describe "upon clicking Continue" do 
- 	context 'with valid inputs' do 
-	   before(:each) do
-	      @first-name = "Ki Lim"
-	      @last-name = "Choi"
-	      @already_a_member = "Yes"
-	      @year_of_birth = "1991"
- 	      @gender = "male"
-	      @country_of_birth = "South Korea"
-	      @occupation = "student"
-	      @special_skills = "jumping jacks"
-	      @number_of_children = "0"
-	      @city = "Berkeley"
-  	      @zip = "94709"
-	      @telephone = "2137008466"
-	  end
-        end
-        it "should create a member" do
-           mock = mock('Member')     	 
-           mock.stub(:account_setup_member)
-           response.should be_successful
-        end
-     end
      describe "setting up account without signing up first" do
         it "should error out" do 
            @member = Member.create!(:first => "Steven", :last => "Choi", :email => "stevn1202@gmail.com")
