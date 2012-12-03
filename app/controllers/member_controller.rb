@@ -238,11 +238,11 @@ class MemberController < ApplicationController
           @year_of_birth = thisUser.year_of_birth rescue nil
           @country_of_birth = thisUser.country_of_birth rescue nil
           @special_skills = thisUser.special_skills rescue nil
-        else
-          flash.now[:error] = "Please enter the correct format/fill in all fields are required."
-        end
           redirect_to("/member/edit_success")
-      end
+        end 
+     else
+        flash[:error] = "Please enter the correct format/fill in all fields are required."
+     end
     else
       flash[:error] = "You need to sign up or login first!"
       redirect_to("/member")
