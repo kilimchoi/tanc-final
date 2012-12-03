@@ -23,6 +23,8 @@ module NavigationHelpers
     when /^the next account setup\s?page$/ then '/member/account_setup_member'
     when /^the next account setup non-member\s?page$/ then '/member/account_setup_non_member'
     when /^profile\s?page$/ then '/member/profile'
+    when /^the non-member profile edit\s?page$/ then '/member/edit_non_member_profile'
+    when /^the member profile edit\s?page$/ then '/member/edit_member_profile'
     when /^the confirm account page$/ then '/member/confirm_account'
     when /^the admin landing\s?page$/ then '/member/admin'
     when /^the database\s?page$/ then '/member/admin/db_manage'

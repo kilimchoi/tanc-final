@@ -81,3 +81,21 @@ Scenario: Password gets updated on reset
     And I fill in "password_confirm" with "pass"
     And I press "Update Password"
     Then I should be on the reset success page
+
+Scenario: Non-members can edit their profiles
+    Given the following members exist:
+        | status    | member_type  | email               | first | last | password | zip   |
+        | confirmed | non-member   | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
+    And I logged in as "petertsoi@gmail.com" with password "1234"
+    And I am on profile page
+    When I follow "Edit your Profile"
+    Then I should be on the non-member profile edit page
+  
+Scenario: Members can edit their profiles
+    Given the following members exist:
+        | status    | member_type  | email               | first | last | password | zip   |
+        | confirmed | tibetan      | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
+    And I logged in as "petertsoi@gmail.com" with password "1234"
+    And I am on profile page
+    When I follow "Edit your Profile"
+    Then I should be on the member profile edit page
