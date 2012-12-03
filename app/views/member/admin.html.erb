@@ -32,11 +32,10 @@
       <th>Occupation</th>
       <th>Payment Method</th>
       <th>Status</th>
-      <th>Edit</th>
-      <th>Delete</th>
      </tr>
    </thead>
   <tbody>
+     
     <% Member.all.each do |member| %>
       <tr>
         <td><%= member[:id] rescue nil%></td>
@@ -90,9 +89,18 @@
             <% end %></td>
         <td></td>
         <td><%= member[:status] rescue nil%></td>
-        <td><%= link_to('Edit', '#', :id => 'edit_members_info_in_db') %></td>
-        <td><%= link_to('Delete', '#', :id => 'delete_member_from_in_db') %></td>
        </tr>
     <% end %>
+    
   </tbody>
 </table>
+<%= form_tag do %>
+  Please select which member you want to delete
+  <%= select_tag 'delete_member', "<option>0</option><option>2</option><option>3</option><option>4</option><option>5</option>".html_safe %>
+  <%= submit_tag 'Delete' %>
+<% end %>
+<%= form_tag do %>
+  Please select which member you want to edit
+  <%= select_tag 'edit_member', "<option>0</option><option>2</option><option>3</option><option>4</option><option>5</option>".html_safe %>
+  <%= submit_tag 'Edit' %>
+<% end %>

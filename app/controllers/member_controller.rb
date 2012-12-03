@@ -355,7 +355,7 @@ class MemberController < ApplicationController
        end
        if params["commit"] == "logout"
           redirect_to("/member")
-	        session.delete(:user_email)#clear user data from session
+	  session.delete(:user_email)#clear user data from session
        end
        if params["commit"] == "Add a new member"
           redirect_to("/member/admin/add_new_member")
@@ -363,9 +363,67 @@ class MemberController < ApplicationController
        if params["commit"] == "refresh"
           redirect_to("/member/admin")
        end
+       
+       if params["commit"] == "Delete"
+         if params["delete_member"]
+           this_user.delete_id = params["delete_member"]
+           this_user.save
+           redirect_to("member/admin")
+         end
+         Member.delete(Member.find(this_user.delete_id))
+       end
+
+       if params["commit"] == "Edit"
+         if params["edit_member"]
+           this_user.delete_id = params["edit_member"]
+           this_user.save
+           redirect_to("/member/edit_member_profile")
+         end
+       end
+   
     else 
-	      redirect_to("/member")
+	redirect_to("/member")
         flash[:error] = "You are not logged in- please log in first."
+    end
+  end
+
+  def edit_member_profile
+    this_user = find_user_by_email(session[:user_email])
+    if this_user.admin != true
+      redirect_to("/member")
+      flash[:error] = "Sorry, you are not an admin, login as an admin first!"
+    else #member is admin
+      member_to_edit = Member.find(this_user.delete_id) #now we have the user to edit
+      @first = member_to_edit.first rescue nil
+      @last = member_to_edit.last rescue nil
+      @address1 = member_to_edit.address1 rescue nil
+      @address2 = member_to_edit.address2 rescue nil
+      @city = member_to_edit.city rescue nil
+      @state = member_to_edit.state rescue nil
+      @zip = member_to_edit.zip rescue nil
+      @telephone = tmember_to_edit.telephone rescue nil
+      @year_of_birth = member_to_edit.year_of_birth rescue nil
+      @country_of_birth = member_to_edit.country_of_birth rescue nil
+      @special_skills = member_to_edit.special_skills rescue nil
+      if params["commit"] == "Continue"
+        if params["first-name"] and params["first-name"] =~ /[A-Za-z]+/; member_to_edit.first = params["first-name"]; end;
+      	if params["last-name"] and params["last-name"] =~ /[A-Za-z]+/; member_to_edit.last = params["last-name"]; end;
+        if params["address-line-1"] and params["address-line-1"] =~ /\d|[-]|[A-Za-z]+|\s|./; member_to_edit.address1 = params["address-line-1"]; end;
+        if params["address-line-2"] and params["address-line-2"] =~ /\d|[-]|[A-Za-z]+|\s|./; member_to_edit.address2 = params["address-line-2"]; end;
+        if params["already_a_member"]; member_to_edit.already_a_member = params["already_a_member"]; end;
+        if params["number_of_children"]; member_to_edit.number_of_children = params["number_of_children"]; end;
+        if params["city"] and params["city"] =~ /[A-Za-z]+/; member_to_edit.city = params["city"]; end;
+        if params["zip"] and params["zip"] =~ /\d{5}/; member_to_edit.zip = params["zip"]; end;
+        if params["state"] and params["state"] =~ /[A-Za-z]{2}/; member_to_edit.state = params["state"]; end;
+        if params["telephone"] and params["telephone"] =~ /\d{1,10}|[-]/; member_to_edit.telephone = params["telephone"]; end;
+        if params["year_of_birth"] and params["year_of_birth"] =~ /\d{1,4}/; member_to_edit.year_of_birth = params["year_of_birth"]; end;
+        if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; member_to_edit.country_of_birth = params["country_of_birth"]; end;
+        if params["occupation"]; member_to_edit.occupation = params["occupation"]; end;
+        if params["gender"]; member_to_edit.gender = params["gender"]; end;
+        if params["special_skills"] and params["special_skills"] =~ /[A-Za-z]+/; member_to_edit.special_skills = params["special_skills"]; end;
+        member_to_edit.save
+        redirect_to("/member/admin")
+      end
     end
   end
 
