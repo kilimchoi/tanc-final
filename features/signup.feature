@@ -99,3 +99,161 @@ Scenario: Members can edit their profiles
     And I am on profile page
     When I follow "Edit your Profile"
     Then I should be on the member profile edit page
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+    And I fill in "first-name" with "1234"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+    And I fill in "last-name" with "1234"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+    And I fill in "first-name" with "Peter"
+    And I fill in "last-name" with "Piper"
+    And I fill in "city" with "1234"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+    And I fill in "zip" with "1234"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+    And I fill in "state" with "1234"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+    And I fill in "telephone" with "1234"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+    And I fill in "year_of_birth" with "never"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+    And I fill in "country_of_birth" with "1234"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+  
+Scenario: Validate city
+    Given the following members exist:
+        | status    | member_type  | email               | first | last | password | zip   |
+        | confirmed | tibetan      | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
+    And I logged in as "petertsoi@gmail.com" with password "1234"
+    And I am on profile page
+    When I follow "Edit your Profile"
+    Then I should be on the member profile edit page
+    And I fill in "first-name" with "foo"
+    And I fill in "last-name" with "bar"
+    And I fill in "address-line-1" with "foo"
+    And I fill in "city" with "1234"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+    And I fill in "city" with "Berkeley"
+    And I fill in "zip" with "=)"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+
+Scenario: Validate zip
+    Given the following members exist:
+        | status    | member_type  | email               | first | last | password | zip   |
+        | confirmed | tibetan      | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
+    And I logged in as "petertsoi@gmail.com" with password "1234"
+    And I am on profile page
+    When I follow "Edit your Profile"
+    Then I should be on the member profile edit page
+    And I fill in "first-name" with "foo"
+    And I fill in "last-name" with "bar"
+    And I fill in "address-line-1" with "foo"
+    And I fill in "city" with "Berkeley"
+    And I fill in "zip" with "=)"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+
+Scenario: Validate state
+    Given the following members exist:
+        | status    | member_type  | email               | first | last | password | zip   |
+        | confirmed | tibetan      | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
+    And I logged in as "petertsoi@gmail.com" with password "1234"
+    And I am on profile page
+    When I follow "Edit your Profile"
+    Then I should be on the member profile edit page
+    And I fill in "first-name" with "foo"
+    And I fill in "last-name" with "bar"
+    And I fill in "address-line-1" with "foo"
+    And I fill in "city" with "Berkeley"
+    And I fill in "zip" with "94709"
+    And I fill in "state" with "99"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+
+Scenario: Validate telephone
+    Given the following members exist:
+        | status    | member_type  | email               | first | last | password | zip   |
+        | confirmed | tibetan      | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
+    And I logged in as "petertsoi@gmail.com" with password "1234"
+    And I am on profile page
+    When I follow "Edit your Profile"
+    Then I should be on the member profile edit page
+    And I fill in "first-name" with "foo"
+    And I fill in "last-name" with "bar"
+    And I fill in "address-line-1" with "foo"
+    And I fill in "city" with "Berkeley"
+    And I fill in "zip" with "94709"
+    And I fill in "state" with "CA"
+    And I fill in "telephone" with "=)"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+
+Scenario: Validate year of birth
+    Given the following members exist:
+        | status    | member_type  | email               | first | last | password | zip   |
+        | confirmed | tibetan      | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
+    And I logged in as "petertsoi@gmail.com" with password "1234"
+    And I am on profile page
+    When I follow "Edit your Profile"
+    Then I should be on the member profile edit page
+    And I fill in "first-name" with "foo"
+    And I fill in "last-name" with "bar"
+    And I fill in "address-line-1" with "foo"
+    And I fill in "city" with "Berkeley"
+    And I fill in "zip" with "94709"
+    And I fill in "state" with "CA"
+    And I fill in "telephone" with "8005555555"
+    And I fill in "year_of_birth" with "=)"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+
+Scenario: Validate country of birth
+    Given the following members exist:
+        | status    | member_type  | email               | first | last | password | zip   |
+        | confirmed | tibetan      | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
+    And I logged in as "petertsoi@gmail.com" with password "1234"
+    And I am on profile page
+    When I follow "Edit your Profile"
+    Then I should be on the member profile edit page
+    And I fill in "first-name" with "foo"
+    And I fill in "last-name" with "bar"
+    And I fill in "address-line-1" with "foo"
+    And I fill in "city" with "Berkeley"
+    And I fill in "zip" with "94709"
+    And I fill in "state" with "CA"
+    And I fill in "telephone" with "8005555555"
+    And I fill in "year_of_birth" with "1991"
+    And I fill in "country_of_birth" with "1234"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
+
+Scenario: Validate special skills
+    Given the following members exist:
+        | status    | member_type  | email               | first | last | password | zip   |
+        | confirmed | tibetan      | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
+    And I logged in as "petertsoi@gmail.com" with password "1234"
+    And I am on profile page
+    When I follow "Edit your Profile"
+    Then I should be on the member profile edit page
+    And I fill in "first-name" with "foo"
+    And I fill in "last-name" with "bar"
+    And I fill in "address-line-1" with "foo"
+    And I fill in "city" with "Berkeley"
+    And I fill in "zip" with "94709"
+    And I fill in "state" with "CA"
+    And I fill in "telephone" with "8005555555"
+    And I fill in "year_of_birth" with "1991"
+    And I fill in "country_of_birth" with "USA"
+    And I fill in "special_skills" with "1234"
+    And I press "Continue"
+    Then I should see "Please enter the correct format/fill in all fields are required."
