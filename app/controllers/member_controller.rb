@@ -106,8 +106,11 @@ class MemberController < ApplicationController
   end
 
   def reset_email_sent
-    if email_params_has_value then
-       redirect_to "/member/update_password?email=#{params[:email]}"
+    if email_params_has_value and member_email?  then
+       member = Member.find_by_email(params[:email])
+       if member and member.password == params[:request] then
+          redirect_to "/member/update_password?email=#{params[:email]}"
+       end
     end
   end
     
@@ -148,19 +151,19 @@ class MemberController < ApplicationController
   def account_setup_member
     thisUser = Member.find_by_email(session[:user_email])
     if thisUser
+      @first = thisUser.first rescue nil
+      @last = thisUser.last rescue nil
+      @address1 = thisUser.address1 rescue nil
+      @address2 = thisUser.address2 rescue nil
+      @city = thisUser.city rescue nil
+      @state = thisUser.state rescue nil
+      @zip = thisUser.zip rescue nil
+      @telephone = thisUser.telephone rescue nil
+      @year_of_birth = thisUser.year_of_birth rescue nil
+      @country_of_birth = thisUser.country_of_birth rescue nil
+      @special_skills = thisUser.special_skills rescue nil
       if params["commit"] == "Continue"
         if thisUser and thisUser.validate_and_update(params)
-          @first = thisUser.first rescue nil
-          @last = thisUser.last rescue nil
-          @address1 = thisUser.address1 rescue nil
-          @address2 = thisUser.address2 rescue nil
-          @city = thisUser.city rescue nil
-          @state = thisUser.state rescue nil
-          @zip = thisUser.zip rescue nil
-          @telephone = thisUser.telephone rescue nil
-          @year_of_birth = thisUser.year_of_birth rescue nil
-          @country_of_birth = thisUser.country_of_birth rescue nil
-          @special_skills = thisUser.special_skills rescue nil
           if !thisUser.member_active
             thisUser.member_active = true
 	    thisUser.save
@@ -222,8 +225,8 @@ class MemberController < ApplicationController
       @year_of_birth = thisUser.year_of_birth rescue nil
       @country_of_birth = thisUser.country_of_birth rescue nil
       @special_skills = thisUser.special_skills rescue nil
-      if thisUser and thisUser.validate_and_update(params)
-        if params["commit"] == "Continue"
+      if params["commit"] == "Continue"
+        if thisUser and thisUser.validate_and_update(params)
           @first = thisUser.first rescue nil
           @last = thisUser.last rescue nil
           @address1 = thisUser.address1 rescue nil
@@ -235,10 +238,10 @@ class MemberController < ApplicationController
           @year_of_birth = thisUser.year_of_birth rescue nil
           @country_of_birth = thisUser.country_of_birth rescue nil
           @special_skills = thisUser.special_skills rescue nil
+          redirect_to("/member/edit_success")
         else
           flash.now[:error] = "Please enter the correct format/fill in all fields are required."
         end
-          redirect_to("/member/edit_success")
       end
     else
       flash[:error] = "You need to sign up or login first!"
@@ -387,7 +390,7 @@ class MemberController < ApplicationController
     end
   end
 
-  def edit_member_profile
+  def admin_edit_member_profile
     this_user = find_user_by_email(session[:user_email])
     if this_user.admin != true
       redirect_to("/member")
@@ -438,7 +441,6 @@ class MemberController < ApplicationController
       Member.find(:all).each do |member|
         @member_list << member.user_data
       end
-      puts @member_list
       render "csv_export.csv.erb", :content_type => content_type
     end
   end

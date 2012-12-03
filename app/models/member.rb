@@ -1,5 +1,5 @@
 class Member < ActiveRecord::Base
-  attr_accessible :email, :password, :status, :type
+  attr_accessible :email, :password, :status, :member_type, :first, :last, :admin
   validates :email, presence: true, uniqueness: true, format: {with: /^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i}
 
   def self.random_password
@@ -8,6 +8,7 @@ class Member < ActiveRecord::Base
 
   def send_reset_password
     self.password_reset_sent_at = Time.zone.now
+    self.password = Member.random_password
     save!
     IndividualMailer.reset_password(self).deliver()
   end     
