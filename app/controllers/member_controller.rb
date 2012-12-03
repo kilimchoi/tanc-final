@@ -85,14 +85,18 @@ class MemberController < ApplicationController
   end
   
    def reset_password
-    if email_params_has_value and member_email? then
-        member = Member.find_by_email(params[:email])
-        member.send_reset_password if member
-        redirect_to "/member/reset_email_sent"
-    elsif email_params_has_value and !email_format_is_correct
-        flash.now[:error] = "Please type in correct email address."
-    elsif email_params_has_value and !member_email? then
-        flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
+    if verify_recaptcha
+       if email_params_has_value and member_email? then
+           member = Member.find_by_email(params[:email])
+           member.send_reset_password if member
+           redirect_to "/member/reset_email_sent"
+       elsif email_params_has_value and !email_format_is_correct
+           flash.now[:error] = "Please type in correct email address."
+       elsif email_params_has_value and !member_email? then
+           flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
+       end
+    else
+       flash[:error] = "The words do not match the ones in the image."
     end
   end
   
@@ -131,19 +135,23 @@ class MemberController < ApplicationController
     end
     @email = thisUser.email rescue nil
     if params[:commit] == "Continue"
-      if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
-        if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan" and !thisUser.member_active and !thisUser.non_member_active
-           thisUser.member_type = params[:membership]
-           thisUser.already_a_member = "No"
-           thisUser.save
-	         redirect_to("/member/account_setup_member")
-        elsif params[:membership] == "non-member" and !thisUser.member_active and !thisUser.non_member_active
-           redirect_to("/member/account_setup_non_member")
-        elsif thisUser.member_active || thisUser.non_member_active
-           flash.now[:error] = "Sorry you can't sign up twice!"
-        end
+      if verify_recaptcha
+         if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
+           if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan" and !thisUser.member_active and !thisUser.non_member_active
+              thisUser.member_type = params[:membership]
+              thisUser.already_a_member = "No"
+              thisUser.save
+	      redirect_to("/member/account_setup_member")
+           elsif params[:membership] == "non-member" and !thisUser.member_active and !thisUser.non_member_active
+              redirect_to("/member/account_setup_non_member")
+           elsif thisUser.member_active || thisUser.non_member_active
+              flash.now[:error] = "Sorry you can't sign up twice!"
+           end
+         else
+           flash.now[:error] = "The two passwords do not match"
+         end
       else
-        flash.now[:error] = "The two passwords do not match"
+         flash[:error] = "The words do not match the ones in the recaptcha image!"
       end
     end
   end
