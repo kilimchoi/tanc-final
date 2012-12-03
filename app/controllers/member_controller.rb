@@ -383,7 +383,6 @@ class MemberController < ApplicationController
       Member.find(:all).each do |member|
         @member_list << member.user_data
       end
-      puts @member_list
       render "csv_export.csv.erb", :content_type => content_type
     end
   end

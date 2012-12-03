@@ -17,6 +17,14 @@ Scenario: Paying membership fee by check or cash
    Then I press "Done!" 
    Then I should be on the Thank You page
 
+Scenario: Paying membership fee by online payment
+   Given I logged in as "hjvds@berkeley.edu" with password "1234"
+   And I am on the member payment page
+   And I press "Online Payment"
+   Then I should be on the online payment page
+   Then I press "Done!" 
+   Then I should be on the Thank You page
+
 Scenario: Not paying membership fee
    Given I logged in as "hjvds@berkeley.edu" with password "1234"
    And I am on the member payment page
