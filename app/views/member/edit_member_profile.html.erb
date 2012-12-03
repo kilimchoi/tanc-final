@@ -27,7 +27,8 @@
   <%= text_field_tag 'city', @city, :placeholder => 'City' %>
   <%= text_field_tag 'state', @state, :placeholder => 'State' %>
   <%= text_field_tag 'zip', @zip, :placeholder => 'Zip' %>
-  <%= text_field_tag 'telephone', @telephone, :placeholder => 'Telephone' %>
+  <%= text_field_tag 'telephone', @telephone, :placeholder => 'Telephone' %> 
+  <%= recaptcha_tags %>
   <%= submit_tag 'Continue' %>
   <%= link_to('Back to log in page', '/member/') %> 
   <% end %>

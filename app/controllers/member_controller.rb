@@ -233,29 +233,33 @@ class MemberController < ApplicationController
       @year_of_birth = thisUser.year_of_birth rescue nil
       @country_of_birth = thisUser.country_of_birth rescue nil
       @special_skills = thisUser.special_skills rescue nil
-      if thisUser and thisUser.validate_and_update(params)
-        if params["commit"] == "Continue"
-          @first = thisUser.first rescue nil
-          @last = thisUser.last rescue nil
-          @address1 = thisUser.address1 rescue nil
-          @address2 = thisUser.address2 rescue nil
-          @city = thisUser.city rescue nil
-          @state = thisUser.state rescue nil
-          @zip = thisUser.zip rescue nil
-          @telephone = thisUser.telephone rescue nil
-          @year_of_birth = thisUser.year_of_birth rescue nil
-          @country_of_birth = thisUser.country_of_birth rescue nil
-          @special_skills = thisUser.special_skills rescue nil
-          redirect_to("/member/edit_success")
-        end 
+      if verify_recaptcha
+         if thisUser and thisUser.validate_and_update(params)
+           if params["commit"] == "Continue"
+             @first = thisUser.first rescue nil
+             @last = thisUser.last rescue nil
+             @address1 = thisUser.address1 rescue nil
+             @address2 = thisUser.address2 rescue nil
+             @city = thisUser.city rescue nil
+             @state = thisUser.state rescue nil
+             @zip = thisUser.zip rescue nil
+             @telephone = thisUser.telephone rescue nil
+             @year_of_birth = thisUser.year_of_birth rescue nil
+             @country_of_birth = thisUser.country_of_birth rescue nil
+             @special_skills = thisUser.special_skills rescue nil
+             redirect_to("/member/edit_success")
+           end 
+        else
+           flash[:error] = "Please enter the correct format/fill in all fields are required."
+        end
      else
-        flash[:error] = "Please enter the correct format/fill in all fields are required."
+        flash[:error] = "Your words do not match the ones in the recaptcha image!"
      end
-    else
-      flash[:error] = "You need to sign up or login first!"
-      redirect_to("/member")
-    end
-  end
+   else
+     flash[:error] = "You need to sign up or login first!"
+     redirect_to("/member")
+   end
+ end
 
   def edit_non_member_profile
     thisUser = Member.find_by_email(session[:user_email])
@@ -269,20 +273,24 @@ class MemberController < ApplicationController
       @zip = thisUser.zip rescue nil
       @telephone = thisUser.telephone rescue nil
       if params["commit"] == "Submit"
-        if thisUser and thisUser.validate_and_update_non_member(params)
-          @first = thisUser.first rescue nil
-          @last = thisUser.last rescue nil
-	  @address1 = thisUser.address1 rescue nil
-	  @address2 = thisUser.address2 rescue nil
-	  @city = thisUser.city rescue nil
-	  @state = thisUser.state rescue nil
-	  @zip = thisUser.zip rescue nil
-	  @telephone = thisUser.telephone rescue nil
-          redirect_to("/member/edit_success")
+        if verify_recaptcha
+           if thisUser and thisUser.validate_and_update_non_member(params)
+             @first = thisUser.first rescue nil
+             @last = thisUser.last rescue nil
+	     @address1 = thisUser.address1 rescue nil
+	     @address2 = thisUser.address2 rescue nil
+	     @city = thisUser.city rescue nil
+	     @state = thisUser.state rescue nil
+	     @zip = thisUser.zip rescue nil
+	     @telephone = thisUser.telephone rescue nil
+             redirect_to("/member/edit_success")
+           else
+             flash.now[:error] = "Please enter the correct format/fill in the required fields."
+           end
         else
-          flash.now[:error] = "Please enter the correct format/fill in the required fields."
-        end
-      end
+           flash[:error] = "Your words do not match the words in the recaptcha image!" 
+       end
+     end
     else
       flash[:error] = "You need to sign up or login first!"
       redirect_to("/member")
