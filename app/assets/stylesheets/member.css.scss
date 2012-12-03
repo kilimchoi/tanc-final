@@ -13,15 +13,10 @@
   color: #444;
 }
 input[type="radio"] {
-	width: 100px;
-	float: left;
+width: 100px;
+float: left;
 }
-a {
-  color: blue;
-}
-a:hover {
-  text-decoration: underline;
-}
+
 a#forgot_password {
   font-size: 10px;
   color: red;
@@ -112,21 +107,21 @@ label {
 
 input#membership_tibetan, input#membership_spouseoftibetan, input#membership_non-member, input#gender_male, input#gender_female {
   width: 30px;
-  float: left;	
+  float: left;
   margin: 5px;
 }
 
-/* 
+/*
 CSS specific for member_payment page
 */
 /** CSS for profile page */
 
 /**#profile-photo {
-  border: 5px solid #CCC;
-  width: 150px;
-  height: 150px;
-  background: #600;
-  margin: auto;
+border: 5px solid #CCC;
+width: 150px;
+height: 150px;
+background: #600;
+margin: auto;
 }
 */
 .profile ul {
@@ -215,6 +210,29 @@ thead {
   margin-bottom: 10px;
 }
 
+#list_of_people td, #list_of_people th {
+  border-right: 1px dashed #600;
+  border-bottom: 1px dashed #600;
+  padding: 3px;
+}
+
+#edit_members_info_in_db {
+  background: #304A08;
+  padding: 2px 5px;
+  color: #FFF;
+}
+#delete_member_from_in_db {
+  background: red;
+  padding: 2px 5px;
+  color: #FFF;
+}
+#edit_members_info_in_db:hover, #delete_member_from_in_db:hover {
+  color: yellow;
+  text-decoration: none;
+}
+
+
+
 /* PROFILE TABLE CSS */
 
 #profile_table {
@@ -228,4 +246,3 @@ thead {
   text-align: left;
   padding: 3px;
 }
-

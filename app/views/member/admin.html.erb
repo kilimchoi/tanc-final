@@ -4,7 +4,8 @@
   <%= link_to "LOGOUT", :controller=>"member", :action => "destroy" %>
 </div>
 <div id = "add_new_member">
-  <%= link_to('Add a new member', '/member/signup') %><br>
+  <%= link_to('Add a new member', '/member/add_new_member') %><br>
+  <%= link_to('Export CSV file', '/member/admin/export') %><br>
 </div>
 <table id="show_all">
   <tr>
@@ -13,43 +14,85 @@
     <td><%= button_tag "Refresh" %></td>
   </tr>
 </table>
-<table>
+<table id="list_of_people">
   <thead id="head">
     <tr>
-      <td>ID #</td>
-      <td>Name</td>
-      <td>Who Are You?</td>
-      <td>Email</td>
-      <td>Telephone</td>
-      <td>Address</td>
-      <td>City</td>
-      <td>State</td>
-      <td>Zip</td>
-      <td>Gender</td>
-      <td>Birth Year</td>
-      <td>Birth Country</td>
-      <td>Occupation</td>
-      
+      <th>ID #</th>
+      <th>Full Name</th>
+      <th>Who Are You?</th>
+      <th>Email</th>
+      <th>Telephone</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Gender</th>
+      <th>Birth Year</th>
+      <th>Birth Country</th>
+      <th>Occupation</th>
+      <th>Payment Method</th>
+      <th>Status</th>
+      <th>Edit</th>
+      <th>Delete</th>
      </tr>
    </thead>
   <tbody>
     <% Member.all.each do |member| %>
       <tr>
-	<td><%= member[:id] rescue nil%></td>
-	<td><%= member[:first] + ' ' + member[:last] rescue nil%></td>
-	<td><%= member[:member_type] rescue nil%></td>
-	<td><%= member[:email] rescue nil%></td>
-	<td><%= member[:telephone] rescue nil%></td>
-	<td><%= member[:address1] + ' ' + member[:address2] rescue nil%></td>
-	<td><%= member[:city] rescue nil%></td>
-	<td><%= member[:state] rescue nil%></td>
-	<td><%= member[:zip] rescue nil%></td>
-	<td><%= member[:gender] rescue nil%></td>
-	<td><%= member[:year_of_birth] rescue nil%></td>
-	<td><%= member[:country_of_birth] rescue nil%></td>
-	<td><%= member[:occupation] rescue nil%></td>
+        <td><%= member[:id] rescue nil%></td>
+        <td><%= member[:first] + ' ' + member[:last] rescue nil%></td>
+        <td><%= member[:member_type] rescue nil%></td>
+        <td><%= member[:email] rescue nil%></td>
+        <td><% if member[:telephone] == nil %>
+              <%= "N/A" %>
+            <% else %>
+              <%= member[:telephone] %>
+            <% end %></td>
+        <td><% if member[:address1] == nil and member[:address2] == nil %>
+              <%= "N/A" %>
+            <% else %>
+              <%= member[:address1] + ' ' + member[:address2] rescue nil%>
+            <% end %></td>
+        <td><% if member[:city] == nil %>
+              <%= "N/A" %>
+            <% else %>
+              <%= member[:city] %>
+            <% end %></td>
+        <td><% if member[:state] == nil %>
+              <%= "N/A" %>
+            <% else %>
+              <%= member[:state] %>
+            <% end %></td>
+        <td><% if member[:zip] == nil %>
+              <%= "N/A" %>
+            <% else %>
+              <%= member[:zip] %>
+            <% end %></td>
+        <td><% if member[:gender] == nil %>
+              <%= "N/A" %>
+            <% else %>
+              <%= member[:gender] %>
+            <% end %></td>
+        <td><% if member[:year_of_birth] == nil %>
+              <%= "N/A" %>
+            <% else %>
+              <%= member[:year_of_birth] %>
+            <% end %></td>
+        <td><% if member[:country_of_birth] == nil %>
+              <%= "N/A" %>
+            <% else %>
+              <%= member[:country_of_birth] %>
+            <% end %></td>
+        <td><% if member[:occupation] == nil %>
+              <%= "N/A" %>
+            <% else %>
+              <%= member[:occupation] %>
+            <% end %></td>
+        <td></td>
+        <td><%= member[:status] rescue nil%></td>
+        <td><%= link_to('Edit', '#', :id => 'edit_members_info_in_db') %></td>
+        <td><%= link_to('Delete', '#', :id => 'delete_member_from_in_db') %></td>
        </tr>
     <% end %>
   </tbody>
-
 </table>
