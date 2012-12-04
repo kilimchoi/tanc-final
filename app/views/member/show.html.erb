@@ -4,7 +4,14 @@
 <%= link_to '<<< Go back to Database Management Page', 'admin' %>
 
 <ul id="show_page_member_info">
-  <li><strong>Status:</strong> <%= @member.status rescue nil %></li>
+  <% if @member.status == "Pending" %>
+     <li style ="background: yellow;"><strong>Status:</strong> <%= @member.status rescue nil %></li>
+  <% elsif @member.status == "Active" %>
+     <li style ="background: green;"><strong>Status:</strong> <%= @member.status rescue nil %></li>
+  <% elsif @member.status == "Expired" %>
+     <li style ="background: red;"><strong>Status:</strong> <%= @member.status rescue nil %></li>
+  <% end %>
+  
   <li><strong>Full Name:</strong> <%= @member.first + ' ' + @member.last rescue nil%> </li>
   <li><strong>Membership Type:</strong> <%= @member.member_type rescue nil%></li>
   <li><strong>Email:</strong> <%= @member.email rescue nil%></li>
@@ -55,7 +62,7 @@
         <strong>Occupation</strong>: <%= member.occupation %>
       <% end %></li>
 </ul>
-<%# PETER or STEVEN - I commented out the delete button.
-<%= button_to 'Delete', member_path(@member), :method => :delete, :confirm => 'Are you sure?' %>
-
+<%= @member.id %>
+<%# PETER or STEVEN - I commented out the delete button. %>
+<%= button_to 'Delete', member_path(@member.id), :method => :delete, :confirm => 'Are you sure?' %>
 

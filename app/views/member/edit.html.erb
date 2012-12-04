@@ -3,17 +3,22 @@
 <h2> You are now editing <%= @member.first %>' info </h2>
 
 <%= form_tag member_path(@member), :method => :put do %>
+  <%= label :member, :member_type, 'Status' %>
+  <%=  select :member, :member_type, "<option>Tibetan</option><option>Spouse of Tibetan</option><option>Friend of TANC</option>" %>
+  <br>
+  <br>
 
   <%=  text_field :member, 'first', :placeholder => 'First Name' %>
 
   <%=  text_field :member, 'last', :placeholder => 'Last Name' %>
 
   <%= label :member, :status, 'Status' %>
-  <%=  select :member, :status, "<option>Pending</option><option>Active</option><option>Expried</option>" %>
+  <%=  select :member, :status, "<option>Pending</option><option>Active</option><option>Expired</option>" %>
   <br>
   <br>
   
-  <%=  text_field :member, 'city', :placeholder => 'City' %>
+
+  <%=  text_field :member, 'zip', :placeholder => 'Zip' %>
   
   <%= submit_tag 'Update Info' %>
 <% end %>

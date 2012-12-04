@@ -14,12 +14,12 @@ class MemberController < ApplicationController
     redirect_to member_path(@member)
   end
 
-  # STEVEN or PETER- I have a button_to delete in show.html.erb. Seems like the button is successfully calling this destroy method 
+  # STEVEN or PETER- I have a button_to delete in show.html.erb. Seems like the button is not calling this destroy method 
   def destroy
-    @member = Member.find(params[:id])
+    @member = Member.find params[:id] 
     @member.destroy
-    flash[:notice] = "#{@member.first}' deleted."
-    redirect_to member_path(@member)
+    #flash[:notice] = "#{@member.first}' deleted."
+    redirect_to ("/member/admin")
   end
 
   def signup

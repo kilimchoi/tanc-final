@@ -90,7 +90,16 @@
               <%= member.occupation %>
             <% end %></td>
         <td></td>
-        <td><%= member.status rescue nil%></td>
+        <% if member.status == "Pending" %>
+          <td style ="background: yellow;"><%= member.status rescue nil %></td>
+        <% elsif member.status == "Active" %>
+          <td style ="background: green;"><%= member.status rescue nil %></td>
+        <% elsif member.status == "Expired" %>
+          <td style ="background: red;"><%= member.status rescue nil %></td>
+        <% end %>
+
+
+
         <td><%= link_to "Detail", member_path(member) %></td>
        </tr>
     <% end %>
