@@ -69,7 +69,6 @@
         <strong>Occupation</strong>: <%= @member.occupation %>
       <% end %></li>
 </ul>
-<%= @member.id %>
 <%# PETER or STEVEN - I commented out the delete button. %>
 <%= button_to 'Delete', member_path(@member.id), :method => :delete, :confirm => 'Are you sure?' %>
 
