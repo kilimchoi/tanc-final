@@ -1,9 +1,7 @@
 class MemberController < ApplicationController
   @member = Member.all
   def show
-    id = params[:id] # retrieve movie ID from URI route
-    @member = Member.find(id) # look up movie by unique ID
-    # will render app/views/movies/show.<extension> by default
+    @member = Member.find params[:id] 
   end
 
   def edit
@@ -13,7 +11,6 @@ class MemberController < ApplicationController
   def update
     @member = Member.find params[:id]
     @member.update_attributes!(params[:member])
-    flash[:notice] = "#{@member.first}'s info was successfully updated."
     redirect_to member_path(@member)
   end
 

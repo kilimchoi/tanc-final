@@ -4,16 +4,18 @@
 
 <%= form_tag member_path(@member), :method => :put do %>
 
-  <%= label :member, :first, 'First Name' %>
-  <%=  text_field :member, 'first' %>
+  <%=  text_field :member, 'first', :placeholder => 'First Name' %>
 
-  <%= label :member, :last, 'Last Name' %>
-  <%=  text_field :member, 'last' %>
+  <%=  text_field :member, 'last', :placeholder => 'Last Name' %>
 
   <%= label :member, :status, 'Status' %>
-  <%=  select :member, :status, "<option>Pending</option><option>Verified</option>" %>
+  <%=  select :member, :status, "<option>Pending</option><option>Active</option><option>Expried</option>" %>
+  <br>
+  <br>
+  
+  <%=  text_field :member, 'city', :placeholder => 'City' %>
+  
   <%= submit_tag 'Update Info' %>
-
 <% end %>
 
 

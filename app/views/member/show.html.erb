@@ -1,7 +1,7 @@
 
 <h2> Details about <%= @member.first %> </h2>
 <%= link_to 'Edit', edit_member_path(@member), :id => "edit_profile" %><br>
-<%= link_to '<<< Go back to Database Management Page', 'member/admin' %>
+<%= link_to '<<< Go back to Database Management Page', 'admin' %>
 
 <ul id="show_page_member_info">
   <li><strong>Status:</strong> <%= @member.status rescue nil %></li>
