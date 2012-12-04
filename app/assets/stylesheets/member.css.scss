@@ -209,24 +209,27 @@ thead {
   margin-left: 20px;
   margin-bottom: 10px;
 }
-
+#list_of_people {
+  margin: 10px;
+}
 #list_of_people td, #list_of_people th {
   border-right: 1px dashed #600;
   border-bottom: 1px dashed #600;
   padding: 3px;
+  white-space: nowrap;
 }
 
-#edit_members_info_in_db {
+#edit_members {
   background: #304A08;
   padding: 2px 5px;
   color: #FFF;
 }
-#delete_member_from_in_db {
+#delete_members {
   background: red;
   padding: 2px 5px;
   color: #FFF;
 }
-#edit_members_info_in_db:hover, #delete_member_from_in_db:hover {
+#edit_members:hover, #delete_members:hover {
   color: yellow;
   text-decoration: none;
 }
@@ -245,4 +248,19 @@ thead {
   border-bottom: 1px dashed #600;
   text-align: left;
   padding: 3px;
+}
+
+/* SHOW PAGE */
+
+#show_page_member_info {
+  width: 400px;
+  border: 1px solid #300;
+  margin: auto;
+  padding: 30px 20px;
+  text-align: center;
+  margin-top: 30px;
+}
+#show_page_member_info li {
+  list-style-type: none;
+  padding: 5px;
 }

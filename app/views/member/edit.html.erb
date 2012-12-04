@@ -1,0 +1,19 @@
+<% # edit.html.erb using partial %>
+
+<h2> You are now editing <%= @member.first %>' info </h2>
+
+<%= form_tag member_path(@member), :method => :put do %>
+
+  <%= label :member, :first, 'First Name' %>
+  <%=  text_field :member, 'first' %>
+
+  <%= label :member, :last, 'Last Name' %>
+  <%=  text_field :member, 'last' %>
+
+  <%= label :member, :status, 'Status' %>
+  <%=  select :member, :status, "<option>Pending</option><option>Verified</option>" %>
+  <%= submit_tag 'Update Info' %>
+
+<% end %>
+
+

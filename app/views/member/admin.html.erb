@@ -4,7 +4,7 @@
   <%= link_to "LOGOUT", :controller=>"member", :action => "destroy" %>
 </div>
 <div id = "add_new_member">
-  <%= link_to('Add a new member', '/member/add_new_member') %><br>
+  <%= link_to('Add a new member', '/member/signup') %><br>
   <%= link_to('Export CSV file', '/member/admin/export') %><br>
 </div>
 <table id="show_all">
@@ -18,7 +18,7 @@
   <thead id="head">
     <tr>
       <th>ID #</th>
-      <th>Full Name</th>
+      <th>Name</th>
       <th>Who Are You?</th>
       <th>Email</th>
       <th>Telephone</th>
@@ -32,75 +32,70 @@
       <th>Occupation</th>
       <th>Payment Method</th>
       <th>Status</th>
+      <th>More</th>
      </tr>
    </thead>
   <tbody>
-     
-    <% Member.all.each do |member| %>
+    <% @member = Member.all %>
+    <% @member.each do |member| %>
       <tr>
-        <td><%= member[:id] rescue nil%></td>
-        <td><%= member[:first] + ' ' + member[:last] rescue nil%></td>
-        <td><%= member[:member_type] rescue nil%></td>
-        <td><%= member[:email] rescue nil%></td>
-        <td><% if member[:telephone] == nil %>
+        <td><%= member.id rescue nil%></td>
+        <td><%= member.first + ' ' + member.last rescue nil%></td>
+        <td><%= member.member_type rescue nil%></td>
+        <td><%= member.email rescue nil%></td>
+        <td><% if member.telephone == nil %>
               <%= "N/A" %>
             <% else %>
-              <%= member[:telephone] %>
+              <%= member.telephone %>
             <% end %></td>
-        <td><% if member[:address1] == nil and member[:address2] == nil %>
+        <td><% if member.address1 == nil %> 
               <%= "N/A" %>
             <% else %>
-              <%= member[:address1] + ' ' + member[:address2] rescue nil%>
+              <%= member.address1 %> 
+              <%= member.address2 rescue nil%>
             <% end %></td>
-        <td><% if member[:city] == nil %>
+        <td><% if member.city == nil %>
               <%= "N/A" %>
             <% else %>
-              <%= member[:city] %>
+              <%= member.city %>
             <% end %></td>
-        <td><% if member[:state] == nil %>
+        <td><% if member.state == nil %>
               <%= "N/A" %>
             <% else %>
-              <%= member[:state] %>
+              <%= member.state %>
             <% end %></td>
-        <td><% if member[:zip] == nil %>
+        <td><% if member.zip == nil %>
               <%= "N/A" %>
             <% else %>
-              <%= member[:zip] %>
+              <%= member.zip %>
             <% end %></td>
-        <td><% if member[:gender] == nil %>
+        <td><% if member.gender == nil %>
               <%= "N/A" %>
             <% else %>
-              <%= member[:gender] %>
+              <%= member.gender %>
             <% end %></td>
-        <td><% if member[:year_of_birth] == nil %>
+        <td><% if member.year_of_birth == nil %>
               <%= "N/A" %>
             <% else %>
-              <%= member[:year_of_birth] %>
+              <%= member.year_of_birth %>
             <% end %></td>
-        <td><% if member[:country_of_birth] == nil %>
+        <td><% if member.country_of_birth == nil %>
               <%= "N/A" %>
             <% else %>
-              <%= member[:country_of_birth] %>
+              <%= member.country_of_birth %>
             <% end %></td>
-        <td><% if member[:occupation] == nil %>
+        <td><% if member.occupation == nil %>
               <%= "N/A" %>
             <% else %>
-              <%= member[:occupation] %>
+              <%= member.occupation %>
             <% end %></td>
         <td></td>
-        <td><%= member[:status] rescue nil%></td>
+        <td><%= member.status rescue nil%></td>
+        <td><%= link_to "Detail", member_path(member) %></td>
        </tr>
     <% end %>
     
   </tbody>
 </table>
-<%= form_tag do %>
-  Please select which member you want to delete
-  <%= select_tag 'delete_member', "<option>0</option><option>2</option><option>3</option><option>4</option><option>5</option>".html_safe %>
-  <%= submit_tag 'Delete' %>
-<% end %>
-<%= form_tag do %>
-  Please select which member you want to edit
-  <%= select_tag 'edit_member', "<option>0</option><option>2</option><option>3</option><option>4</option><option>5</option>".html_safe %>
-  <%= submit_tag 'Edit' %>
-<% end %>
+
+

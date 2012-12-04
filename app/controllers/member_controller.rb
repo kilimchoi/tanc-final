@@ -1,4 +1,30 @@
 class MemberController < ApplicationController
+  @member = Member.all
+  def show
+    id = params[:id] # retrieve movie ID from URI route
+    @member = Member.find(id) # look up movie by unique ID
+    # will render app/views/movies/show.<extension> by default
+  end
+
+  def edit
+    @member = Member.find params[:id]
+  end
+
+  def update
+    @member = Member.find params[:id]
+    @member.update_attributes!(params[:member])
+    flash[:notice] = "#{@member.first}'s info was successfully updated."
+    redirect_to member_path(@member)
+  end
+
+  # STEVEN or PETER- I have a button_to delete in show.html.erb. Seems like the button is successfully calling this destroy method 
+  def destroy
+    @member = Member.find(params[:id])
+    @member.destroy
+    flash[:notice] = "#{@member.first}' deleted."
+    redirect_to member_path(@member)
+  end
+
   def signup
     if email_params_has_value and email_format_is_correct then
         new_member = can_create_new_member

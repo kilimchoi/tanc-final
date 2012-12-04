@@ -1,0 +1,61 @@
+
+<h2> Details about <%= @member.first %> </h2>
+<%= link_to 'Edit', edit_member_path(@member), :id => "edit_profile" %><br>
+<%= link_to '<<< Go back to Database Management Page', 'member/admin' %>
+
+<ul id="show_page_member_info">
+  <li><strong>Status:</strong> <%= @member.status rescue nil %></li>
+  <li><strong>Full Name:</strong> <%= @member.first + ' ' + @member.last rescue nil%> </li>
+  <li><strong>Membership Type:</strong> <%= @member.member_type rescue nil%></li>
+  <li><strong>Email:</strong> <%= @member.email rescue nil%></li>
+  <li><% if @member.gender == nil %>
+        <strong>Gender:</strong> <%= "N/A" %>
+      <% else %>
+        <strong>Gender:</strong> <%= @member.occupation %>
+      <% end %></li>
+  <li><% if @member.telephone == nil %>
+        <strong>Telephone No:</strong> <%= "N/A" %>
+      <% else %>
+        <strong>Telephone No:</strong> <%= @member.telephone %>
+      <% end %></li>
+  <li><% if @member.address1 == nil %> 
+        <strong>Street Address:</strong> <%= "N/A" %>
+      <% else %>
+        <strong>Street Address:</strong> <%= @member.address1 %>, <%= @member.address2 rescue nil%>
+      <% end %></li>
+  <li><% if @member.city == nil %>
+        <strong>City:</strong> <%= "N/A" %>
+      <% else %>
+        <strong>City:</strong> <%= @member.city %>
+      <% end %></li>
+  <li><% if @member.state == nil %>
+        <strong>State:</strong> <%= "N/A" %>
+      <% else %>
+        <strong>State:</strong> <%= @member.state %>
+      <% end %></li>
+  <li><% if @member.zip == nil %>
+        <strong>Zip:</strong>  <%= "N/A" %>
+      <% else %>
+        <strong>Zip:</strong> <%= @member.zip %>
+      <% end %></li>
+
+  <li><% if @member.year_of_birth == nil %>
+        <strong>Year of Birth:</strong> <%= "N/A" %>
+      <% else %>
+        <strong>Year of Birth:</strong> <%= @member.year_of_birth %>
+      <% end %></li>
+  <li><% if @member.country_of_birth == nil %>
+        <strong>Country of Birth:</strong> <%= "N/A" %>
+      <% else %>
+        <strong>Country of Birth:</strong> <%= @member.country_of_birth %>
+      <% end %></li>
+  <li><% if @member.occupation == nil %>
+        <strong>Occupation:</strong> <%= "N/A" %>
+      <% else %>
+        <strong>Occupation</strong>: <%= member.occupation %>
+      <% end %></li>
+</ul>
+<%# PETER or STEVEN - I commented out the delete button.
+<%= button_to 'Delete', member_path(@member), :method => :delete, :confirm => 'Are you sure?' %>
+
+
