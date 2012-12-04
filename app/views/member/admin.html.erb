@@ -92,7 +92,7 @@
             <% else %>
               <%= member.year_of_birth %>
             <% end %></td>
-        <td><% if member.country_of_birth == nil %>
+        <td><% if member.country_of_birth == "" or member.country_of_birth == nil %>
               <%= "N/A" %>
             <% else %>
               <%= member.country_of_birth %>

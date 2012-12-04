@@ -84,7 +84,12 @@ class Member < ActiveRecord::Base
       else return false; end;
       if params["year_of_birth"] and params["year_of_birth"] =~ /\d{1,4}/; self.year_of_birth = params["year_of_birth"]
       else return false; end;
-      if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; self.country_of_birth = params["country_of_birth"]; end;
+      if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; self.country_of_birth = params["country_of_birth"]
+      elsif params["country_of_birth"] == ""
+        return true
+      elsif params["country_of_birth"] !=~ /[A-Za-z]+/
+        return false
+      end
       if params["occupation"]; self.occupation = params["occupation"];
       else return false; end;
       if params["gender"]; self.gender = params["gender"];
