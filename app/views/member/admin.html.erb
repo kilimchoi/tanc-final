@@ -1,16 +1,27 @@
 <h3>Welcome Admin!</h3>
 
 <div class = "logout">
-  <%= link_to "LOGOUT", :controller=>"member", :action => "destroy" %>
+  <% @destroy = false %>
+  <%= link_to "LOGOUT", :controller=>"member", :class => "delete" %>
 </div>
 <div id = "add_new_member">
   <%= link_to('Add a new member', '/member/signup') %><br>
   <%= link_to('Export CSV file', '/member/admin/export') %><br>
 </div>
-<table id="show_all">
+<table class ="filter_table"">
   <tr>
     <td>Show full table</td>
     <td><%= check_box_tag "show_all_check_box" %></span></td>
+    <td><%= button_tag "Refresh" %></td>
+  </tr>
+</table>
+<table class ="filter_table">
+  <tr>
+    <td>Show Only: </td>
+    <td><%= check_box_tag "show_only_members" %></td>
+    <td>Members</td>
+    <td><%= check_box_tag "show_only_non_members" %></td>
+    <td>Non Members</td>
     <td><%= button_tag "Refresh" %></td>
   </tr>
 </table>
@@ -19,7 +30,7 @@
     <tr>
       <th>ID #</th>
       <th>Name</th>
-      <th>Who Are You?</th>
+      <th>Membership Type</th>
       <th>Email</th>
       <th>Telephone</th>
       <th>Address</th>
@@ -30,6 +41,7 @@
       <th>Birth Year</th>
       <th>Birth Country</th>
       <th>Occupation</th>
+      <th>Number of Children</th>
       <th>Payment Method</th>
       <th>Status</th>
       <th>More</th>
@@ -51,7 +63,8 @@
         <td><% if member.address1 == nil %> 
               <%= "N/A" %>
             <% else %>
-              <%= member.address1 %> 
+              <%= member.address1 %>, 
+              <%= " " %>
               <%= member.address2 rescue nil%>
             <% end %></td>
         <td><% if member.city == nil %>
@@ -89,8 +102,15 @@
             <% else %>
               <%= member.occupation %>
             <% end %></td>
+        <td><% if member.number_of_children == nil %>
+              <%= "N/A" %>
+            <% else %>
+              <%= member.number_of_children %>
+            <% end %></td>
         <td></td>
-        <% if member.status == "Pending" %>
+        <% if member.admin == true %>
+          <td><%= "ADMIN" %></td>
+        <% elsif member.status == "Pending" %>
           <td style ="background: yellow;"><%= member.status rescue nil %></td>
         <% elsif member.status == "Active" %>
           <td style ="background: green;"><%= member.status rescue nil %></td>
@@ -99,8 +119,11 @@
         <% end %>
 
 
-
-        <td><%= link_to "Detail", member_path(member) %></td>
+	<% if member.admin == true %>
+          <td></td>
+        <% else %> 
+          <td><%= link_to "Detail", member_path(member) %></td>
+        <% end %>
        </tr>
     <% end %>
     

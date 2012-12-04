@@ -27,6 +27,6 @@
     <tr><td><strong>Membership Fee payment status: </strong></td><td><%= @user_data[:status] rescue nil %></td></tr>
   </table>
   <div class = "logout">
-    <%= link_to "LOGOUT", :controller=>"member", :action => "destroy" %>
+    <%= link_to "LOGOUT", :controller=>"member", :class => "delete" %>
   </div>
 </div>

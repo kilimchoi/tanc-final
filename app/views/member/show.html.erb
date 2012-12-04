@@ -56,10 +56,17 @@
       <% else %>
         <strong>Country of Birth:</strong> <%= @member.country_of_birth %>
       <% end %></li>
-  <li><% if @member.occupation == nil %>
-        <strong>Occupation:</strong> <%= "N/A" %>
+  <li><% if @member.number_of_children == nil %>
+        <strong>NUmber of Children:</strong> 
+        <%= "N/A" %>
       <% else %>
-        <strong>Occupation</strong>: <%= member.occupation %>
+        <strong>Number of Children</strong>: <%= @member.number_of_children %>
+      <% end %></li>
+  <li><% if @member.occupation == nil %>
+        <strong>Occupation:</strong> 
+        <%= "N/A" %>
+      <% else %>
+        <strong>Occupation</strong>: <%= @member.occupation %>
       <% end %></li>
 </ul>
 <%= @member.id %>
