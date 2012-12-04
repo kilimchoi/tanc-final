@@ -47,86 +47,85 @@
       <th>More</th>
      </tr>
    </thead>
-  <tbody>
-    <% @member = Member.all %>
-    <% @member.each do |member| %>
-      <tr>
-        <td><%= member.id rescue nil%></td>
-        <td><%= member.first + ' ' + member.last rescue nil%></td>
-        <td><%= member.member_type rescue nil%></td>
-        <td><%= member.email rescue nil%></td>
-        <td><% if member.telephone == nil %>
-              <%= "N/A" %>
-            <% else %>
-              <%= member.telephone %>
-            <% end %></td>
-        <td><% if member.address1 == nil %> 
-              <%= "N/A" %>
-            <% else %>
-              <%= member.address1 %>, 
-              <%= " " %>
-              <%= member.address2 rescue nil%>
-            <% end %></td>
-        <td><% if member.city == nil %>
-              <%= "N/A" %>
-            <% else %>
-              <%= member.city %>
-            <% end %></td>
-        <td><% if member.state == nil %>
-              <%= "N/A" %>
-            <% else %>
-              <%= member.state %>
-            <% end %></td>
-        <td><% if member.zip == nil %>
-              <%= "N/A" %>
-            <% else %>
-              <%= member.zip %>
-            <% end %></td>
-        <td><% if member.gender == nil %>
-              <%= "N/A" %>
-            <% else %>
-              <%= member.gender %>
-            <% end %></td>
-        <td><% if member.year_of_birth == nil %>
-              <%= "N/A" %>
-            <% else %>
-              <%= member.year_of_birth %>
-            <% end %></td>
-        <td><% if member.country_of_birth == "" or member.country_of_birth == nil %>
-              <%= "N/A" %>
-            <% else %>
-              <%= member.country_of_birth %>
-            <% end %></td>
-        <td><% if member.occupation == nil %>
-              <%= "N/A" %>
-            <% else %>
-              <%= member.occupation %>
-            <% end %></td>
-        <td><% if member.number_of_children == nil %>
-              <%= "N/A" %>
-            <% else %>
-              <%= member.number_of_children %>
-            <% end %></td>
-        <td></td>
-        <% if member.admin == true %>
-          <td><%= "ADMIN" %></td>
-        <% elsif member.status == "Pending" %>
-          <td style ="background: yellow;"><%= member.status rescue nil %></td>
-        <% elsif member.status == "Active" %>
-          <td style ="background: green;"><%= member.status rescue nil %></td>
-        <% elsif member.status == "Expired" %>
-          <td style ="background: red;"><%= member.status rescue nil %></td>
-        <% end %>
+   <tbody>
+     <% @member = Member.all %>
+     <% @member.each do |member| %>
+       <tr>
+         <td><%= member.id rescue nil%></td>
+         <td><%= member.first + ' ' + member.last rescue nil%></td>
+         <td><%= member.member_type rescue nil%></td>
+         <td><%= member.email rescue nil%></td>
+         <td><% if member.telephone == nil %>
+               <%= "N/A" %>
+             <% else %>
+               <%= member.telephone %>
+             <% end %></td>
+         <td><% if member.address1 == nil %> 
+               <%= "N/A" %>
+             <% else %>
+               <%= member.address1 %>, 
+               <%= " " %>
+               <%= member.address2 rescue nil%>
+             <% end %></td>
+         <td><% if member.city == nil %>
+               <%= "N/A" %>
+             <% else %>
+               <%= member.city %>
+             <% end %></td>
+         <td><% if member.state == nil %>
+               <%= "N/A" %>
+             <% else %>
+               <%= member.state %>
+             <% end %></td>
+         <td><% if member.zip == nil %>
+               <%= "N/A" %>
+             <% else %>
+               <%= member.zip %>
+             <% end %></td>
+         <td><% if member.gender == nil %>
+               <%= "N/A" %>
+             <% else %>
+               <%= member.gender %>
+             <% end %></td>
+         <td><% if member.year_of_birth == nil %>
+               <%= "N/A" %>
+             <% else %>
+               <%= member.year_of_birth %>
+             <% end %></td>
+         <td><% if member.country_of_birth == "" or member.country_of_birth == nil %>
+               <%= "N/A" %>
+             <% else %>
+               <%= member.country_of_birth %>
+             <% end %></td>
+         <td><% if member.occupation == nil %>
+               <%= "N/A" %>
+             <% else %>
+               <%= member.occupation %>
+             <% end %></td>
+         <td><% if member.number_of_children == nil %>
+               <%= "N/A" %>
+             <% else %>
+               <%= member.number_of_children %>
+             <% end %></td>
+         <td></td>
+         <% if member.admin == true %>
+           <td><%= "ADMIN" %></td>
+         <% elsif member.status == "Pending" %>
+           <td style ="background: yellow;"><%= member.status rescue nil %></td>
+         <% elsif member.status == "Active" %>
+           <td style ="background: green;"><%= member.status rescue nil %></td>
+         <% elsif member.status == "Expired" %>
+           <td style ="background: red;"><%= member.status rescue nil %></td>
+         <% end %>
 
 
-	<% if member.admin == true %>
-          <td></td>
-        <% else %> 
-          <td><%= link_to "Detail", member_path(member) %></td>
-        <% end %>
+	 <% if member.admin == true %>
+           <td></td>
+         <% else %> 
+           <td><%= link_to "Detail", member_path(member) %></td>
+         <% end %>
        </tr>
-    <% end %>
-    
+    <% end %> 
   </tbody>
 </table>
 

@@ -202,17 +202,17 @@ class MemberController < ApplicationController
             flash.now[:error] = "You already signed up!"
           end
         else
-        @first = thisUser.first rescue nil
-             @last = thisUser.last rescue nil
-             @address1 = thisUser.address1 rescue nil
-             @address2 = thisUser.address2 rescue nil
-             @city = thisUser.city rescue nil
-             @state = thisUser.state rescue nil
-             @zip = thisUser.zip rescue nil
-             @telephone = thisUser.telephone rescue nil
-             @year_of_birth = thisUser.year_of_birth rescue nil
-             @country_of_birth = thisUser.country_of_birth rescue nil
-             @special_skills = thisUser.special_skills rescue nil
+          @first = thisUser.first rescue nil
+          @last = thisUser.last rescue nil
+          @address1 = thisUser.address1 rescue nil
+          @address2 = thisUser.address2 rescue nil
+          @city = thisUser.city rescue nil
+          @state = thisUser.state rescue nil
+          @zip = thisUser.zip rescue nil
+          @telephone = thisUser.telephone rescue nil
+          @year_of_birth = thisUser.year_of_birth rescue nil
+          @country_of_birth = thisUser.country_of_birth rescue nil
+          @special_skills = thisUser.special_skills rescue nil
           flash.now[:error] = "Please enter the correct format/fill in all fields are required."
         end
       end
@@ -310,12 +310,12 @@ class MemberController < ApplicationController
            if verify_recaptcha
              @first = thisUser.first rescue nil
              @last = thisUser.last rescue nil
-	     @address1 = thisUser.address1 rescue nil
-	     @address2 = thisUser.address2 rescue nil
-	     @city = thisUser.city rescue nil
-	     @state = thisUser.state rescue nil
-	     @zip = thisUser.zip rescue nil
-	     @telephone = thisUser.telephone rescue nil
+             @address1 = thisUser.address1 rescue nil
+             @address2 = thisUser.address2 rescue nil
+             @city = thisUser.city rescue nil
+             @state = thisUser.state rescue nil
+             @zip = thisUser.zip rescue nil
+             @telephone = thisUser.telephone rescue nil
              redirect_to("/member/edit_success")
            else
              flash[:error] = "Your words do not match the ones in the recaptcha image!"

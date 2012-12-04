@@ -1,9 +1,7 @@
 <% # edit.html.erb using partial %>
 
 <h2> You are now editing <%= @member.first %>' info </h2>
-
 <%= form_tag member_path(@member), :method => :put do %>
-
   <%= label :member, :status, 'Status' %>
   <%=  select :member, :status, "<option>Pending</option><option>Active</option><option>Expired</option>" %>
   <br>
@@ -12,7 +10,6 @@
   <%=  select :member, :member_type, "<option>Tibetan</option><option>Spouse of Tibetan</option><option>Friend of TANC</option>" %>
   <br>
   <br>
-
   <%=  text_field :member, 'first', :placeholder => 'First Name' %>
   <%=  text_field :member, 'last', :placeholder => 'Last Name' %>
   <%=  text_field :member, 'telephone', :placeholder => 'Telephone' %>
@@ -28,8 +25,8 @@
   <%= label :member, :number_of_children, 'Number of Children' %>
   <%= select :member, :number_of_children, "<option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>" %><br><br>
   <%= label :member, :occupation, 'Occupation' %>
-  <%= select :member, :occupation, "<option>Student</option><option>Medical Profession</option><option>Business Owner</option><option>Finance and Banking</option><option>Others</option>" %>  <br><br>
+  <%= select :member, :occupation, "<option>Student</option><option>Medical Profession</option><option>Business Owner</option><option>Finance and Banking</option><option>Others</option>" %>
+  <br>
+  <br>
   <%= submit_tag 'Update Info' %>
 <% end %>
-
-
