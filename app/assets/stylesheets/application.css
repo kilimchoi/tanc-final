@@ -22,7 +22,11 @@ body {
 
 a {
   text-decoration: none;
-  color: #000;
+  color: #600;
+  font-weight: bold;
+}
+a:hover {
+  text-decoration: underline;
 }
 
 .logout a {
