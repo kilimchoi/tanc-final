@@ -1,4 +1,26 @@
 class MemberController < ApplicationController
+  @member = Member.all
+  def show
+    @member = Member.find params[:id] 
+  end
+
+  def edit
+    @member = Member.find params[:id]
+  end
+
+  def update
+    @member = Member.find params[:id]
+    puts params[:member]
+    @member.update_attributes!(params[:member])
+    redirect_to member_path(@member)
+  end
+  def destroy
+    @member = Member.find params[:id] 
+    @member.destroy
+    flash[:error] = "You successfully deleted #{@member.first}."
+    redirect_to "/member/admin"
+  end
+
   def signup
     if email_params_has_value and email_format_is_correct then
         new_member = can_create_new_member
@@ -47,7 +69,7 @@ class MemberController < ApplicationController
       if this_user_exists(user_by_email)
          return false
       else 
-         thisUser = Member.create(:email => params[:email], :status => "Pending", :member_type => "Mailing list", :password => Member.random_password, :admin => false)
+         thisUser = Member.create(:email => params[:email], :status => "Pending", :member_type => "Friend of TANC", :password => Member.random_password, :admin => false)
          return thisUser
       end
   end
@@ -210,6 +232,17 @@ class MemberController < ApplicationController
             flash.now[:error] = "You already signed up!"
           end
         else
+          @first = thisUser.first rescue nil
+          @last = thisUser.last rescue nil
+          @address1 = thisUser.address1 rescue nil
+          @address2 = thisUser.address2 rescue nil
+          @city = thisUser.city rescue nil
+          @state = thisUser.state rescue nil
+          @zip = thisUser.zip rescue nil
+          @telephone = thisUser.telephone rescue nil
+          @year_of_birth = thisUser.year_of_birth rescue nil
+          @country_of_birth = thisUser.country_of_birth rescue nil
+          @special_skills = thisUser.special_skills rescue nil
           flash.now[:error] = "Please enter the correct format/fill in all fields are required."
         end
       end
@@ -307,12 +340,12 @@ class MemberController < ApplicationController
            if verify_recaptcha
              @first = thisUser.first rescue nil
              @last = thisUser.last rescue nil
-	     @address1 = thisUser.address1 rescue nil
-	     @address2 = thisUser.address2 rescue nil
-	     @city = thisUser.city rescue nil
-	     @state = thisUser.state rescue nil
-	     @zip = thisUser.zip rescue nil
-	     @telephone = thisUser.telephone rescue nil
+             @address1 = thisUser.address1 rescue nil
+             @address2 = thisUser.address2 rescue nil
+             @city = thisUser.city rescue nil
+             @state = thisUser.state rescue nil
+             @zip = thisUser.zip rescue nil
+             @telephone = thisUser.telephone rescue nil
              redirect_to("/member/edit_success")
            else
              flash[:error] = "Your words do not match the ones in the recaptcha image!"
@@ -373,7 +406,8 @@ class MemberController < ApplicationController
   end
 
   
-  def destroy
+  def delete
+    flash[:error] = "You are successfully logged out!"
     redirect_to("/member")
     session.delete(:user_email)#clear user data from session
   end
