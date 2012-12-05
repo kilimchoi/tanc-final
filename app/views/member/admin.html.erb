@@ -12,7 +12,7 @@
 <table class ="filter_table"">
   <tr>
     <td>Show full table</td>
-    <td><%= check_box_tag "show[full_table]", 1, @table_fields.nil? %></span></td>
+    <td><%= check_box_tag "show[full_table]", 1, @table_fields == "all" %></span></td>
     <td><%= button_tag "Refresh", :name => "commit", :value => "filter" %></td>
   </tr>
 </table>
@@ -30,53 +30,53 @@
 <table id="list_of_people">
   <thead id="head">
     <tr>
-      <% if not @table_fields or @table_fields.include?("id") %>
-      <th>ID #</th>
+      <% if @table_fields == "all" or @table_fields.include?("id") %>
+      <th><%= link_to "ID #", "?sort=id" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("name") %>
-      <th>Name</th>
+      <% if @table_fields == "all" or @table_fields.include?("name") %>
+      <th><%= link_to "Name", "?sort=first" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("type") %>
-      <th>Membership Type</th>
+      <% if @table_fields == "all" or @table_fields.include?("type") %>
+      <th><%= link_to "Membership Type", "?sort=member_type" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("email") %>
-      <th>Email</th>
+      <% if @table_fields == "all" or @table_fields.include?("email") %>
+      <th><%= link_to "Email", "?sort=email" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("telephone") %>
-      <th>Telephone</th>
+      <% if @table_fields == "all" or @table_fields.include?("telephone") %>
+      <th><%= link_to "Telephone", "?sort=telephone" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("address") %>
-      <th>Address</th>
+      <% if @table_fields == "all" or @table_fields.include?("address") %>
+      <th><%= link_to "Address", "?sort=address1" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("city") %>
-      <th>City</th>
+      <% if @table_fields == "all" or @table_fields.include?("city") %>
+      <th><%= link_to "City", "?sort=city" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("state") %>
-      <th>State</th>
+      <% if @table_fields == "all" or @table_fields.include?("state") %>
+      <th><%= link_to "State", "?sort=state" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("zip") %>
-      <th>Zip</th>
+      <% if @table_fields == "all" or @table_fields.include?("zip") %>
+      <th><%= link_to "Zip", "?sort=zip" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("gender") %>
-      <th>Gender</th>
+      <% if @table_fields == "all" or @table_fields.include?("gender") %>
+      <th><%= link_to "Gender", "?sort=gender" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("year_of_birth") %>
-      <th>Birth Year</th>
+      <% if @table_fields == "all" or @table_fields.include?("year_of_birth") %>
+      <th><%= link_to "Birth Year", "?sort=year_of_birth" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("country_of_birth") %>
-      <th>Birth Country</th>
+      <% if @table_fields == "all" or @table_fields.include?("country_of_birth") %>
+      <th><%= link_to "Birth Country", "?sort=country_of_birth" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("occupation") %>
-      <th>Occupation</th>
+      <% if @table_fields == "all" or @table_fields.include?("occupation") %>
+      <th><%= link_to "Occupation", "?sort=occupation" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("children") %>
-      <th>Number of Children</th>
+      <% if @table_fields == "all" or @table_fields.include?("number_of_children") %>
+      <th><%= link_to "Number of Children", "?sort=number_of_children" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("payment_method") %>
-      <th>Payment Method</th>
+      <% if @table_fields == "all" or @table_fields.include?("payment_method") %>
+      <th><%= link_to "Payment Method", "?sort=payment_method" %></th>
       <% end %>
-      <% if not @table_fields or @table_fields.include?("status") %>
-      <th>Status</th>
+      <% if @table_fields == "all" or @table_fields.include?("status") %>
+      <th><%= link_to "ID #", "?sort=status" %></th>
       <% end %>
       <th>More</th>
      </tr>
@@ -84,26 +84,26 @@
    <tbody>
      <% @member.each do |member| %>
        <tr>
-         <% if not @table_fields or @table_fields.include?("id") %>
+         <% if @table_fields == "all" or @table_fields.include?("id") %>
          <td><%= member.id rescue nil%></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("name") %>
+         <% if @table_fields == "all" or @table_fields.include?("name") %>
          <td><%= member.first + ' ' + member.last rescue nil%></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("type") %>
+         <% if @table_fields == "all" or @table_fields.include?("type") %>
          <td><%= member.member_type rescue nil%></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("email") %>
+         <% if @table_fields == "all" or @table_fields.include?("email") %>
          <td><%= member.email rescue nil%></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("telephone") %>
+         <% if @table_fields == "all" or @table_fields.include?("telephone") %>
          <td><% if member.telephone == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.telephone %>
              <% end %></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("address") %>
+         <% if @table_fields == "all" or @table_fields.include?("address") %>
          <td><% if member.address1 == nil %> 
                <%= "N/A" %>
              <% else %>
@@ -112,56 +112,56 @@
                <%= member.address2 rescue nil%>
              <% end %></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("city") %>
+         <% if @table_fields == "all" or @table_fields.include?("city") %>
          <td><% if member.city == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.city %>
              <% end %></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("state") %>
+         <% if @table_fields == "all" or @table_fields.include?("state") %>
          <td><% if member.state == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.state %>
              <% end %></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("zip") %>
+         <% if @table_fields == "all" or @table_fields.include?("zip") %>
          <td><% if member.zip == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.zip %>
              <% end %></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("gender") %>
+         <% if @table_fields == "all" or @table_fields.include?("gender") %>
          <td><% if member.gender == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.gender %>
              <% end %></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("year_of_birth") %>
+         <% if @table_fields == "all" or @table_fields.include?("year_of_birth") %>
          <td><% if member.year_of_birth == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.year_of_birth %>
              <% end %></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("country_of_birth") %>
+         <% if @table_fields == "all" or @table_fields.include?("country_of_birth") %>
          <td><% if member.country_of_birth == "" or member.country_of_birth == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.country_of_birth %>
              <% end %></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("occupation") %>
+         <% if @table_fields == "all" or @table_fields.include?("occupation") %>
          <td><% if member.occupation == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.occupation %>
              <% end %></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("children") %>
+         <% if @table_fields == "all" or @table_fields.include?("children") %>
          <td><% if member.number_of_children == nil %>
                <%= "N/A" %>
              <% else %>
@@ -169,7 +169,7 @@
              <% end %></td>
          <td></td>
          <% end %>
-         <% if not @table_fields or @table_fields.include?("status") %>
+         <% if @table_fields == "all" or @table_fields.include?("status") %>
          <% if member.admin == true %>
            <td><%= "ADMIN" %></td>
          <% elsif member.status == "Pending" %>

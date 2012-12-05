@@ -437,9 +437,11 @@ class MemberController < ApplicationController
           end
        end
        @member = Member.all
-       @showing_members = true
-       @showing_non_members = true
        @table_fields = ["id", "name", "email", "gender", "status"]
+       sort = params[:sort] || session[:sort]
+       if params[:sort] != session[:sort]
+         session[:sort] = sort
+       end
        if params["commit"] == "logout"
           redirect_to("/member")
 	  session.delete(:user_email)#clear user data from session
@@ -451,34 +453,53 @@ class MemberController < ApplicationController
          showOptions = params["show"]
          if showOptions
            if showOptions.has_key?("full_table")
-            @table_fields = nil
+            @table_fields = "all"
+            session[:table_fields] = "all"
+           else
+            session.delete(:table_fields)
            end
            if not showOptions.has_key?("members")
              @showing_members = false
+             session[:showing_members] = false
            else
              @showing_members = true
+             session[:showing_members] = true
            end
            if not showOptions.has_key?("non_members")
              @showing_non_members = false
+             session[:showing_non_members] = false
            else
              @showing_non_members = true
+             session[:showing_non_members] = true
            end
-         else
-           @showing_members = true
-           @showing_non_members = true
          end
        end
 
-       if @showing_members and @showing_non_members
-         @member = Member.all
-       elsif not @showing_members and @showing_non_members
-         @member = Member.where("member_type = ?", "non_member")
-       elsif @showing_members and not @showing_non_members
-         @member = Member.where("member_type != ?", "non_member")
+       if session.has_key?(:table_fields)
+         @table_fields = session[:table_fields]
        else
-         @member = Member.all
+         @table_fields = ["id", "name", "email", "gender", "status"]
        end
-       
+       if session.has_key?(:showing_members)
+         @showing_members = session[:showing_members]
+       else
+         @showing_members = true
+       end
+       if session.has_key?(:showing_non_members)
+         @showing_non_members = session[:showing_non_members]
+       else
+         @showing_non_members = true
+       end
+
+       if @showing_members and @showing_non_members
+         @member = Member.order(sort)
+       elsif not @showing_members and @showing_non_members
+         @member = Member.where("member_type = ?", "non_member").order(sort)
+       elsif @showing_members and not @showing_non_members
+         @member = Member.where("member_type != ?", "non_member").order(sort)
+       else
+         @member = Member.order(sort)
+       end
        if params["commit"] == "Delete"
          if params["delete_member"]
            this_user.delete_id = params["delete_member"]
