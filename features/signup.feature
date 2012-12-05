@@ -77,8 +77,8 @@ Scenario: Password gets updated on reset
         | confirmed | mailing_list | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
     And I clicked the reset link for "petertsoi@gmail.com" with code "1234"
     And I should be on the password update page
-    When I fill in "password" with "pass"
-    And I fill in "password_confirm" with "pass"
+    When I fill in "password" with "password1"
+    And I fill in "password_confirm" with "password1"
     And I press "Update Password"
     Then I should be on the reset success page
 
