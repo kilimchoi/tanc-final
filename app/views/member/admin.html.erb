@@ -74,7 +74,7 @@
       <th><%= link_to "Payment Method", "?sort=payment_method" %></th>
       <% end %>
       <% if @table_fields == "all" or @table_fields.include?("status") %>
-      <th><%= link_to "ID #", "?sort=status" %></th>
+      <th><%= link_to "Status", "?sort=status" %></th>
       <% end %>
       <th>More</th>
      </tr>
@@ -165,8 +165,14 @@
              <% else %>
                <%= member.number_of_children %>
              <% end %></td>
+         <% end %> 
+         <% if @table_fields == "all" or @table_fields.include?("payment_method") %>
+         <td><% if member.payment_method == nil %>
+             <%= "N/A" %>
+             <% else %> 
+             <%= member.payment_method %></td>
+         <% end %></td>
          <% end %>
-         <td><%= member.payment_method %></td>
          <% if @table_fields == "all" or @table_fields.include?("status") %>
          <% if member.admin == true %>
            <td><%= "ADMIN" %></td>
