@@ -436,6 +436,9 @@ class MemberController < ApplicationController
              end
           end
        end
+       @member = Member.all
+       @showing_members = true
+       @showing_non_members = true
        @table_fields = ["id", "name", "email", "gender", "status"]
        if params["commit"] == "logout"
           redirect_to("/member")
@@ -446,9 +449,34 @@ class MemberController < ApplicationController
        end
        if params["commit"] == "filter"
          showOptions = params["show"]
-         if showOptions and showOptions.has_key?("full_table")
-          @table_fields = nil
+         if showOptions
+           if showOptions.has_key?("full_table")
+            @table_fields = nil
+           end
+           if not showOptions.has_key?("members")
+             @showing_members = false
+           else
+             @showing_members = true
+           end
+           if not showOptions.has_key?("non_members")
+             @showing_non_members = false
+           else
+             @showing_non_members = true
+           end
+         else
+           @showing_members = true
+           @showing_non_members = true
          end
+       end
+
+       if @showing_members and @showing_non_members
+         @member = Member.all
+       elsif not @showing_members and @showing_non_members
+         @member = Member.where("member_type = ?", "non_member")
+       elsif @showing_members and not @showing_non_members
+         @member = Member.where("member_type != ?", "non_member")
+       else
+         @member = Member.all
        end
        
        if params["commit"] == "Delete"
