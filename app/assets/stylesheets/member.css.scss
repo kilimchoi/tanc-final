@@ -194,16 +194,36 @@ thead {
   padding: 0;
   margin: 0;
 }
-.filter_table {
+#filter {
   margin: auto;
-  margin-bottom: 10px;
-  padding: 0 5px;
-  width: 240px;
-  white-space: nowrap;
 }
-.filter_table input {
-  width: 50px;
+#filter ul {
+  padding: 5px;
+  background: #CADFE0;
+  border: 1px solid #600;
 }
+#filter input {
+   width: 25px;
+   padding: 0;
+   margin: 0;
+}
+#filter li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: inline-block;
+}
+#show-full-table {
+  width: 270px;
+}
+#show-members-non-members {
+  width: 400px;
+  margin-left: -70px;
+}
+#hilite_name {
+  color: yellow;
+}
+
 #admin_logout, #add_new_member {
   text-align: left;
   margin-left: 20px;
@@ -217,6 +237,9 @@ thead {
   border-bottom: 1px dashed #600;
   padding: 3px;
   white-space: nowrap;
+}
+#list_of_people th a {
+  color:#fff
 }
 
 #edit_members {
