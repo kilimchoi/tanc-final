@@ -1,4 +1,26 @@
 class MemberController < ApplicationController
+  @member = Member.all
+  def show
+    @member = Member.find params[:id] 
+  end
+
+  def edit
+    @member = Member.find params[:id]
+  end
+
+  def update
+    @member = Member.find params[:id]
+    puts params[:member]
+    @member.update_attributes!(params[:member])
+    redirect_to member_path(@member)
+  end
+  def destroy
+    @member = Member.find params[:id] 
+    @member.destroy
+    flash[:error] = "You successfully deleted #{@member.first}."
+    redirect_to "/member/admin"
+  end
+
   def signup
     if email_params_has_value and email_format_is_correct then
         new_member = can_create_new_member
@@ -47,7 +69,7 @@ class MemberController < ApplicationController
       if this_user_exists(user_by_email)
          return false
       else 
-         thisUser = Member.create(:email => params[:email], :status => "Pending", :member_type => "Mailing list", :password => Member.random_password, :admin => false)
+         thisUser = Member.create(:email => params[:email], :status => "Pending", :member_type => "non_member", :password => Member.random_password, :admin => false)
          return thisUser
       end
   end
@@ -84,16 +106,20 @@ class MemberController < ApplicationController
      session[:user_email] = aUser.email
   end
   
-   def reset_password
-    if email_params_has_value and member_email? then
-        member = Member.find_by_email(params[:email])
-        member.send_reset_password if member
-        redirect_to "/member/reset_email_sent"
-    elsif email_params_has_value and !email_format_is_correct
+  def reset_password
+     if email_params_has_value and member_email?
+       if verify_recaptcha
+           member = Member.find_by_email(params[:email])
+           member.send_reset_password if member
+           redirect_to "/member/reset_email_sent"
+        else
+           flash[:error] = "Your words do not match the ones in the recaptcha image!"
+        end
+     elsif email_params_has_value and !email_format_is_correct
         flash.now[:error] = "Please type in correct email address."
-    elsif email_params_has_value and !member_email? then
+     elsif email_params_has_value and !member_email? then
         flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
-    end
+     end
   end
   
   def member_email?
@@ -106,19 +132,48 @@ class MemberController < ApplicationController
   end
 
   def reset_email_sent
-    if email_params_has_value then
-       redirect_to "/member/update_password?email=#{params[:email]}"
+    if email_params_has_value and member_email?  then
+       member = Member.find_by_email(params[:email])
+       if member and member.password == params[:request] then
+          redirect_to "/member/update_password?email=#{params[:email]}"
+       end
     end
   end
     
   def update_password
     @member = Member.find_by_email(params[:email]) rescue nil
-    if params[:password] == params[:password_confirm] && params[:commit] == "Update Password"
-        @member.update_attributes(:password => params[:password])
-        redirect_to "/member/reset_success"
+    if params[:commit] == "Update Password"
+       if verify_recaptcha
+         if pwd_strength_check(params[:password])
+            if params[:password] == params[:password_confirm]
+                @member.update_attributes(:password => params[:password])
+                redirect_to "/member/reset_success"
+            end
+         else
+            flash.now[:error] = "Your password should be a combination of numbers and words. They also have to be longer than 5 words."
+         end
+      else
+         flash.now[:error] = "Your words do not match the ones in the recaptcha image!"
+      end
     end
   end
-
+  
+  def pwd_strength_check(password)
+     if password.length > 5 
+        if password =~ /^[0-9]+$/
+           return false
+        elsif password =~ /^[A-za-z]+$/
+           return false
+        elsif password =~ /^[A-Za-z0-9][A-Za-z0-9]*$/
+           return true
+        else 
+           return false
+        end
+     else
+        return false
+     end
+  end
+  
   def account_setup
     thisUser = Member.find_by_email(session[:user_email]) rescue nil
     if (thisUser.id == 1)
@@ -128,115 +183,180 @@ class MemberController < ApplicationController
     end
     @email = thisUser.email rescue nil
     if params[:commit] == "Continue"
-      if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
-        if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan" and !thisUser.member_active and !thisUser.non_member_active
-           thisUser.member_type = params[:membership]
-           thisUser.already_a_member = "No"
-           thisUser.save
-	   redirect_to("/member/account_setup_member")
-        elsif params[:membership] == "non-member" and !thisUser.member_active and !thisUser.non_member_active
-           redirect_to("/member/account_setup_non_member")
-        elsif thisUser.member_active || thisUser.non_member_active
-           flash.now[:error] = "Sorry you can't sign up twice!"
+      if pwd_strength_check(params[:password])
+        if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
+           if verify_recaptcha
+             if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan" and !thisUser.member_active and !thisUser.non_member_active
+                thisUser.member_type = params[:membership]
+                thisUser.already_a_member = "No"
+                thisUser.save
+	        redirect_to("/member/account_setup_member")
+             elsif params[:membership] == "non-member" and !thisUser.member_active and !thisUser.non_member_active
+                redirect_to("/member/account_setup_non_member")
+             elsif thisUser.member_active || thisUser.non_member_active
+                flash.now[:error] = "Sorry you can't sign up twice!"
+             end
+           else
+                flash.now[:error] = "Your words do not match the ones in the recaptcha image!"
+           end
+        else
+           flash.now[:error] = "The two passwords do not match"
         end
       else
-        flash.now[:error] = "The two passwords do not match"
+        flash[:error] = "Your password should be a combination of numbers and words. They also have to be longer than 5 words."
       end
     end
   end
 
   def account_setup_member
-   thisUser = Member.find_by_email(session[:user_email])
-   if thisUser
-	if params["commit"] == "Continue"
-		if thisUser and thisUser.validate_and_update(params)
-                    if !thisUser.member_active
-			thisUser.member_active = true
-			thisUser.save
-		        redirect_to("/member/member_payment")
-                    else
-			flash.now[:error] = "You already signed up!"
-                    end
-		else
-		    flash.now[:error] = "Please enter the correct format/fill in all fields are required."
-		end
-	end
-      else
-         flash[:error] = "You need to sign up or login first!"
-         redirect_to("/member")
-      end
-  end
-
-  def account_setup_non_member
-   thisUser = Member.find_by_email(session[:user_email])
-   if thisUser
-      if params["commit"] == "Submit"
-        if thisUser and thisUser.validate_and_update_non_member(params)
-            if !thisUser.non_member_active
-		thisUser.non_member_active = true
-	        thisUser.save
-                redirect_to("/member/thanks_after_done")
-            else
-		flash.now[:error] = "You already signed up as a non-member!"
-            end
+    thisUser = Member.find_by_email(session[:user_email])
+    if thisUser
+      @first = thisUser.first rescue nil
+      @last = thisUser.last rescue nil
+      @address1 = thisUser.address1 rescue nil
+      @address2 = thisUser.address2 rescue nil
+      @city = thisUser.city rescue nil
+      @state = thisUser.state rescue nil
+      @zip = thisUser.zip rescue nil
+      @telephone = thisUser.telephone rescue nil
+      @year_of_birth = thisUser.year_of_birth rescue nil
+      @country_of_birth = thisUser.country_of_birth rescue nil
+      @special_skills = thisUser.special_skills rescue nil
+      if params["commit"] == "Continue"
+        if thisUser and thisUser.validate_and_update(params)
+          if !thisUser.member_active
+            thisUser.member_active = true
+	    thisUser.save
+	    redirect_to("/member/member_payment")
+          else
+            flash.now[:error] = "You already signed up!"
+          end
         else
-            flash.now[:error] = "Please enter the correct format/fill in the required fields."
+          @first = thisUser.first rescue nil
+          @last = thisUser.last rescue nil
+          @address1 = thisUser.address1 rescue nil
+          @address2 = thisUser.address2 rescue nil
+          @city = thisUser.city rescue nil
+          @state = thisUser.state rescue nil
+          @zip = thisUser.zip rescue nil
+          @telephone = thisUser.telephone rescue nil
+          @year_of_birth = thisUser.year_of_birth rescue nil
+          @country_of_birth = thisUser.country_of_birth rescue nil
+          @special_skills = thisUser.special_skills rescue nil
+          flash.now[:error] = "Please enter the correct format/fill in all fields are required."
         end
       end
     else
-     flash[:error] = "You need to sign up or login first!"
-     redirect_to("/member")
+      flash[:error] = "You need to sign up or login first!"
+      redirect_to("/member")
+    end
+  end
+
+  def account_setup_non_member
+    thisUser = Member.find_by_email(session[:user_email])
+    if thisUser
+      @first = thisUser.first rescue nil
+      @last = thisUser.last rescue nil
+      @address1 = thisUser.address1 rescue nil
+      @address2 = thisUser.address2 rescue nil
+      @city = thisUser.city rescue nil
+      @state = thisUser.state rescue nil
+      @zip = thisUser.zip rescue nil
+      @telephone = thisUser.telephone rescue nil
+      if params["commit"] == "Submit"
+        if thisUser and thisUser.validate_and_update_non_member(params)
+          if !thisUser.non_member_active
+            thisUser.non_member_active = true
+            thisUser.save
+            redirect_to("/member/thanks_after_done")
+          else
+            flash.now[:error] = "You already signed up as a non-member!"
+          end
+        else
+          flash.now[:error] = "Please enter the correct format/fill in the required fields."
+        end
+      end
+    else
+      flash[:error] = "You need to sign up or login first!"
+      redirect_to("/member")
     end
   end
   
   def edit_member_profile
-   thisUser = Member.find_by_email(session[:user_email])
-   if thisUser
-        @first = thisUser.first rescue nil
-        @last = thisUser.last rescue nil
-        @address1 = thisUser.address1 rescue nil
-        @address2 = thisUser.address2 rescue nil
-        @city = thisUser.city rescue nil
-        @state = thisUser.state rescue nil
-        @zip = thisUser.zip rescue nil
-        @telephone = thisUser.telephone rescue nil
-        @year_of_birth = thisUser.year_of_birth rescue nil
-        @country_of_birth = thisUser.country_of_birth rescue nil
-        @special_skills = thisUser.special_skills rescue nil
-        if params["commit"] == "Continue"
-                if thisUser and thisUser.validate_and_update(params)
-                    redirect_to("/member/edit_success")
-                else
-                    flash.now[:error] = "Please enter the correct format/fill in all fields are required."
-                end
+    thisUser = Member.find_by_email(session[:user_email])
+    if thisUser
+      @first = thisUser.first rescue nil
+      @last = thisUser.last rescue nil
+      @address1 = thisUser.address1 rescue nil
+      @address2 = thisUser.address2 rescue nil
+      @city = thisUser.city rescue nil
+      @state = thisUser.state rescue nil
+      @zip = thisUser.zip rescue nil
+      @telephone = thisUser.telephone rescue nil
+      @year_of_birth = thisUser.year_of_birth rescue nil
+      @country_of_birth = thisUser.country_of_birth rescue nil
+      @special_skills = thisUser.special_skills rescue nil
+      if params["commit"] == "Continue"  
+        if thisUser and thisUser.validate_and_update(params)
+           if verify_recaptcha 
+             @first = thisUser.first rescue nil
+             @last = thisUser.last rescue nil
+             @address1 = thisUser.address1 rescue nil
+             @address2 = thisUser.address2 rescue nil
+             @city = thisUser.city rescue nil
+             @state = thisUser.state rescue nil
+             @zip = thisUser.zip rescue nil
+             @telephone = thisUser.telephone rescue nil
+             @year_of_birth = thisUser.year_of_birth rescue nil
+             @country_of_birth = thisUser.country_of_birth rescue nil
+             @special_skills = thisUser.special_skills rescue nil
+             redirect_to("/member/edit_success")
+          else
+             flash[:error] = "Your words do not match the ones in the recaptcha image!"
+          end
+        else
+          flash.now[:error] = "Please enter the correct format/fill in all fields are required."
         end
-      else
-         flash[:error] = "You need to sign up or login first!"
-         redirect_to("/member")
       end
-  end
+   else
+     flash[:error] = "You need to sign up or login first!"
+     redirect_to("/member")
+   end
+ end
 
   def edit_non_member_profile
-     thisUser = Member.find_by_email(session[:user_email])
-     if thisUser
-         @first = thisUser.first rescue nil
-         @last = thisUser.last rescue nil
-         @address1 = thisUser.address1 rescue nil
-         @address2 = thisUser.address2 rescue nil
-         @city = thisUser.city rescue nil
-         @state = thisUser.state rescue nil
-         @zip = thisUser.zip rescue nil
-         @telephone = thisUser.telephone rescue nil
-         if params["commit"] == "Submit"
-           if thisUser and thisUser.validate_and_update_non_member(params)
-                redirect_to("/member/edit_success")
+    thisUser = Member.find_by_email(session[:user_email])
+    if thisUser
+      @first = thisUser.first rescue nil
+      @last = thisUser.last rescue nil
+      @address1 = thisUser.address1 rescue nil
+      @address2 = thisUser.address2 rescue nil
+      @city = thisUser.city rescue nil
+      @state = thisUser.state rescue nil
+      @zip = thisUser.zip rescue nil
+      @telephone = thisUser.telephone rescue nil
+      if params["commit"] == "Submit"
+        if thisUser and thisUser.validate_and_update_non_member(params)  
+           if verify_recaptcha
+             @first = thisUser.first rescue nil
+             @last = thisUser.last rescue nil
+             @address1 = thisUser.address1 rescue nil
+             @address2 = thisUser.address2 rescue nil
+             @city = thisUser.city rescue nil
+             @state = thisUser.state rescue nil
+             @zip = thisUser.zip rescue nil
+             @telephone = thisUser.telephone rescue nil
+             redirect_to("/member/edit_success")
            else
-                flash.now[:error] = "Please enter the correct format/fill in the required fields."
+             flash[:error] = "Your words do not match the ones in the recaptcha image!"
            end
-         end
-     else
-        flash[:error] = "You need to sign up or login first!"
-        redirect_to("/member")
+        else
+           flash.now[:error] = "Please enter the correct format/fill in the required fields."
+        end
+     end
+    else
+      flash[:error] = "You need to sign up or login first!"
+      redirect_to("/member")
     end
   end
 
@@ -244,7 +364,7 @@ class MemberController < ApplicationController
     if params[:commit] == "Login"
       thisUser = find_user_by_email(params[:email]) rescue nil
       if user_exists_valid(thisUser)
-	session[:user_email] = thisUser.email rescue nil
+	      session[:user_email] = thisUser.email rescue nil
         redirect_to("/member/profile")
       else
         @email = params[:email]
@@ -263,30 +383,47 @@ class MemberController < ApplicationController
   end
   
 
-  def member_payment
+  def member_payment 
+    thisUser = Member.find_by_email(session[:user_email])
     if params["commit"] == "Check or Cash"
+       puts "enters here"
+       thisUser.payment_method = "Check or Cash"
+       thisUser.save
        redirect_to("/member/check_cash_payment")
     elsif params["commit"] == "Online Payment"
+       puts "enters here2"
+       thisUser.payment_method = "Online Payment"
+       thisUser.save
        redirect_to("/member/online_payment")
     elsif params["commit"] == "Not Paying!"
+       puts "enters here3"
+       thisUser.payment_method = "Not Paying"
+       thisUser.save
        redirect_to("/member/thanks_after_done")
     end
   end
   
   def check_cash_payment
+    thisUser = Member.find_by_email(session[:user_email])
+    puts thisUser
+    thisUser.payment_method = "Check or Cash"
     if params["commit"] == "Done!"
        redirect_to("/member/thanks_after_done")
     end
   end
 
-  def online_payment
+  def online_payment 
+    thisUser = Member.find_by_email(session[:user_email])
+    puts thisUser
+    thisUser.payment_method = "Online Payment"
     if params["commit"] == "Done!"
        redirect_to("/member/thanks_after_done")
     end
   end
 
   
-  def destroy
+  def delete
+    flash[:error] = "You are successfully logged out!"
     redirect_to("/member")
     session.delete(:user_email)#clear user data from session
   end
@@ -297,8 +434,8 @@ class MemberController < ApplicationController
       @admin = true if thisUser.admin
       @user_data = thisUser.user_data
     else
-	redirect_to("/member/login")
-	flash[:error] = "You are not logged in. Please log in and try again."
+	    redirect_to("/member/login")
+  	  flash[:error] = "You are not logged in. Please log in and try again."
     end
   end
 
@@ -315,6 +452,12 @@ class MemberController < ApplicationController
              end
           end
        end
+       @member = Member.all
+       @table_fields = ["id", "name", "email", "gender", "status"]
+       sort = params[:sort] || session[:sort]
+       if params[:sort] != session[:sort]
+         session[:sort] = sort
+       end
        if params["commit"] == "logout"
           redirect_to("/member")
 	  session.delete(:user_email)#clear user data from session
@@ -322,12 +465,117 @@ class MemberController < ApplicationController
        if params["commit"] == "Add a new member"
           redirect_to("/member/admin/add_new_member")
        end
-       if params["commit"] == "refresh"
-          redirect_to("/member/admin")
+       if params["commit"] == "filter"
+         showOptions = params["show"]
+         if showOptions
+           if showOptions.has_key?("full_table")
+            @table_fields = "all"
+            session[:table_fields] = "all"
+           else
+            session.delete(:table_fields)
+           end
+           if not showOptions.has_key?("members")
+             @showing_members = false
+             session[:showing_members] = false
+           else
+             @showing_members = true
+             session[:showing_members] = true
+           end
+           if not showOptions.has_key?("non_members")
+             @showing_non_members = false
+             session[:showing_non_members] = false
+           else
+             @showing_non_members = true
+             session[:showing_non_members] = true
+           end
+         end
        end
+
+       if session.has_key?(:table_fields)
+         @table_fields = session[:table_fields]
+       else
+         @table_fields = ["id", "name", "email", "gender", "status"]
+       end
+       if session.has_key?(:showing_members)
+         @showing_members = session[:showing_members]
+       else
+         @showing_members = true
+       end
+       if session.has_key?(:showing_non_members)
+         @showing_non_members = session[:showing_non_members]
+       else
+         @showing_non_members = true
+       end
+
+       if @showing_members and @showing_non_members
+         @member = Member.order(sort)
+       elsif not @showing_members and @showing_non_members
+         @member = Member.where("member_type = ?", "non_member").order(sort)
+       elsif @showing_members and not @showing_non_members
+         @member = Member.where("member_type != ?", "non_member").order(sort)
+       else
+         @member = Member.order(sort)
+       end
+       if params["commit"] == "Delete"
+         if params["delete_member"]
+           this_user.delete_id = params["delete_member"]
+           this_user.save
+           redirect_to("member/admin")
+         end
+         Member.delete(Member.find(this_user.delete_id))
+       end
+
+       if params["commit"] == "Edit"
+         if params["edit_member"]
+           this_user.delete_id = params["edit_member"]
+           this_user.save
+           redirect_to("/member/edit_member_profile")
+         end
+       end
+   
     else 
 	redirect_to("/member")
         flash[:error] = "You are not logged in- please log in first."
+    end
+  end
+
+  def admin_edit_member_profile
+    this_user = find_user_by_email(session[:user_email])
+    if this_user.admin != true
+      redirect_to("/member")
+      flash[:error] = "Sorry, you are not an admin, login as an admin first!"
+    else #member is admin
+      member_to_edit = Member.find(this_user.delete_id) #now we have the user to edit
+      @first = member_to_edit.first rescue nil
+      @last = member_to_edit.last rescue nil
+      @address1 = member_to_edit.address1 rescue nil
+      @address2 = member_to_edit.address2 rescue nil
+      @city = member_to_edit.city rescue nil
+      @state = member_to_edit.state rescue nil
+      @zip = member_to_edit.zip rescue nil
+      @telephone = tmember_to_edit.telephone rescue nil
+      @year_of_birth = member_to_edit.year_of_birth rescue nil
+      @country_of_birth = member_to_edit.country_of_birth rescue nil
+      @special_skills = member_to_edit.special_skills rescue nil
+      if params["commit"] == "Continue"
+        if params["first-name"] and params["first-name"] =~ /[A-Za-z]+/; member_to_edit.first = params["first-name"]; end;
+      	if params["last-name"] and params["last-name"] =~ /[A-Za-z]+/; member_to_edit.last = params["last-name"]; end;
+        if params["address-line-1"] and params["address-line-1"] =~ /\d|[-]|[A-Za-z]+|\s|./; member_to_edit.address1 = params["address-line-1"]; end;
+        if params["address-line-2"] and params["address-line-2"] =~ /\d|[-]|[A-Za-z]+|\s|./; member_to_edit.address2 = params["address-line-2"]; end;
+        if params["already_a_member"]; member_to_edit.already_a_member = params["already_a_member"]; end;
+        if params["number_of_children"]; member_to_edit.number_of_children = params["number_of_children"]; end;
+        if params["city"] and params["city"] =~ /[A-Za-z]+/; member_to_edit.city = params["city"]; end;
+        if params["zip"] and params["zip"] =~ /\d{5}/; member_to_edit.zip = params["zip"]; end;
+        if params["state"] and params["state"] =~ /[A-Za-z]{2}/; member_to_edit.state = params["state"]; end;
+        if params["telephone"] and params["telephone"] =~ /\d{1,10}|[-]/; member_to_edit.telephone = params["telephone"]; end;
+        if params["year_of_birth"] and params["year_of_birth"] =~ /\d{1,4}/; member_to_edit.year_of_birth = params["year_of_birth"]; end;
+        if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; member_to_edit.country_of_birth = params["country_of_birth"]; end;
+        if params["occupation"]; member_to_edit.occupation = params["occupation"]; end;
+        if params["gender"]; member_to_edit.gender = params["gender"]; end;
+        if params["special_skills"] and params["special_skills"] =~ /[A-Za-z]+/; member_to_edit.special_skills = params["special_skills"]; end;
+        member_to_edit.save
+        redirect_to("/member/admin")
+      end
     end
   end
 
@@ -342,7 +590,6 @@ class MemberController < ApplicationController
       Member.find(:all).each do |member|
         @member_list << member.user_data
       end
-      puts @member_list
       render "csv_export.csv.erb", :content_type => content_type
     end
   end

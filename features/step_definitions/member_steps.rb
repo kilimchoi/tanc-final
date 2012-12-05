@@ -22,6 +22,10 @@ Given /^I fill up all_member_info$/ do
    edit.should == "T"
 end
 
+Given /^I clicked the reset link for "(.*?)" with code "(.*?)"$/ do |arg1, arg2|
+  visit '/member/reset_email_sent?email=%s&request=%s' % [arg1, arg2]
+end
+
 Then /^I should receive a confirmation email$/ do
   email = ActionMailer::Base.deliveries.last
   email.subject.should == "Welcome to TANC"

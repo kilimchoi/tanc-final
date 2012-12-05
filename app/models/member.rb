@@ -1,5 +1,5 @@
 class Member < ActiveRecord::Base
-  attr_accessible :email, :password, :status, :type
+  attr_accessible :email, :password, :status, :member_type, :first, :last, :admin, :telephone, :address1, :address2, :city, :zip, :gender, :year_of_birth, :country_of_birth, :occupation, :number_of_children, :payment_method
   validates :email, presence: true, uniqueness: true, format: {with: /^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i}
 
   def self.random_password
@@ -8,6 +8,7 @@ class Member < ActiveRecord::Base
 
   def send_reset_password
     self.password_reset_sent_at = Time.zone.now
+    self.password = Member.random_password
     save!
     IndividualMailer.reset_password(self).deliver()
   end     
@@ -84,7 +85,7 @@ class Member < ActiveRecord::Base
       if params["year_of_birth"] and params["year_of_birth"] =~ /\d{1,4}/; self.year_of_birth = params["year_of_birth"]
       else return false; end;
       if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; self.country_of_birth = params["country_of_birth"]
-      elsif params["country_of_birth"] == "" 
+      elsif params["country_of_birth"] == ""
         return true
       elsif params["country_of_birth"] !=~ /[A-Za-z]+/
         return false

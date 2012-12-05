@@ -16,6 +16,6 @@ class AddMemberDataToMembers < ActiveRecord::Migration
     add_column :members, :number_of_children, :integer
     add_column :members, :already_a_member, :string
     add_column :members, :member_active, :boolean
-    add_column :members, :non_member_active, :boolean
-  end
+    add_column :members, :payment_method, :string
+   end
 end

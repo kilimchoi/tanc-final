@@ -22,6 +22,7 @@ group :test do
   gem 'rspec-rails'
   gem 'launchy'
   gem 'factory_girl'
+  gem 'recaptcha', :require => 'recaptcha/rails'
 end
 group :production do
   gem 'pg'
