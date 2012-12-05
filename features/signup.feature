@@ -85,7 +85,7 @@ Scenario: Password gets updated on reset
 Scenario: Non-members can edit their profiles
     Given the following members exist:
         | status    | member_type  | email               | first | last | password | zip   |
-        | confirmed | non-member   | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
+        | confirmed | non_member   | petertsoi@gmail.com | peter | tsoi | 1234     | 94709 |
     And I logged in as "petertsoi@gmail.com" with password "1234"
     And I am on profile page
     When I follow "Edit your Profile"
