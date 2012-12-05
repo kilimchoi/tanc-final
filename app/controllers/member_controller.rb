@@ -69,7 +69,7 @@ class MemberController < ApplicationController
       if this_user_exists(user_by_email)
          return false
       else 
-         thisUser = Member.create(:email => params[:email], :status => "Pending", :member_type => "Friend of TANC", :password => Member.random_password, :admin => false)
+         thisUser = Member.create(:email => params[:email], :status => "Pending", :member_type => "non_member", :password => Member.random_password, :admin => false)
          return thisUser
       end
   end
