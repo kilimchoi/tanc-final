@@ -2,7 +2,7 @@
 
 <div class = "logout">
   <% @destroy = false %>
-  <%= link_to "LOGOUT", :controller=>"member", :class => "delete" %>
+  <%= link_to "LOGOUT", :controller=>"application", :action => "destroy" %>
 </div>
 <div id = "add_new_member">
   <%= link_to('Add a new member', '/member/signup') %><br>
