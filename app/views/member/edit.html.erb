@@ -1,6 +1,6 @@
 <% # edit.html.erb using partial %>
-
-<h2> You are now editing <%= @member.first %>' info </h2>
+<div id="wrap">
+<h2> You are no1w editing <%= @member.first %>' info </h2>
 <%= form_tag member_path(@member), :method => :put do %>
   <%= label :member, :status, 'Status' %>
   <%=  select :member, :status, "<option>Pending</option><option>Active</option><option>Expired</option>" %>
@@ -30,3 +30,4 @@
   <br>
   <%= submit_tag 'Update Info' %>
 <% end %>
+</div>
