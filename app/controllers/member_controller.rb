@@ -436,6 +436,7 @@ class MemberController < ApplicationController
              end
           end
        end
+       @table_fields = ["id", "name", "email", "gender", "status"]
        if params["commit"] == "logout"
           redirect_to("/member")
 	  session.delete(:user_email)#clear user data from session
@@ -443,8 +444,11 @@ class MemberController < ApplicationController
        if params["commit"] == "Add a new member"
           redirect_to("/member/admin/add_new_member")
        end
-       if params["commit"] == "refresh"
-          redirect_to("/member/admin")
+       if params["commit"] == "filter"
+         showOptions = params["show"]
+         if showOptions and showOptions.has_key?("full_table")
+          @table_fields = nil
+         end
        end
        
        if params["commit"] == "Delete"

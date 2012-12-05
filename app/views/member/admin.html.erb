@@ -8,42 +8,76 @@
   <%= link_to('Add a new member', '/member/signup') %><br>
   <%= link_to('Export CSV file', '/member/admin/export') %><br>
 </div>
+<%= form_tag :action => "admin" do %>
 <table class ="filter_table"">
   <tr>
     <td>Show full table</td>
-    <td><%= check_box_tag "show_all_check_box" %></span></td>
-    <td><%= button_tag "Refresh" %></td>
+    <td><%= check_box_tag "show[full_table]", 1, @table_fields.nil? %></span></td>
+    <td><%= button_tag "Refresh", :name => "commit", :value => "filter" %></td>
   </tr>
 </table>
 <table class ="filter_table">
   <tr>
     <td>Show Only: </td>
-    <td><%= check_box_tag "show_only_members" %></td>
+    <td><%= check_box_tag "show[members]" %></td>
     <td>Members</td>
-    <td><%= check_box_tag "show_only_non_members" %></td>
+    <td><%= check_box_tag "show[non_members]" %></td>
     <td>Non Members</td>
-    <td><%= button_tag "Refresh" %></td>
+    <td><%= button_tag "Refresh", :name=> "commit", :value=> "filter" %></td>
   </tr>
 </table>
+<% end %>
 <table id="list_of_people">
   <thead id="head">
     <tr>
+      <% if not @table_fields or @table_fields.include?("id") %>
       <th>ID #</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("name") %>
       <th>Name</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("type") %>
       <th>Membership Type</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("email") %>
       <th>Email</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("telephone") %>
       <th>Telephone</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("address") %>
       <th>Address</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("city") %>
       <th>City</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("state") %>
       <th>State</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("zip") %>
       <th>Zip</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("gender") %>
       <th>Gender</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("year_of_birth") %>
       <th>Birth Year</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("country_of_birth") %>
       <th>Birth Country</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("occupation") %>
       <th>Occupation</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("children") %>
       <th>Number of Children</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("payment_method") %>
       <th>Payment Method</th>
+      <% end %>
+      <% if not @table_fields or @table_fields.include?("status") %>
       <th>Status</th>
+      <% end %>
       <th>More</th>
      </tr>
    </thead>
@@ -51,15 +85,26 @@
      <% @member = Member.all %>
      <% @member.each do |member| %>
        <tr>
+         <% if not @table_fields or @table_fields.include?("id") %>
          <td><%= member.id rescue nil%></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("name") %>
          <td><%= member.first + ' ' + member.last rescue nil%></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("type") %>
          <td><%= member.member_type rescue nil%></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("email") %>
          <td><%= member.email rescue nil%></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("telephone") %>
          <td><% if member.telephone == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.telephone %>
              <% end %></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("address") %>
          <td><% if member.address1 == nil %> 
                <%= "N/A" %>
              <% else %>
@@ -67,47 +112,65 @@
                <%= " " %>
                <%= member.address2 rescue nil%>
              <% end %></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("city") %>
          <td><% if member.city == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.city %>
              <% end %></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("state") %>
          <td><% if member.state == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.state %>
              <% end %></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("zip") %>
          <td><% if member.zip == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.zip %>
              <% end %></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("gender") %>
          <td><% if member.gender == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.gender %>
              <% end %></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("year_of_birth") %>
          <td><% if member.year_of_birth == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.year_of_birth %>
              <% end %></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("country_of_birth") %>
          <td><% if member.country_of_birth == "" or member.country_of_birth == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.country_of_birth %>
              <% end %></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("occupation") %>
          <td><% if member.occupation == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.occupation %>
              <% end %></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("children") %>
          <td><% if member.number_of_children == nil %>
                <%= "N/A" %>
              <% else %>
                <%= member.number_of_children %>
              <% end %></td>
          <td></td>
+         <% end %>
+         <% if not @table_fields or @table_fields.include?("status") %>
          <% if member.admin == true %>
            <td><%= "ADMIN" %></td>
          <% elsif member.status == "Pending" %>
@@ -116,6 +179,7 @@
            <td style ="background: green;"><%= member.status rescue nil %></td>
          <% elsif member.status == "Expired" %>
            <td style ="background: red;"><%= member.status rescue nil %></td>
+         <% end %>
          <% end %>
 
 
