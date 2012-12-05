@@ -383,23 +383,39 @@ class MemberController < ApplicationController
   end
   
 
-  def member_payment
+  def member_payment 
+    thisUser = Member.find_by_email(session[:user_email])
     if params["commit"] == "Check or Cash"
+       puts "enters here"
+       thisUser.payment_method = "Check or Cash"
+       thisUser.save
        redirect_to("/member/check_cash_payment")
     elsif params["commit"] == "Online Payment"
+       puts "enters here2"
+       thisUser.payment_method = "Online Payment"
+       thisUser.save
        redirect_to("/member/online_payment")
     elsif params["commit"] == "Not Paying!"
+       puts "enters here3"
+       thisUser.payment_method = "Not Paying"
+       thisUser.save
        redirect_to("/member/thanks_after_done")
     end
   end
   
   def check_cash_payment
+    thisUser = Member.find_by_email(session[:user_email])
+    puts thisUser
+    thisUser.payment_method = "Check or Cash"
     if params["commit"] == "Done!"
        redirect_to("/member/thanks_after_done")
     end
   end
 
-  def online_payment
+  def online_payment 
+    thisUser = Member.find_by_email(session[:user_email])
+    puts thisUser
+    thisUser.payment_method = "Online Payment"
     if params["commit"] == "Done!"
        redirect_to("/member/thanks_after_done")
     end

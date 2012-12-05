@@ -107,7 +107,7 @@
              <% else %>
                <%= member.number_of_children %>
              <% end %></td>
-         <td></td>
+         <td><%= member.payment_method %></td>
          <% if member.admin == true %>
            <td><%= "ADMIN" %></td>
          <% elsif member.status == "Pending" %>
