@@ -86,7 +86,12 @@
          <td><%= member.id rescue nil%></td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("name") %>
-         <td><%= member.first + ' ' + member.last rescue nil%></td>
+         <td>
+         <% if member.admin %> 
+         <%= "TANC ADMIN" %> 
+         <% else %>
+         <%= member.first + ' ' + member.last rescue nil%>
+         <% end %></td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("type") %>
          <td>
