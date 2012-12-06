@@ -4,7 +4,7 @@ TANC is an acronym for Tibetan Association of Northern California. Our group’s
 
 To see our progress on the website, you can visit https://tanc.herokuapp.com/member.
 
-To see user stories we’re implementing or implemented so far, you can visit www.pivotaltracker.com/projects/659983.
+To see user stories we implemented so far, you can visit www.pivotaltracker.com/projects/659983.
 
 To see our test coverage,
 
