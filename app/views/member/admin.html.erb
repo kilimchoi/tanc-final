@@ -13,7 +13,7 @@
 <ul class = "filter" id ="show_full_table">
 <li><strong>Show full table: </strong></li>
   <li><%= check_box_tag "show[full_table]", 1, @table_fields == "all" %></li>
-  <li><%= button_tag "Refresh", :name => "commit", :value => "filter" %></li>
+  <li class="refresh" style="margin-left: 5px;"><%= button_tag "Refresh", :name => "commit", :value => "filter" %></li>
 </ul>
 <ul class ="filter" id ="show-members-non-members">
     <li><strong>Show: </strong></li>
@@ -21,7 +21,7 @@
     <li>Members</li>
     <li><%= check_box_tag "show[non_members]", 1, @showing_non_members %></li>
     <li>Non Members</li>
-    <li style ="margin-left: -70"><%= button_tag "Refresh", :name=> "commit", :value=> "filter" %></li>
+    <li class="refresh" style="margin-left: 15px;"><%= button_tag "Refresh", :name=> "commit", :value=> "filter" %></li>
 </ul>
 <% end %>
 </div>
