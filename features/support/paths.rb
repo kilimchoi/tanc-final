@@ -31,6 +31,7 @@ module NavigationHelpers
     when /^the add\s?page$/ then '/member/admin/add_member'
     when /^the confirmation\s?page$/ then '/member/admin/member_confirmation'
     when /^the edit\s?page$/ then '/member/admin/edit_member'
+    when /^the edit success\s?page$/ then '/member/edit_success'
     when /^the delete confirmation\s?page$/ then '/member/admin/delete_confirmation'
     when /^the mass email\s?page$/ then '/member/admin/mass_email'
     when /^the database dump\s?page$/ then '/member/admin/export'

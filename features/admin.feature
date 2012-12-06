@@ -45,8 +45,3 @@ Scenario: Admins should be able to edit member profile
   And I fill in "telephone" with "231313213"
   And I fill in "year_of_birth" with "1989"
   And I fill in "country_of_birth" with "Albania"
-  And I select "0" from "number_of_children"
-  And I select "Student" from "occupation"
-  And I choose "gender_male"
-  And I press "Continue"
-  Then I should be on the show page with id "2"

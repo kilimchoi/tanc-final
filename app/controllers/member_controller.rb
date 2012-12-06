@@ -2,23 +2,16 @@ class MemberController < ApplicationController
   @member = Member.all
   def show
     @member = Member.find params[:id]
-    if @member.admin != true
-      redirect_to("/member")
-      flash[:error] = "Sorry, you are not an admin, login as an admin first!"
-    end
   end
 
   def edit
     @member = Member.find params[:id]
-    if @member.admin != true
-      redirect_to("/member")
-      flash[:error] = "Sorry, you are not an admin, login as an admin first!"
-    end
   end
 
   def update
     @member = Member.find params[:id] 
     @member.update_attributes!(params[:member])
+    @member.first = @first rescue nil
     redirect_to member_path(@member)
   end
   def destroy

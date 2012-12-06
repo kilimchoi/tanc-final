@@ -3,29 +3,29 @@
 <h2> You are now editing <%= @member.first %>'s info </h2>
 <%= form_tag member_path(@member), :method => :put do %>
   <%= label :member, :status, 'Status' %>
-  <%=  select :member, :status, "<option>Pending</option><option>Active</option><option>Expired</option>" %>
+  <%= select :member, :status, "<option>Pending</option><option>Active</option><option>Expired</option>" %>
   <br>
   <br>
   <%= label :member, :member_type, 'Membership type' %>
-  <%=  select :member, :member_type, "<option>tibetan</option><option>spouseoftibetan</option><option>non_member</option>" %>
+  <%= select :member, :member_type, "<option>tibetan</option><option>spouseoftibetan</option><option>non_member</option>" %>
   <br>
   <br>
-  <%=  text_field :member, 'first', :placeholder => 'First Name' %>
-  <%=  text_field :member, 'last', :placeholder => 'Last Name' %>
-  <%=  text_field :member, 'telephone', :placeholder => 'Telephone' %>
-  <%=  text_field :member, 'address1', :placeholder => 'Address Line 1 (Street)' %>
-  <%=  text_field :member, 'address2', :placeholder => 'Address Line 2 (Apt/Suite)' %>
-  <%=  text_field :member, 'city', :placeholder => 'City' %>
-  <%=  text_field :member, 'state', :placeholder => 'State' %>
-  <%=  text_field :member, 'zip', :placeholder => 'Zip' %>
-  <%= label :member, :gender, 'Gender' %>
-  <%=  select :member, :gender, "<option>Male</option><option>Female</option>" %><br><br>
-  <%=  text_field :member, 'year_of_birth', :placeholder => 'Birth Year' %>
-  <%=  text_field :member, 'country_of_birth', :placeholder => 'Country of Birth' %>
-  <%= label :member, :number_of_children, 'Number of Children' %>
-  <%= select :member, :number_of_children, "<option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>" %><br><br>
-  <%= label :member, :occupation, 'Occupation' %>
-  <%= select :member, :occupation, "<option>Student</option><option>Medical Profession</option><option>Business Owner</option><option>Finance and Banking</option><option>Others</option>" %>
+  <%=  text_field :member, 'first', :placeholder => 'First Name', :id => "first"%>
+  <%=  text_field :member, 'last', :placeholder => 'Last Name', :id => "last"%>
+  <%=  text_field :member, 'telephone', :placeholder => 'Telephone', :id => "telephone"%>
+  <%=  text_field :member, 'address1', :placeholder => 'Address Line 1 (Street)', :id => "address1"%>
+  <%=  text_field :member, 'address2', :placeholder => 'Address Line 2 (Apt/Suite)', :id => "address2"%>
+  <%=  text_field :member, 'city', :placeholder => 'City', :id => "city"%>
+  <%=  text_field :member, 'state', :placeholder => 'State', :id => "state" %>
+  <%=  text_field :member, 'zip', :placeholder => 'Zip', :id => "zip"%>
+  <%= label :member, :gender, 'Gender'%>
+  <%=  select :member, :gender, "<option>Male</option><option>Female</option>", :id =>"gender" %><br><br>
+  <%=  text_field :member, 'year_of_birth', :placeholder => 'Birth Year', :id =>"year_of_birth"%>
+  <%=  text_field :member, 'country_of_birth', :placeholder => 'Country of Birth', :id =>"country_of_birth" %>
+  <%= label :member, 'number_of_children', 'Number of Children', :id =>"number_of_children" %>
+  <%= select :member, 'number_of_children', "<option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>",:id => "number_of_children" %><br><br>
+  <%= label :member, 'occupation', 'Occupation', :id => "occupation" %>
+  <%= select :member, 'occupation', "<option>Student</option><option>Medical Profession</option><option>Business Owner</option><option>Finance and Banking</option><option>Others</option>", :id => "occupation"%>
   <br>
   <br>
   <%= submit_tag 'Update Info' %>
