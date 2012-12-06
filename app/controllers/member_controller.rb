@@ -575,7 +575,7 @@ class MemberController < ApplicationController
         if params["zip"] and params["zip"] =~ /\d{5}/; member_to_edit.zip = params["zip"]; end;
         if params["state"] and params["state"] =~ /[A-Za-z]{2}/; member_to_edit.state = params["state"]; end;
         if params["telephone"] and params["telephone"] =~ /\d{1,10}|[-]/; member_to_edit.telephone = params["telephone"]; end;
-        if params["year_of_birth"] and params["year_of_birth"] =~ /\d{1,4}/; member_to_edit.year_of_birth = params["year_of_birth"]; end;
+        if params["year_of_birth"] and params["year_of_birth"] =~ /\d{4}/; member_to_edit.year_of_birth = params["year_of_birth"]; end;
         if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; member_to_edit.country_of_birth = params["country_of_birth"]; end;
         if params["occupation"]; member_to_edit.occupation = params["occupation"]; end;
         if params["gender"]; member_to_edit.gender = params["gender"]; end;
