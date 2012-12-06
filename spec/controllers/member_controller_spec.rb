@@ -48,7 +48,8 @@ describe MemberController do
            flash[:error].should == "You need to sign up or login first!"
         end
      end
-
+     
+     
      describe "signing up for the first time" do
         before(:each) do 
               @first_name = "Ki Lim"
