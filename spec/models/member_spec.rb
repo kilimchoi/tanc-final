@@ -9,5 +9,5 @@ describe Member do
    it "should find the user by email" do
 	mock = mock('Member')
 	mock.stub!(:find_by_email).with(:email => "oski@berkeley.edu").and_return('true')
-  end
+   end
 end

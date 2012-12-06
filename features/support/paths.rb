@@ -31,6 +31,7 @@ module NavigationHelpers
     when /^the add\s?page$/ then '/member/admin/add_member'
     when /^the confirmation\s?page$/ then '/member/admin/member_confirmation'
     when /^the edit\s?page$/ then '/member/admin/edit_member'
+    when /^the edit success\s?page$/ then '/member/edit_success'
     when /^the delete confirmation\s?page$/ then '/member/admin/delete_confirmation'
     when /^the mass email\s?page$/ then '/member/admin/mass_email'
     when /^the database dump\s?page$/ then '/member/admin/export'
@@ -43,6 +44,8 @@ module NavigationHelpers
     when /^the password update\s?page$/ then '/member/update_password'
     when /^the reset success\s?page$/ then '/member/reset_success'
     when /^the password reset confirmation\s?page$/ then '/member/reset_email_sent'
+    when /^the show page with id "(.*)"/ then '/member/' + Member.find($1).id.to_s
+    when /^the edit page with id "(.*)"/ then '/member/' + Member.find($1).id.to_s + '/edit'
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

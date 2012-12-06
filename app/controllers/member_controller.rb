@@ -10,8 +10,8 @@ class MemberController < ApplicationController
 
   def update
     @member = Member.find params[:id]
-    puts params[:member]
     @member.update_attributes!(params[:member])
+    @member.first = @first rescue nil
     redirect_to member_path(@member)
   end
   def destroy
@@ -184,7 +184,7 @@ class MemberController < ApplicationController
     @email = thisUser.email rescue nil
     if params[:commit] == "Continue"
       if pwd_strength_check(params[:password])
-        if thisUser and thisUser.update_password(params[:password], params["confirm-password"])
+        if thisUser.update_password(params[:password], params["confirm-password"])
            if verify_recaptcha
              if params[:membership] == "tibetan" || params[:membership] == "spouseoftibetan" and !thisUser.member_active and !thisUser.non_member_active
                 thisUser.member_type = params[:membership]
@@ -223,7 +223,7 @@ class MemberController < ApplicationController
       @country_of_birth = thisUser.country_of_birth rescue nil
       @special_skills = thisUser.special_skills rescue nil
       if params["commit"] == "Continue"
-        if thisUser and thisUser.validate_and_update(params)
+        if thisUser.validate_and_update(params)
           if !thisUser.member_active
             thisUser.member_active = true
 	    thisUser.save
@@ -264,7 +264,7 @@ class MemberController < ApplicationController
       @zip = thisUser.zip rescue nil
       @telephone = thisUser.telephone rescue nil
       if params["commit"] == "Submit"
-        if thisUser and thisUser.validate_and_update_non_member(params)
+        if thisUser.validate_and_update_non_member(params)
           if !thisUser.non_member_active
             thisUser.non_member_active = true
             thisUser.save
@@ -297,7 +297,7 @@ class MemberController < ApplicationController
       @country_of_birth = thisUser.country_of_birth rescue nil
       @special_skills = thisUser.special_skills rescue nil
       if params["commit"] == "Continue"  
-        if thisUser and thisUser.validate_and_update(params)
+        if thisUser.validate_and_update(params)
            if verify_recaptcha 
              @first = thisUser.first rescue nil
              @last = thisUser.last rescue nil
@@ -336,7 +336,7 @@ class MemberController < ApplicationController
       @zip = thisUser.zip rescue nil
       @telephone = thisUser.telephone rescue nil
       if params["commit"] == "Submit"
-        if thisUser and thisUser.validate_and_update_non_member(params)  
+        if thisUser.validate_and_update_non_member(params)  
            if verify_recaptcha
              @first = thisUser.first rescue nil
              @last = thisUser.last rescue nil
