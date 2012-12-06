@@ -179,7 +179,15 @@ margin: auto;
 }
 
 /* ADMIN CSS */
-
+.refresh button {
+  appearance: none;
+  opacity: .99;
+  background: #08c;
+  color: #FFF;
+  border-radius: 8px;
+  padding: 5px;
+  border: 1px solid #0a5378;
+}
 table {
   width: 100%;
   border: 1px solid #000;
@@ -205,7 +213,7 @@ thead {
 #filter input {
    width: 25px;
    padding: 0;
-   margin: 0;
+   margin: 0 0 0 5px;
 }
 #filter li {
   padding: 0;
