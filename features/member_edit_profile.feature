@@ -7,7 +7,6 @@ Background:
     | status  | member_type  | email              | password | city | zip |
     | Pending | tibetan | aldizhupani@gmail.com | 1234     | Berkeley | 94705 |
     | confirmed | tibetan     | azhupani390@berkeley.edu | 34578 | San Francisco | 75201 |
-    | Pending | non-member | azhupani390@berkeley.edu | 34578 | San Francisco | 75201 |
 
 Scenario: Editing Member data  information
    Given I logged in as "aldizhupani@gmail.com" with password "1234"
