@@ -1,7 +1,12 @@
 class MemberController < ApplicationController
   @member = Member.all
   def show
-    @member = Member.find params[:id]
+      if session[:user_email] == "bhuten@gmail.com"
+          @member = Member.find params[:id]
+      else 
+          redirect_to "/member"
+          flash[:error] = "You must the admin and must be logged in first."
+      end
   end
 
   def edit
