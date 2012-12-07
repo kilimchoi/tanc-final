@@ -34,3 +34,7 @@ end
 When /^I visit the admin page again$/ do
     visit '/member/admin'
 end
+
+When /^I visit the member edit page again$/ do 
+    visit '/member/2/edit'
+end

@@ -52,3 +52,11 @@ Scenario: Users should not be able to edit member profile
   When I follow "LOGOUT"
   Then I should be on the member landing page
   When I visit the admin page again
+
+Scenario: Users should not be able to edit member info
+  Given I logged in as "bhuten@gmail.com" with password "1234"
+  And I am on the admin landing page
+  When I follow "LOGOUT"
+  Then I should be on the member landing page
+  When I visit the member edit page again
+  Then I should see "You're not logged in as an admin." 

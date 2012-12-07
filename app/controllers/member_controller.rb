@@ -10,8 +10,13 @@ class MemberController < ApplicationController
   end
 
   def edit
-    @member = Member.find params[:id]
-  end
+    if session[:user_email] == "bhuten@gmail.com" #replace this email with the email id of admin
+      @member = Member.find params[:id]
+    else
+      flash[:error] = "You're not logged in as an admin."
+      redirect_to "/member"
+    end
+  end 
 
   def update
     @member = Member.find params[:id] 
@@ -82,11 +87,12 @@ class MemberController < ApplicationController
   
   def confirm_account
     if email_params_has_value and code_params_has_value then
-      thisUser = Member.find_by_email(params[:email])
+      @email = params[:email].to_s
+      thisUser = Member.find_by_email(@email)
       if this_user_exists_and_temp_pwd_verified(thisUser)
         store_email_in_session(thisUser) and redirect_to("/member/account_setup")
       else
-        flash[:error] = "You already created an account with this email."
+        flash[:error] = "You already created an account with this email. Or We do not accept emails with + sign in between."
         redirect_to("/member/")
       end
     end
