@@ -30,3 +30,7 @@ Then /^I should receive a confirmation email$/ do
   email = ActionMailer::Base.deliveries.last
   email.subject.should == "Welcome to TANC"
 end 
+
+When /^I visit the admin page again$/ do
+    visit '/member/admin'
+end
