@@ -1,7 +1,7 @@
 class MemberController < ApplicationController
   @member = Member.all
   def show
-      if session[:user_email] == "bhuten@gmail.com"
+      if session[:user_email] == "tanc.herokuapp@gmail.com"
           @member = Member.find params[:id]
       else
           flash[:error] = "You're not logged in as an admin."
@@ -10,7 +10,7 @@ class MemberController < ApplicationController
   end
 
   def edit
-    if session[:user_email] == "bhuten@gmail.com" #replace this email with the email id of admin
+    if session[:user_email] == "tanc.herokuapp@gmail.com" #replace this email with the email id of admin
       @member = Member.find params[:id]
     else
       flash[:error] = "You're not logged in as an admin."
