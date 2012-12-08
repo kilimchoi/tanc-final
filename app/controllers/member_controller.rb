@@ -358,6 +358,7 @@ class MemberController < ApplicationController
              @state = thisUser.state rescue nil
              @zip = thisUser.zip rescue nil
              @telephone = thisUser.telephone rescue nil
+             thisUser.save
              redirect_to("/member/edit_success")
            else
              flash[:error] = "Your words do not match the ones in the recaptcha image!"
