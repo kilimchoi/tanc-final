@@ -76,11 +76,15 @@ class Member < ActiveRecord::Base
       if params["state"] and params["state"] =~ /[A-Za-z]{2}/; true;
       if params["zip"] and params["zip"] =~ /\d{5}/; true;
       if params["gender"]; true;
-      if params["year_of_birth"] and params["year_of_birth"] =~ /\d{4}/; true;
-      if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; true;
+      if params["member"]["year_of_birth"] and params["member"]["year_of_birth"] =~ /\d{4}/; true;
+      if params["member"]["country_of_birth"] and params["member"]["country_of_birth"] =~ /[A-Za-z]+/; true;
       if params["number_of_children"]; true;
       if params["occupation"]; true;
+      if params["Status"]; true;
+      if params["member_type"]; true;
       else return false; end;
+      end
+      end
       end
       end
       end
