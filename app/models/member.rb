@@ -55,9 +55,83 @@ class Member < ActiveRecord::Base
       :telephone => self.telephone,
       :year_of_birth => self.year_of_birth,
       :country_of_birth => self.country_of_birth,
-      :occupation => self.occupation
+      :occupation => self.occupation,
+      :gender => self.gender,
+      :number_of_children => self.number_of_children
+      
     }
     return data
+  end
+
+  def validate(params)
+      if params["address-line-2"] and params["address-line-2"] == ""
+         params.delete("address-line-2")
+      end
+      if params["first"] and params["first"] =~ /[A-Za-z]+/ 
+          return true
+      else 
+          return false
+      end
+      if params["last"] and params["last"] =~ /[A-Za-z]+/ 
+          return true
+      else 
+          return false
+      end
+      if params["address1"] and params["address1"] =~ /\d|[-]|[A-Za-z]+|\s|./
+          return true
+      else 
+          return false
+      end
+      if params["address2"] and params["address2"] =~ /\d|[-]|[A-Za-z]+|\s|./
+          return true
+      else
+          return false
+      end
+      if params["number_of_children"]
+          return true
+      else
+          return false
+      end
+      if params["city"] and params["city"] =~ /[A-Za-z]+/ 
+          return true
+      else 
+          return false 
+      end
+      if params["zip"] and params["zip"] =~ /\d{5}/
+          return true 
+      else 
+          return false
+      end
+      if params["state"] and params["state"] =~ /[A-Za-z]{2}/
+          return true
+      else 
+          return false
+      end
+      if params["telephone"] and params["telephone"] =~ /\d{1,10}|[-]/
+          return true
+      else 
+          return false
+      end
+      if params["member"]["year_of_birth"] and params["member"]["year_of_birth"] =~ /^\d{4}$/
+          return true
+      else 
+          return false 
+      end
+      if params["member"]["country_of_birth"] and params["member"]["country_of_birth"] =~ /[A-Za-z]+/
+          return true
+      else
+          return false
+      end
+      if params["occupation"]
+          return true
+      else 
+          return false 
+      end
+      if params["gender"]
+          return true
+      else 
+          return false
+      end 
   end
 
   def validate_and_update(params)

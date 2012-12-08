@@ -16,13 +16,10 @@
   <table id="profile_table">
     <tr><td><strong>Name:</strong></td><td> <%= @user_data[:first] + " " + @user_data[:last] %></td></tr>
     <tr><td><strong>Email:</strong></td><td><%= @user_data[:email] %></td></tr>
-    <tr><td><strong>Address:</strong></td><td> <%= @user_data[:address1] + "," rescue nil %> <%= @user_data[:address2] + "," rescue nil%> <%= @user_data[:city] + ", " 	rescue nil + @user_data[:state] + " " + @user_data[:zip] rescue nil %></td></tr>
+    <tr><td><strong>Address:</strong></td><td> <%= @user_data[:address1] + "," rescue nil %> <%= @user_data[:address2] + "," rescue nil%> <%= @user_data[:city] + ", " + @user_data[:state] + " " + @user_data[:zip] rescue nil %></td></tr>
     <tr><td><strong>Telephone:</strong></td><td> <%= @user_data[:telephone] rescue nil %></td></tr>
     <% if !@user_data[:country_of_birth].nil? %>
       <tr><td><strong>Country of Birth:</strong></td><td><%= @user_data[:country_of_birth] %></td></tr>
-    <% end %>
-    <% if @user_data[:occupation] != "Others" %>
-      <tr><td><strong>Occupation:</strong></td><td><%= @user_data[:occupation] rescue nil %></td></tr>
     <% end %>
     <tr><td><strong>Membership Fee payment status: </strong></td><td><%= @user_data[:status] rescue nil %></td></tr>
   </table>

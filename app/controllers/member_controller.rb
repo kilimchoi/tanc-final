@@ -1,8 +1,9 @@
 class MemberController < ApplicationController
   @member = Member.all
   def show
-      if session[:user_email] == "tanc.herokuapp@gmail.com" #replace this email with the email id of admin
+      if session[:user_email] == "stevn1202@gmail.com" #replace this email with the email id of admin
           @member = Member.find params[:id]
+          @data = @member.user_data 
       else
           flash[:error] = "You're not logged in as an admin."
           redirect_to "/member"
@@ -10,20 +11,55 @@ class MemberController < ApplicationController
   end
 
   def edit
-    if session[:user_email] == "tanc.herokuapp@gmail.com" #replace this email with the email id of admin
+    if session[:user_email] == "stevn1202@gmail.com" #replace this email with the email id of admin
       @member = Member.find params[:id]
+      @type = @member.member_type rescue nil
+      @status = @member.status rescue nil
+      @first = @member.first rescue nil
+      @last = @member.last rescue nil
+      @address1 = @member.address1 rescue nil
+      @address2 = @member.address2 rescue nil
+      @city = @member.city rescue nil
+      @state = @member.state rescue nil
+      @zip = @member.zip rescue nil
+      @telephone = @member.telephone rescue nil
+      @year_of_birth = @member.year_of_birth rescue nil
+      @country_of_birth = @member.country_of_birth rescue nil
+      @special_skills = @member.special_skills rescue nil
+      @gender = @member.gender rescue nil
+      @occupation = @member.occupation rescue nil
+      @number_of_children = @member.number_of_children rescue nil
+      if params["commit"] == "Update Info"
+        if @member and @member.validate(params)
+             @member.first = params["first"] rescue nil
+             @member.last = params["last"] rescue nil
+             @member.gender = params["gender"] rescue nil
+             @member.address1 = params["address1"] rescue nil
+             @member.address2 = params["address2"] rescue nil
+             @member.city = params["city"] rescue nil
+             @member.state = params["state"] rescue nil
+             @member.zip = params["zip"] rescue nil
+             @member.telephone = params["telephone"] rescue nil
+             @member.year_of_birth = params["member"]["year_of_birth"] rescue nil
+             @member.country_of_birth = params["member"]["country_of_birth"] rescue nil
+             @member.status = params["Status"] rescue nil
+             @member.number_of_children = params["number_of_children"] rescue nil
+             @member.occupation = params["occupation"]
+             @member.member_type = params["member_type"]
+             @member.save
+             redirect_to member_path(@member)
+        else 
+             flash[:error] = "Please type in correct format. You have not filled out everything."
+             redirect_to edit_member_path(@member)
+        end
+    end
     else
       flash[:error] = "You're not logged in as an admin."
       redirect_to "/member"
     end
   end 
 
-  def update
-    @member = Member.find params[:id] 
-    @member.update_attributes!(params[:member])
-    @member.first = @first rescue nil
-    redirect_to member_path(@member)
-  end
+
   def destroy
     @member = Member.find params[:id] 
     @member.destroy
@@ -307,6 +343,10 @@ class MemberController < ApplicationController
       @year_of_birth = thisUser.year_of_birth rescue nil
       @country_of_birth = thisUser.country_of_birth rescue nil
       @special_skills = thisUser.special_skills rescue nil
+      @gender = thisUser.gender rescue nil
+      @occupation = thisUser.occupation rescue nil
+      @number_of_children = thisUser.number_of_children rescue nil
+      @already_a_member = thisUser.already_a_member rescue nil
       if params["commit"] == "Continue"  
         if thisUser and thisUser.validate_and_update(params)
            if verify_recaptcha 
@@ -321,6 +361,10 @@ class MemberController < ApplicationController
              @year_of_birth = thisUser.year_of_birth rescue nil
              @country_of_birth = thisUser.country_of_birth rescue nil
              @special_skills = thisUser.special_skills rescue nil
+             @gender = thisUser.gender rescue nil
+             @occupation = thisUser.occupation rescue nil
+             @number_of_children = thisUser.number_of_children rescue nil
+             @already_a_member = thisUser.already_a_member rescue nil
              thisUser.save
              redirect_to("/member/edit_success")
           else
