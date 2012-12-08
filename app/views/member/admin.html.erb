@@ -87,33 +87,22 @@
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("name") %>
          <td>
-         <% if member.admin %> 
-         <%= "TANC ADMIN" %> 
-         <% else %>
          <%= member.first + ' ' + member.last rescue nil%>
-         <% end %></td>
+         </td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("type") %>
          <td>
-         <% if member.admin %> 
-         <%= "ADMIN" %>
-         <% else %>
          <%= member.member_type rescue nil%>
-         <% end %></td>
+         </td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("email") %>
          <td>
-         <% if member.admin %> 
-         <%= "tanc.herokuapp@gmail.com" %>
-         <% else %>
          <%= member.email rescue nil%>
-         <% end %></td>
+         </td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("telephone") %>
          <td><% if member.telephone == nil %>
                <%= "N/A" %>
-             <% elsif member.admin %>
-               <%= "510-666-1355" %>
              <% else %>
                <%= member.telephone %>
              <% end %></td>
@@ -121,8 +110,6 @@
          <% if @table_fields == "all" or @table_fields.include?("address") %>
          <td><% if member.address1 == nil %> 
                <%= "N/A" %>
-             <% elsif member.admin %>
-               <%= "5200 Huntington Avenue, Suite 200" %>
              <% else %>
                <%= member.address1 %>, 
                <%= " " %>
@@ -132,8 +119,6 @@
          <% if @table_fields == "all" or @table_fields.include?("city") %>
          <td><% if member.city == nil %>
                <%= "N/A" %>
-             <% elsif member.admin %>
-               <%= "Richmond" %>
              <% else %>
                <%= member.city %>
              <% end %></td>
@@ -141,8 +126,6 @@
          <% if @table_fields == "all" or @table_fields.include?("state") %>
          <td><% if member.state == nil %>
                <%= "N/A" %>
-             <% elsif member.admin %> 
-               <%= "CA" %>
              <% else %>
                <%= member.state %>
              <% end %></td>
@@ -150,8 +133,6 @@
          <% if @table_fields == "all" or @table_fields.include?("zip") %>
          <td><% if member.zip == nil %>
                <%= "N/A" %>
-             <% elsif member.admin %> 
-               <%= "94804" %>
              <% else %>
                <%= member.zip %>
              <% end %></td>
@@ -159,8 +140,6 @@
          <% if @table_fields == "all" or @table_fields.include?("gender") %>
          <td><% if member.gender == nil %>
                <%= "N/A" %>
-             <% elsif member.admin %>
-               <%= "----" %>
              <% else %>
                <%= member.gender %>
              <% end %></td>
@@ -168,8 +147,6 @@
          <% if @table_fields == "all" or @table_fields.include?("year_of_birth") %>
          <td><% if member.year_of_birth == nil %>
                <%= "N/A" %>
-             <% elsif member.admin %> 
-               <%= "----" %> 
              <% else %>
                <%= member.year_of_birth %>
              <% end %></td>
@@ -177,8 +154,6 @@
          <% if @table_fields == "all" or @table_fields.include?("country_of_birth") %>
          <td><% if member.country_of_birth == "" or member.country_of_birth == nil %>
                <%= "N/A" %>
-             <% elsif member.admin %> 
-               <%= "----" %>
              <% else %>
                <%= member.country_of_birth %>
              <% end %></td>
@@ -186,8 +161,6 @@
          <% if @table_fields == "all" or @table_fields.include?("occupation") %>
          <td><% if member.occupation == nil %>
                <%= "N/A" %>
-             <% elsif member.admin %> 
-               <%= "----" %>   
              <% else %>
                <%= member.occupation %>
              <% end %></td>
@@ -195,31 +168,29 @@
          <% if @table_fields == "all" or @table_fields.include?("children") %>
          <td><% if member.number_of_children == nil %>
                <%= "N/A" %>
-             <% elsif member.admin %> 
-               <%= "----" %> 
              <% else %>
                <%= member.number_of_children %>
              <% end %></td>
          <% end %> 
          <% if @table_fields == "all" or @table_fields.include?("payment_method") %>
          <td><% if member.payment_method == nil %>
-             <%= "N/A" %>
+                 <%= "N/A" %>
              <% elsif member.admin %> 
-               <%= "----" %> 
+                 <%= "N/A" %> 
              <% else %> 
-             <%= member.payment_method %></td>
+             <%= member.payment_method %>
          <% end %></td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("status") %>
-         <% if member.admin == true %>
-           <td><%= "ADMIN" %></td>
-         <% elsif member.status == "Pending" %>
-           <td style ="background: yellow;"><%= member.status rescue nil %></td>
-         <% elsif member.status == "Active" %>
-           <td style ="background: green;"><%= member.status rescue nil %></td>
-         <% elsif member.status == "Expired" %>
-           <td style ="background: red;"><%= member.status rescue nil %></td>
-         <% end %>
+             <% if member.admin %> 
+                 <%= "N/A" %> 
+             <% elsif member.status == "Pending" %>
+                 <td style ="background: yellow;"><%= member.status rescue nil %></td>
+             <% elsif member.status == "Active" %>
+                 <td style ="background: green;"><%= member.status rescue nil %></td>
+             <% elsif member.status == "Expired" %>
+                 <td style ="background: red;"><%= member.status rescue nil %></td>
+             <% end %>
          <% end %>
 
 
