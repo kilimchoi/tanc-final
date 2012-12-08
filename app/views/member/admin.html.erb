@@ -183,7 +183,7 @@
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("status") %>
              <% if member.admin %> 
-                 <%= "N/A" %> 
+                 <td><%= "N/A" %></td>
              <% elsif member.status == "Pending" %>
                  <td style ="background: yellow;"><%= member.status rescue nil %></td>
              <% elsif member.status == "Active" %>
