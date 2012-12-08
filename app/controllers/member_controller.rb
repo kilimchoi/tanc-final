@@ -321,6 +321,7 @@ class MemberController < ApplicationController
              @year_of_birth = thisUser.year_of_birth rescue nil
              @country_of_birth = thisUser.country_of_birth rescue nil
              @special_skills = thisUser.special_skills rescue nil
+             thisUser.save
              redirect_to("/member/edit_success")
           else
              flash[:error] = "Your words do not match the ones in the recaptcha image!"
@@ -437,11 +438,11 @@ class MemberController < ApplicationController
   def profile
     thisUser = find_user_by_email(session[:user_email])
     if thisUser
-      @admin = true if thisUser.admin
-      @user_data = thisUser.user_data
+        @admin = true if thisUser.admin
+        @user_data = thisUser.user_data
     else
-	    redirect_to("/member/login")
-  	  flash[:error] = "You are not logged in. Please log in and try again."
+        redirect_to("/member/login")
+        flash[:error] = "You are not logged in. Please log in and try again."
     end
   end
 
