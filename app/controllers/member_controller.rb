@@ -30,7 +30,7 @@ class MemberController < ApplicationController
       @occupation = @member.occupation rescue nil
       @number_of_children = @member.number_of_children rescue nil
       if params["commit"] == "Update Info"
-        if @member and @member.validate(params)
+          if @member and @member.validate(params)
              @member.first = params["first"] rescue nil
              @member.last = params["last"] rescue nil
              @member.gender = params["gender"] rescue nil
@@ -48,9 +48,9 @@ class MemberController < ApplicationController
              @member.member_type = params["member_type"]
              @member.save
              redirect_to member_path(@member)
-        else 
-             flash[:error] = "Please type in correct format. You have not filled out everything."
+        else
              redirect_to edit_member_path(@member)
+             flash[:error] = "Please type in correct format. You have not filled out everything."
         end
     end
     else
@@ -166,6 +166,8 @@ class MemberController < ApplicationController
         flash.now[:error] = "Please type in correct email address."
      elsif email_params_has_value and !member_email? then
         flash.now[:error] = "You haven't signed up with that email! Please go back to the sign up page."
+     else
+         flash.now[:error] = "Please type in something."
      end
   end
   

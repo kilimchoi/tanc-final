@@ -57,8 +57,8 @@ class Member < ActiveRecord::Base
       :country_of_birth => self.country_of_birth,
       :occupation => self.occupation,
       :gender => self.gender,
-      :number_of_children => self.number_of_children
-      
+      :number_of_children => self.number_of_children,
+      :id => self.id 
     }
     return data
   end
@@ -67,72 +67,34 @@ class Member < ActiveRecord::Base
       if params["address-line-2"] and params["address-line-2"] == ""
          params.delete("address-line-2")
       end
-      if params["first"] and params["first"] =~ /[A-Za-z]+/ 
-          return true
-      else 
-          return false
+      if params["first"] and params["first"] =~ /[A-Za-z]+/; true;
+      if params["last"] and params["last"] =~ /[A-Za-z]+/; true;
+      if params["telephone"] and params["telephone"] =~ /\d{1,10}|[-]/; true;
+      if params["address1"] and params["address1"] =~ /\d|[-]|[A-Za-z]+|\s|./; true;
+      if params["address2"] and params["address2"] =~ /\d|[-]|[A-Za-z]+|\s|./; true;
+      if params["city"] and params["city"] =~ /[A-Za-z]+/; true;
+      if params["state"] and params["state"] =~ /[A-Za-z]{2}/; true;
+      if params["zip"] and params["zip"] =~ /\d{5}/; true;
+      if params["gender"]; true;
+      if params["year_of_birth"] and params["year_of_birth"] =~ /\d{4}/; true;
+      if params["country_of_birth"] and params["country_of_birth"] =~ /[A-Za-z]+/; true;
+      if params["number_of_children"]; true;
+      if params["occupation"]; true;
+      else return false; end;
       end
-      if params["last"] and params["last"] =~ /[A-Za-z]+/ 
-          return true
-      else 
-          return false
       end
-      if params["address1"] and params["address1"] =~ /\d|[-]|[A-Za-z]+|\s|./
-          return true
-      else 
-          return false
       end
-      if params["address2"] and params["address2"] =~ /\d|[-]|[A-Za-z]+|\s|./
-          return true
-      else
-          return false
       end
-      if params["number_of_children"]
-          return true
-      else
-          return false
       end
-      if params["city"] and params["city"] =~ /[A-Za-z]+/ 
-          return true
-      else 
-          return false 
       end
-      if params["zip"] and params["zip"] =~ /\d{5}/
-          return true 
-      else 
-          return false
       end
-      if params["state"] and params["state"] =~ /[A-Za-z]{2}/
-          return true
-      else 
-          return false
       end
-      if params["telephone"] and params["telephone"] =~ /\d{1,10}|[-]/
-          return true
-      else 
-          return false
       end
-      if params["member"]["year_of_birth"] and params["member"]["year_of_birth"] =~ /^\d{4}$/
-          return true
-      else 
-          return false 
       end
-      if params["member"]["country_of_birth"] and params["member"]["country_of_birth"] =~ /[A-Za-z]+/
-          return true
-      else
-          return false
       end
-      if params["occupation"]
-          return true
-      else 
-          return false 
       end
-      if params["gender"]
-          return true
-      else 
-          return false
-      end 
   end
+
 
   def validate_and_update(params)
       if params["address-line-2"] and params["address-line-2"] == ""
