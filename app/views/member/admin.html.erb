@@ -102,14 +102,14 @@
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("telephone") %>
          <td><% if member.telephone == nil %>
-               <%= "N/A" %>
+               <%= "" %>
              <% else %>
                <%= member.telephone %>
              <% end %></td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("address") %>
          <td><% if member.address1 == nil %> 
-               <%= "N/A" %>
+               <%= "" %>
              <% else %>
                <%= member.address1 %>, 
                <%= " " %>
@@ -118,72 +118,72 @@
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("city") %>
          <td><% if member.city == nil %>
-               <%= "N/A" %>
+               <%= "" %>
              <% else %>
                <%= member.city %>
              <% end %></td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("state") %>
          <td><% if member.state == nil %>
-               <%= "N/A" %>
+               <%= "" %>
              <% else %>
                <%= member.state %>
              <% end %></td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("zip") %>
          <td><% if member.zip == nil %>
-               <%= "N/A" %>
+               <%= "" %>
              <% else %>
                <%= member.zip %>
              <% end %></td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("gender") %>
          <td><% if member.gender == nil %>
-               <%= "N/A" %>
+               <%= "" %>
              <% else %>
                <%= member.gender %>
              <% end %></td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("year_of_birth") %>
          <td><% if member.year_of_birth == nil %>
-               <%= "N/A" %>
+               <%= "" %>
              <% else %>
                <%= member.year_of_birth %>
              <% end %></td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("country_of_birth") %>
          <td><% if member.country_of_birth == "" or member.country_of_birth == nil %>
-               <%= "N/A" %>
+               <%= "" %>
              <% else %>
                <%= member.country_of_birth %>
              <% end %></td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("occupation") %>
          <td><% if member.occupation == nil %>
-               <%= "N/A" %>
+               <%= "" %>
              <% else %>
                <%= member.occupation %>
              <% end %></td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("children") %>
          <td><% if member.number_of_children == nil %>
-               <%= "N/A" %>
+               <%= "" %>
              <% else %>
                <%= member.number_of_children %>
              <% end %></td>
          <% end %> 
          <% if @table_fields == "all" or @table_fields.include?("payment_method") %>
          <td><% if member.payment_method == nil %>
-                 <%= "N/A" %>
+                 <%= "" %>
              <% elsif member.admin %> 
-                 <%= "N/A" %> 
+                 <%= "" %> 
              <% else %> 
              <%= member.payment_method %>
          <% end %></td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("status") %>
              <% if member.admin %> 
-                 <td><%= "N/A" %></td>
+                 <td><%= "" %></td>
              <% elsif member.status == "Pending" %>
                  <td style ="background: yellow;"><%= member.status rescue nil %></td>
              <% elsif member.status == "Active" %>
