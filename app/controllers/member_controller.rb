@@ -155,13 +155,9 @@ class MemberController < ApplicationController
   
   def reset_password
      if email_params_has_value and member_email?
-       if verify_recaptcha
            member = Member.find_by_email(params[:email])
            member.send_reset_password if member
            redirect_to "/member/reset_email_sent"
-        else
-           flash[:error] = "Your words do not match the ones in the recaptcha image!"
-        end
      elsif email_params_has_value and !email_format_is_correct
         flash.now[:error] = "Please type in correct email address."
      elsif email_params_has_value and !member_email? then
