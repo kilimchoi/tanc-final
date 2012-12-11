@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails', '3.1.0'
 
@@ -23,7 +23,6 @@ group :test do
   gem 'launchy'
   gem 'factory_girl'
   gem 'recaptcha', :require => 'recaptcha/rails'
-  gem 'thin'
 end
 group :production do
   gem 'pg'
