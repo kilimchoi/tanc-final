@@ -93,7 +93,8 @@
          <% if @table_fields == "all" or @table_fields.include?("type") %>
              <td>
                  <%= if member.admin %>
-                    <%= "ADMIN" %> 
+                 <%= "ADMIN" %> 
+                 <% else %>
                     <%= member.member_type rescue nil%>
                  <%= end %> 
          </td>
