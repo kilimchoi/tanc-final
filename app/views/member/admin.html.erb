@@ -96,7 +96,7 @@
                  <%= "ADMIN" %> 
                  <% else %>
                     <%= member.member_type rescue nil%>
-                 <%= end %> 
+                 <% end %> 
             </td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("email") %>
