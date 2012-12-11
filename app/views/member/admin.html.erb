@@ -91,8 +91,11 @@
          </td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("type") %>
-         <td>
-         <%= member.member_type rescue nil%>
+             <td>
+                 <%= if member.admin %>
+                    <%= "ADMIN" %> 
+                    <%= member.member_type rescue nil%>
+                 <%= end %> 
          </td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("email") %>
