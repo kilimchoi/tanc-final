@@ -1,7 +1,7 @@
 class MemberController < ApplicationController
   @member = Member.all
   def show
-      if session[:user_email] == "tanc.herokuapp@gmail.com" #replace this email with the email id of admin
+      if session[:user_email] == "admin@tanc.org" #replace this email with the email id of admin
           @member = Member.find params[:id]
           @data = @member.user_data 
       else
@@ -11,7 +11,7 @@ class MemberController < ApplicationController
   end
 
   def edit
-    if session[:user_email] == "tanc.herokuapp@gmail.com" #replace this email with the email id of admin
+    if session[:user_email] == "admin@tanc.org" #replace this email with the email id of admin
       @member = Member.find params[:id]
       @type = @member.member_type rescue nil
       @status = @member.status rescue nil
@@ -30,7 +30,7 @@ class MemberController < ApplicationController
       @occupation = @member.occupation rescue nil
       @number_of_children = @member.number_of_children rescue nil
       if params["commit"] == "Update Info"
-          if @member and @member.validate(params)
+          if @member 
              @member.first = params["first"] rescue nil
              @member.last = params["last"] rescue nil
              @member.gender = params["gender"] rescue nil

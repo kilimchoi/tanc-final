@@ -63,41 +63,6 @@ class Member < ActiveRecord::Base
     return data
   end
 
-  def validate(params)
-      if params["address-line-2"] and params["address-line-2"] == ""
-         params.delete("address-line-2")
-      end
-      if params["first"] and params["first"] =~ /[A-Za-z]+/; true;
-      if params["last"] and params["last"] =~ /[A-Za-z]+/; true;
-      if params["telephone"] and params["telephone"] =~ /\d{1,10}|[-]/; true;
-      if params["address1"] and params["address1"] =~ /\d|[-]|[A-Za-z]+|\s|./; true;
-      if params["address2"] and params["address2"] =~ /\d|[-]|[A-Za-z]+|\s|./; true;
-      if params["city"] and params["city"] =~ /[A-Za-z]+/; true;
-      if params["state"] and params["state"] =~ /[A-Za-z]{2}/; true;
-      if params["zip"] and params["zip"] =~ /\d{5}/; true;
-      if params["gender"]; true;
-      if params["member"]["year_of_birth"] and params["member"]["year_of_birth"] =~ /\d{4}/; true;
-      if params["member"]["country_of_birth"] and params["member"]["country_of_birth"] =~ /[A-Za-z]+/; true;
-      if params["number_of_children"]; true;
-      if params["occupation"]; true;
-      if params["Status"]; true;
-      if params["member_type"]; true;
-      else return false; end;
-      end
-      end
-      end
-      end
-      end
-      end
-      end
-      end
-      end
-      end
-      end
-      end
-      end
-      end
-  end
 
 
   def validate_and_update(params)
