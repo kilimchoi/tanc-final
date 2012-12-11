@@ -92,12 +92,12 @@
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("type") %>
              <td>
-                 <%= if member.admin %>
+                 <% if member.admin %>
                  <%= "ADMIN" %> 
                  <% else %>
                     <%= member.member_type rescue nil%>
                  <%= end %> 
-         </td>
+            </td>
          <% end %>
          <% if @table_fields == "all" or @table_fields.include?("email") %>
          <td>
