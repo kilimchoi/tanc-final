@@ -23,7 +23,7 @@
   <%=  text_field :member, 'year_of_birth', :placeholder => 'Birth Year', :id =>"year_of_birth"%>
   <%=  text_field :member, 'country_of_birth', :placeholder => 'Country of Birth', :id =>"country_of_birth" %>
   <%= label_tag 'number_of_children', 'Number of Children', :id =>"number_of_children" %>
-  <%= select_tag 'number_of_children', options_for_select(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], @number_of_children.to_s) %>
+  <%= select_tag 'number_of_children', options_for_select(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], @number_of_children.to_s) %>
   <br><br>
   <%= label_tag 'occupation', 'Occupation', :id => "occupation" %>
   <%= select_tag 'occupation', options_for_select(["Student", "Medical Profession", "Business Owner", "Finance and Banking", "Others"], @occupation.to_s) %>
