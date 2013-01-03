@@ -7,15 +7,8 @@
   Already a Member?
   <%= select_tag 'already_a_member',  "<option>Yes</option><option>No</option>".html_safe %>
   <%= text_field_tag 'year_of_birth', @year_of_birth, :placeholder => 'Year of Birth' %>
-  <p>
-    <%= radio_button_tag 'gender', 'male' %>
-    <%= label_tag 'male', 'Male' %>
-  </p>
-  <p>
-    <%= radio_button_tag 'gender', 'female' %>
-    <%= label_tag 'female', 'Female' %>
-  </p>
-
+  Gender:
+  <%= select_tag 'gender', "<option>Male</option><option>Female</option>".html_safe %>
   <%= text_field_tag 'country_of_birth', @country_of_birth, :placeholder => 'Country of Birth (Optional)' %>
   Your occupation:
   <%= select_tag 'occupation', "<option>Student</option><option>Medical Profession</option><option>Business Owner</option><option>Finance and Banking</option><option>Others</option>".html_safe %>
