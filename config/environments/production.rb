@@ -6,7 +6,7 @@ Tanc::Application.configure do
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :user_name            => "tanc.herokuapp@gmail.com",
-    :password             => 'ourgroup',
+    :password             => 'tanc4111',
     :authentication       => "plain",
     :enable_starttls_auto => true
   } 
