@@ -1,7 +1,7 @@
 class MemberController < ApplicationController
   @member = Member.all
   def show
-      if session[:user_email] == "tanc.herokuapp@gmail.com" #replace this email with the email id of admin
+      if session[:user_email] == "stevn1202@gmail.com" #replace this email with the email id of admin
           @member = Member.find params[:id]
           @data = @member.user_data 
       else
@@ -11,7 +11,7 @@ class MemberController < ApplicationController
   end
 
   def edit
-    if session[:user_email] == "tanc.herokuapp@gmail.com" #replace this email with the email id of admin
+    if session[:user_email] == "stevn1202@gmail.com" #replace this email with the email id of admin
       @member = Member.find params[:id]
       @type = @member.member_type rescue nil
       @status = @member.status rescue nil

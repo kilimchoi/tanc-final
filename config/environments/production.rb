@@ -1,7 +1,15 @@
 Tanc::Application.configure do
   config.action_controller.default_url_options = {:host=>"tanc.herokuapp.com"}
   # Settings specified here will take precedence over those in config/application.rb
-
+  
+  ActionMailer::Base.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => "tanc.herokuapp@gmail.com",
+    :password             => 'ourgroup',
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  } 
   # Code is not reloaded between requests
   config.cache_classes = true
 
