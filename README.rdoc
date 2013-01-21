@@ -8,6 +8,7 @@ To see user stories we implemented so far, you can visit www.pivotaltracker.com/
 
 To see our test coverage,
 
+===Usage
 1. git clone github.com/petertsoics169/tanc.git
 
 2. git checkout “branch-name”
